@@ -20,7 +20,7 @@
 
                     <ul>
                         <li><a href="/login">login</a></li>
-                        <li><a href="/signin_donor">sing in as a donor</a></li>
+                        <li><a href="/donor">sing in as a donor</a></li>
                         <li><a href="/signin_seeker">sing in as a seeker</a></li>
                     </ul>
                 </div>
