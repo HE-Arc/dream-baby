@@ -8,6 +8,7 @@
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
+                    <!--
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}
@@ -15,6 +16,13 @@
                     @endif
 
                     You are logged in!
+                    -->
+
+                    <ul>
+                        <li><a href="/login">login</a></li>
+                        <li><a href="/signin_donor">sing in as a donor</a></li>
+                        <li><a href="/signin_seeker">sing in as a seeker</a></li>
+                    </ul>
                 </div>
             </div>
         </div>
