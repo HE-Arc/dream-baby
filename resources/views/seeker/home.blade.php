@@ -15,7 +15,7 @@
                             </div>
                         @endif
     
-                        You are logged in as donor!
+                        You are logged in as seeker!
                     </div>
                 </div>
             </div>
