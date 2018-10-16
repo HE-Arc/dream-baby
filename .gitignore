@@ -1,24 +1,14 @@
-
-# Created by https://www.gitignore.io/api/laravel
-
-### Laravel ###
-vendor/
-node_modules/
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+/.idea
+/.vscode
+/.vagrant
+Homestead.json
+Homestead.yaml
 npm-debug.log
 yarn-error.log
-
-# Laravel 4 specific
-bootstrap/compiled.php
-app/storage/
-
-# Laravel 5 & Lumen specific
-public/storage
-public/hot
-storage/*.key
 .env
-Homestead.yaml
-Homestead.json
-/.vagrant
-
-
-# End of https://www.gitignore.io/api/laravel
+.phpunit.result.cache
