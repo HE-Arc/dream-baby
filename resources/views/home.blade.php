@@ -6,9 +6,6 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                    <a>
-                    {{ HTML::image('img/logoDreamBaby.png', 'logo of Dream Baby') }}
-                    </a>
                     Dashboard
                 </div>
 

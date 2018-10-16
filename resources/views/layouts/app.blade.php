@@ -23,6 +23,7 @@
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
+                <a>{{ Html::image('img/logoDreamBaby.png', 'logo of Dream Baby', array( 'width' => 70, 'height' => 70 )) }}</a>
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
                 </a>
