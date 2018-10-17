@@ -5,8 +5,7 @@
     <div class="links">
         <ul>
             <li><a href="/login">login</a></li>
-            <li><a href="/donor">sing in as a donor</a></li>
-            <li><a href="/seeker">sing in as a seeker</a></li>
+            <li><a href="/register">register</a></li>
         </ul>
     </div>
     <div class="description">
