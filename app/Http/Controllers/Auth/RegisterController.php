@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Seeker;
+use App\Donor;
 
 class RegisterController extends Controller
 {
@@ -63,10 +65,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        if (isset($data['user_type']) && $data['user_type']=='seeker') {
+            $donor=Seeker::create([
+            'user_id'=>$user->id,
+          ]);
+        } else if (isset($data['user_type']) && $data['user_type']=='donor') {
+            $donor=Donor::create([
+            'user_id'=>$user->id,
+            'eye_color'=>$data['eye_color'],
+            'skin_color'=>$data['skin_color'],
+            'hair_color'=>$data['hair_color'],
+            'medical_antecedents'=>$data['medical_antecedents'],
+            'family_antecedents'=>$data['family_antecedents'],
+          ]);
+        }
+        return $user;
     }
 }
