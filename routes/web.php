@@ -20,5 +20,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/donor', 'HomeDonorController@index')->name('donor.home');
+Route::get('/donor', 'DonorController@index')->name('donor.home');
 Route::get('/seeker', 'HomeSeekerController@index')->name('seeker.home');

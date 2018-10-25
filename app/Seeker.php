@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Seeker extends Model
 {
-
     /**
      * The attributes that are mass assignable.
      *
@@ -15,6 +14,4 @@ class Seeker extends Model
     protected $fillable = [
         'user_id',
     ];
-
-
 }
