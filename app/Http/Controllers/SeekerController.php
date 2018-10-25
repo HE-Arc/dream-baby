@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class HomeSeekerController extends Controller
+class SeekerController extends Controller
 {
     /**
      * Show the application dashboard.
