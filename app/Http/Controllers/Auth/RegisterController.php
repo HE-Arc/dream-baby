@@ -65,9 +65,16 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if (isset($data['user_type']) && $data['user_type']=='seeker') {
+            $userType=2;
+        } elseif (isset($data['user_type']) && $data['user_type']=='donor') {
+            $userType=1;
+        }
+
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'user_type_id'=>$userType,
             'password' => Hash::make($data['password']),
         ]);
 
@@ -75,7 +82,7 @@ class RegisterController extends Controller
             $donor=Seeker::create([
             'user_id'=>$user->id,
           ]);
-        } else if (isset($data['user_type']) && $data['user_type']=='donor') {
+        } elseif (isset($data['user_type']) && $data['user_type']=='donor') {
             $donor=Donor::create([
             'user_id'=>$user->id,
             'eye_color'=>$data['eye_color'],
