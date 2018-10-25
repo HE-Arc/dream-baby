@@ -17,6 +17,7 @@ class CreateDonorsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->boolean('sex');
             $table->tinyInteger('eye_color');
             $table->tinyInteger('skin_color');
             $table->tinyInteger('hair_color');
