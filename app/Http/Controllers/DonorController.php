@@ -15,4 +15,14 @@ class DonorController extends Controller
     {
         return view('donor.home');
     }
+
+    public function questions()
+    {
+        return view('donor.questions');
+    }
+
+    public function profil()
+    {
+        return view('donor.profil');
+    }
 }

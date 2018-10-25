@@ -9,7 +9,6 @@
             {{ session('status') }}
         </div>
     @endif
-    You are logged in as donor!
     </div>
     <div class="links">
         <ul>
@@ -18,6 +17,6 @@
             <li><a href="/donor/profil">Edit profil</a></li>
         </ul>
     </div>
-    <p>This is your home as a donor
+    <p>In this page, you can read and response the questions that have been ask to you !
 </div>
 @endsection
