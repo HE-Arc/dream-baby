@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateQuestionsAnswersTable extends Migration
+class CreateQuestionAnswersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateQuestionsAnswersTable extends Migration
      */
     public function up()
     {
-        Schema::create('questions_answers', function (Blueprint $table) {
+        Schema::create('question_answers', function (Blueprint $table) {
           $table->increments('id');
           $table->unsignedInteger('donor_id');
           $table->foreign('donor_id')->references('id')->on('donors');
@@ -32,6 +32,6 @@ class CreateQuestionsAnswersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('questions_answers');
+        Schema::dropIfExists('question_answers');
     }
 }

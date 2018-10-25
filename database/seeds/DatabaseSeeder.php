@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $seekerType=new UserType();
         $seekerType->user_type_name="Seeker";
         $seekerType->save();
+
     }
 }

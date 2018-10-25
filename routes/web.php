@@ -20,11 +20,12 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/donor', 'DonorController@index')->name('donor.home');
-Route::get('/donor/questions', 'DonorController@questions')->name('donor.questions');
-Route::get('/donor/profil', 'DonorController@profil')->name('donor.profil');
+Route::get('/donor', 'DonorController@index')->name('donor.home')->middleware('auth');;
+Route::get('/donor/{id}/questions', 'DonorController@questions')->name('donor.questions')->middleware('auth');;
+Route::get('/donor/{id}/profil', 'DonorController@profil')->name('donor.profil')->middleware('auth');;
+Route::get('/donor/questions', 'DonorController@myquestions')->name('donor.myquestions')->middleware('auth');;
+Route::get('/donor/profil', 'DonorController@myprofil')->name('donor.myprofil')->middleware('auth');;
 
-Route::get('/seeker', 'SeekerController@index')->name('seeker.home');
-Route::get('/seeker/search', 'SeekerController@search')->name('search');
-Route::get('/seeker/criteria', 'SeekerController@criteria')->name('seeker.criteria');
-
+Route::get('/seeker', 'SeekerController@index')->name('seeker.home')->middleware('auth');;
+Route::get('/seeker/search', 'SeekerController@search')->name('search')->middleware('auth');;
+Route::get('/seeker/criteria', 'SeekerController@criteria')->name('seeker.criteria')->middleware('auth');;
