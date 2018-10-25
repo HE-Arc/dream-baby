@@ -12,6 +12,6 @@ class Donor extends Model
    * @var array
    */
   protected $fillable = [
-      'user_id','eye_color','skin_color','hair_color','medical_antecedents','family_antecedents',
+      'user_id','eye_color','skin_color','hair_color','medical_antecedents','family_antecedents','sex'
   ];
 }

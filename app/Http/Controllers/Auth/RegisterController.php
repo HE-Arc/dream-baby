@@ -85,6 +85,7 @@ class RegisterController extends Controller
         } elseif (isset($data['user_type']) && $data['user_type']=='donor') {
             $donor=Donor::create([
             'user_id'=>$user->id,
+            'sex'=>$data['sex']=='1'?true:false,
             'eye_color'=>$data['eye_color'],
             'skin_color'=>$data['skin_color'],
             'hair_color'=>$data['hair_color'],
