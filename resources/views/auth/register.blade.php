@@ -1,6 +1,6 @@
 @extends('layouts.app')
+
 @section('content')
-<script src="js/register.js"></script>
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -40,16 +40,6 @@
                         </div>
 
                         <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right">{{ __('I am...') }}</label>
-
-                            <div class="col-md-6">
-                                <input onclick="showDonorForm();" id="user_type_donor" type="radio" name="user_type" value="donor" required><label for="user_type_donor" required>... a donor</label>
-                                <input onclick="hideDonorForm();"  id="user_type_seeker" type="radio" name="user_type" value="seeker" required><label for="user_type_seeker" required>... a seeker</label>
-                            </div>
-                        </div>
-                        <div id="donorInfo"></div>
-
-                        <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
                             <div class="col-md-6">
@@ -84,5 +74,4 @@
         </div>
     </div>
 </div>
-
 @endsection
