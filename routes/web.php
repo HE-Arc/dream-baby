@@ -21,4 +21,8 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/donor', 'DonorController@index')->name('donor.home');
+
 Route::get('/seeker', 'SeekerController@index')->name('seeker.home');
+Route::get('/seeker/search', 'SeekerController@search')->name('search');
+Route::get('/seeker/criteria', 'SeekerController@criteria')->name('seeker.criteria');
+

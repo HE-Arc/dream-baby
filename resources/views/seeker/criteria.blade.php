@@ -9,7 +9,6 @@
             {{ session('status') }}
         </div>
     @endif
-    You are logged in as seeker!
     </div>
     <div class="links">
         <ul>
@@ -18,7 +17,7 @@
             <li><a href="/seeker/criteria">Criteria</a></li>
         </ul>
     </div>
-    <p>This is your home as a seeker
+    <p>This is your actual criteria. Let's configure what your dream donor will look like !
 </div>
 
 @endsection

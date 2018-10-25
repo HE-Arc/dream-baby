@@ -15,4 +15,14 @@ class SeekerController extends Controller
     {
         return view('seeker.home');
     }
+
+    public function search()
+    {
+        return view('seeker.search');
+    }
+
+    public function criteria()
+    {
+        return view('seeker.criteria');
+    }
 }
