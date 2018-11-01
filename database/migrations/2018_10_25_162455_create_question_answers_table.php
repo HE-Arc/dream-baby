@@ -20,6 +20,7 @@ class CreateQuestionAnswersTable extends Migration
           $table->unsignedInteger('seeker_id');
           $table->foreign('seeker_id')->references('id')->on('seekers');
           $table->string('message');
+          $table->boolean('question');
           $table->boolean('anonymous')->nullable();
           $table->timestamps();
         });
