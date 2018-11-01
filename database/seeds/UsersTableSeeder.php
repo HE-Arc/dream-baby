@@ -43,5 +43,13 @@ class UsersTableSeeder extends Seeder
             'password'      => bcrypt('123456'),
             'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
+
+        DB::table('users')->insert([
+            'user_type_id'  => 2, 
+            'name'          => 'Donor3',
+            'email'         => 'Donor3@egg.ch',
+            'password'      => bcrypt('123456'),
+            'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
     }
 }
