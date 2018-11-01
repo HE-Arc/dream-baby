@@ -32,26 +32,38 @@ class DonorController extends Controller
     {
         $donorProfil=DonorController::getDonorInfo(Auth::id());
         $userProfil=DonorController::getUserInfo(Auth::id());
+        $ethnicityNames=Ethnicity::all();
+        $hairColorNames=HairColor::all();
+        $eyeColorNames=EyeColor::all();
         if ($donorProfil==null) {
             abort(404);
         }
-        return view('donor.myprofil', ['donor'=>$donorProfil,'user'=>$userProfil]);
+        return view('donor.myprofil', ['donor'=>$donorProfil,'user'=>$userProfil, 'ethnicities'=>$ethnicityNames, 'hair_colors'=>$hairColorNames, 'eye_colors'=>$eyeColorNames]);
     }
 
-    public function update(User $user)
+    public function update(User $user, Donor $donor)
     { 
         // https://laracasts.com/discuss/channels/laravel/edit-user-profile-best-practice-in-laravel-55?page=1
         $this->validate(request(), [
             'name' => 'required',
             'email' => 'required|email|unique:users',
-            
+            'eye_color' => 'required',
+            'skin_color' => 'required',
+            'hair_color' => 'required',
+            'medical_antecedents' => 'required',
+            'family_antecedents' => 'required',
         ]);
 
         $user->name = request('name');
         $user->email = request('email');
-        $user->password = bcrypt(request('password'));
-
         $user->save();
+
+        $donor->eye_color = request('eye_color');
+        $donor->skin_color = request('skin_color');
+        $donor->hair_color = request('hair_color');
+        $donor->medical_antecedents = request('medical_antecedents');
+        $donor->family_antecedents = request('family_antecedents');
+        $donor->save();
 
         return back();
     }

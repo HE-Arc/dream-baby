@@ -19,9 +19,9 @@
     </div>
     <p>Here you can edit your profil ! Be the dream donor ;)</p>
     <h1>Edit my profil</h1>
-    <form method="POST" action="">
+    <form method="POST" action="{{route('donor.profil', $user, $donor)}}">
         @csrf
-        {{ method_field('patch') }}
+        @method('PATCH')
 
         <div class="form-group row">
             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
@@ -56,9 +56,9 @@
         
             <div class="col-md-6">
                 <select id="eye_color" name="eye_color" required>
-                    <option value="1">Blue</option>
-                    <option value="2">Green</option>
-                    <option value="3">Brown</option>
+                    @foreach ($eye_colors as $item)
+                        <option value="{{$item->id}}" {{($donor->eye_color == $item->id ? "selected":"") }}>{{$item->name}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -68,9 +68,9 @@
         
             <div class="col-md-6">
             <select id="skin_color" name="skin_color" required>
-                <option value="1">White</option>
-                <option value="2">Black</option>
-                <option value="3">Asian</option>
+                @foreach ($ethnicities as $item)
+                    <option value="{{$item->id}}" {{($donor->ethnicity == $item->id ? "selected":"") }}>{{$item->name}}</option>
+                @endforeach
             </select>
             </div>
         </div>
@@ -80,9 +80,9 @@
         
             <div class="col-md-6">
                 <select id="hair_color" name="hair_color" required>
-                <option value="1">Blue</option>
-                <option value="2">Green</option>
-                <option value="3">Brown</option>
+                    @foreach ($hair_colors as $item)
+                        <option value="{{$item->id}}" {{($donor->hair_color == $item->id ? "selected":"") }}>{{$item->name}}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
