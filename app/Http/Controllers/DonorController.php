@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Donor;
 use App\User;
 use App\QuestionAnswer;
+use App\Ethnicity;
+use App\HairColor;
+use App\EyeColor;
 
 class DonorController extends Controller
 {
@@ -38,7 +41,7 @@ class DonorController extends Controller
 
     public function questions(int $id)
     {
-        $questions=DonorController::getQuestions($id);
+        $questions=DonorController::getQuestions(getDonorIdFromuserId($id));
 
         if ($questions==null) {
             abort(404);
@@ -49,7 +52,7 @@ class DonorController extends Controller
 
     private function getDonorInfo(int $id)
     {
-        $donorProfil = Donor::where('id', $id)->first();
+        $donorProfil = Donor::where('user_id', $id)->first();
         return $donorProfil;
     }
 
@@ -59,14 +62,27 @@ class DonorController extends Controller
         return $userProfil;
     }
 
+    private function getDonorIdFromuserId(int $id)
+    {
+      $donorId= Donor::where('user_id', $id)->first()->id;
+
+      if ($donorId==null) {
+          abort(404);
+      }
+      return $donorId;
+    }
+
 
     public function profil(int $id)
     {
         $donorProfil=DonorController::getDonorInfo($id);
         $userProfil=DonorController::getUserInfo($id);
+        $ethnicityName=Ethnicity::where('id',$donorProfil->ethnicity)->first()->name;
+        $hairColorName=HairColor::where('id',$donorProfil->hair_color)->first()->name;
+        $eyeColorName=EyeColor::where('id',$donorProfil->eye_color)->first()->name;
         if ($donorProfil==null) {
             abort(404);
         }
-        return view('donor.profil', ['donor'=>$donorProfil,'user'=>$userProfil]);
+        return view('donor.profil', ['donor'=>$donorProfil,'user'=>$userProfil,'ethnicity'=>$ethnicityName,'haircolor'=>$hairColorName,'eyecolor'=>$eyeColorName]);
     }
 }

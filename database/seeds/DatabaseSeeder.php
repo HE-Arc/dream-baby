@@ -17,6 +17,9 @@ class DatabaseSeeder extends Seeder
             UserTypeNameTableSeeder::class,
             DonorsTableSeeder::class,
             SeekersTableSeeder::class,
+            EthnicitiesTableSeeder::class,
+            HairColorsTableSeeder::class,
+            EyeColorsTableSeeder::class,
         ]);
     }
 }

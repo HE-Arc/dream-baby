@@ -87,7 +87,7 @@ class RegisterController extends Controller
             'user_id'=>$user->id,
             'sex'=>$data['sex']=='1'?true:false,
             'eye_color'=>$data['eye_color'],
-            'skin_color'=>$data['skin_color'],
+            'ethnicity'=>$data['ethnicity'],
             'hair_color'=>$data['hair_color'],
             'medical_antecedents'=>$data['medical_antecedents'],
             'family_antecedents'=>$data['family_antecedents'],
