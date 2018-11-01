@@ -23,7 +23,7 @@ class DonorsTableSeeder extends Seeder
             'photo_uri'             => 'https://cdn.pixabay.com/photo/2017/06/15/11/39/male-2405126_960_720.jpg',
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
-        
+
         DB::table('donors')->insert([
             'user_id'               => 2,
             'sex'                   => 0,
