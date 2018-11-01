@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Donor;
 use App\User;
 use App\QuestionAnswer;
+use Illuminate\Support\Facades\Auth;
 
 class DonorController extends Controller
 {
@@ -26,7 +27,12 @@ class DonorController extends Controller
 
     public function myprofil()
     {
-        return view('donor.myprofil');
+        $donorProfil=DonorController::getDonorInfo(Auth::id());
+        $userProfil=DonorController::getUserInfo(Auth::id());
+        if ($donorProfil==null) {
+            abort(404);
+        }
+        return view('donor.myprofil', ['donor'=>$donorProfil,'user'=>$userProfil]);
     }
 
 
@@ -49,7 +55,7 @@ class DonorController extends Controller
 
     private function getDonorInfo(int $id)
     {
-        $donorProfil = Donor::where('id', $id)->first();
+        $donorProfil = Donor::where('user_id', $id)->first();
         return $donorProfil;
     }
 
