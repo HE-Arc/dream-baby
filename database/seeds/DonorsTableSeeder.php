@@ -34,5 +34,16 @@ class DonorsTableSeeder extends Seeder
             'medical_antecedents'   => 'Gluten intolerent',
             'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
+
+        DB::table('donors')->insert([
+            'user_id'               => 5,
+            'sex'                   => 1,
+            'eye_color'             => 1,
+            'hair_color'            => 2,
+            'skin_color'            => 0,
+            'family_antecedents'    => 'A badass genetics. My eggs are the best!',
+            'medical_antecedents'   => 'All good',
+            'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
     }
 }
