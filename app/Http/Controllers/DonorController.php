@@ -35,6 +35,23 @@ class DonorController extends Controller
         return view('donor.myprofil', ['donor'=>$donorProfil,'user'=>$userProfil]);
     }
 
+    public function update(User $user)
+    { 
+        // https://laracasts.com/discuss/channels/laravel/edit-user-profile-best-practice-in-laravel-55?page=1
+        $this->validate(request(), [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            
+        ]);
+
+        $user->name = request('name');
+        $user->email = request('email');
+        $user->password = bcrypt(request('password'));
+
+        $user->save();
+
+        return back();
+    }
 
     private function getQuestions($id)
     {

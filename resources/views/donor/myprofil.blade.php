@@ -21,6 +21,8 @@
     <h1>Edit my profil</h1>
     <form method="POST" action="">
         @csrf
+        {{ method_field('patch') }}
+
         <div class="form-group row">
             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
@@ -78,9 +80,9 @@
         
             <div class="col-md-6">
                 <select id="hair_color" name="hair_color" required>
-                <option value="0">Blue</option>
-                <option value="1">Green</option>
-                <option value="2">Brown</option>
+                <option value="1">Blue</option>
+                <option value="2">Green</option>
+                <option value="3">Brown</option>
                 </select>
             </div>
         </div>
@@ -89,7 +91,7 @@
             <label class="col-md-4 col-form-label text-md-right">Medical antecedents:</label>
         
             <div class="col-md-6">
-                <textarea id="medical_antecedents" name="medical_antecedents" required></textarea>
+                <textarea id="medical_antecedents" name="medical_antecedents" required>{{$donor->family_antecedents}}</textarea>
             </div>
         </div>
         
@@ -97,7 +99,7 @@
             <label class="col-md-4 col-form-label text-md-right">Familial antecedents:</label>
         
             <div class="col-md-6">
-        <textarea id="family_antecedents" name="family_antecedents" required></textarea>
+        <textarea id="family_antecedents" name="family_antecedents" required>{{$donor->medical_antecedents}}</textarea>
             </div>
         </div>
 
