@@ -47,7 +47,67 @@
                                 <input onclick="hideDonorForm();"  id="user_type_seeker" type="radio" name="user_type" value="seeker" required><label for="user_type_seeker" required>... a seeker</label>
                             </div>
                         </div>
-                        <div id="donorInfo"></div>
+                        <div id="donorInfo" style="display:none;">
+                          <div class="form-group row">
+                              <label class="col-md-4 col-form-label text-md-right">Sex:</label>
+
+                              <div class="col-md-6">
+                                  <input type="radio" id="femaleSex" value="0" name="sex" required><label for="femaleSex">Female </label><input type="radio" id="maleSex" value="1" name="sex" required><label for="maleSex">Male </label>
+                              </div>
+                          </div>
+
+                          <div class="form-group row">
+                              <label class="col-md-4 col-form-label text-md-right">Eye color:</label>
+
+                              <div class="col-md-6">
+                                  <select id="eye_color" name="eye_color" required>
+                                    @foreach ($eye_colors as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                    @endforeach
+                                  </select>
+                              </div>
+                          </div>
+
+                          <div class="form-group row">
+                              <label class="col-md-4 col-form-label text-md-right">Ethnicity:</label>
+
+                              <div class="col-md-6">
+                                <select id="ethnicity" name="ethnicity" required>
+                                  @foreach ($ethnicities as $item)
+                                      <option value="{{$item->id}}">{{$item->name}}</option>
+                                  @endforeach
+                                </select>
+                              </div>
+                          </div>
+
+                          <div class="form-group row">
+                              <label class="col-md-4 col-form-label text-md-right">Hair color:</label>
+
+                              <div class="col-md-6">
+                                <select id="hair_color" name="hair_color" required>
+                                  @foreach ($hair_colors as $item)
+                                      <option value="{{$item->id}}">{{$item->name}}</option>
+                                  @endforeach
+                                </select>
+                              </div>
+                          </div>
+
+                          <div class="form-group row">
+                              <label class="col-md-4 col-form-label text-md-right">Medical antecedents:</label>
+
+                              <div class="col-md-6">
+                                <textarea id="medical_antecedents" name="medical_antecedents" required></textarea>
+                              </div>
+                          </div>
+
+                          <div class="form-group row">
+                              <label class="col-md-4 col-form-label text-md-right">Familial antecedents:</label>
+
+                              <div class="col-md-6">
+                          <textarea id="family_antecedents" name="family_antecedents" required></textarea>
+                              </div>
+                          </div>
+                        </div>
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
