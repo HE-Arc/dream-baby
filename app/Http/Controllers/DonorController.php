@@ -41,29 +41,31 @@ class DonorController extends Controller
         return view('donor.myprofil', ['donor'=>$donorProfil,'user'=>$userProfil, 'ethnicities'=>$ethnicityNames, 'hair_colors'=>$hairColorNames, 'eye_colors'=>$eyeColorNames]);
     }
 
-    public function update(User $user, Donor $donor)
+    public function update($user_id)
     { 
         // https://laracasts.com/discuss/channels/laravel/edit-user-profile-best-practice-in-laravel-55?page=1
         $this->validate(request(), [
             'name' => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|exists:users',
             'eye_color' => 'required',
-            'skin_color' => 'required',
+            'ethnicity' => 'required',
             'hair_color' => 'required',
             'medical_antecedents' => 'required',
             'family_antecedents' => 'required',
         ]);
 
+        $user = User::findOrFail($user_id);
         $user->name = request('name');
         $user->email = request('email');
-        $user->save();
-
+        $user->update();
+        
+        $donor = Donor::where('user_id', $user_id)->firstOrFail();
         $donor->eye_color = request('eye_color');
-        $donor->skin_color = request('skin_color');
+        $donor->ethnicity = request('ethnicity');
         $donor->hair_color = request('hair_color');
         $donor->medical_antecedents = request('medical_antecedents');
         $donor->family_antecedents = request('family_antecedents');
-        $donor->save();
+        $donor->update();
 
         return back();
     }
