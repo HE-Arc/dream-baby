@@ -25,8 +25,7 @@ Route::get('/donor/{id}/questions', 'DonorController@questions')->name('donor.qu
 Route::get('/donor/{id}/profil', 'DonorController@profil')->name('donor.profil')->middleware('auth');;
 Route::get('/donor/questions', 'DonorController@myquestions')->name('donor.myquestions')->middleware('auth');;
 Route::get('/donor/profil', 'DonorController@myprofil')->name('donor.myprofil')->middleware('auth');;
-Route::patch('/donor/profil/update', ['uses' => 'UsersController@update'])->name('donor.myprofil')->middleware('auth');;
-//['as' => 'users.update', 'uses' => 'UserController@update']
+Route::patch('/donor/profil/update', 'DonorController@update')->name('donor.myprofil.update')->middleware('auth');;
 
 Route::get('/seeker', 'SeekerController@index')->name('seeker.home')->middleware('auth');;
 Route::get('/seeker/search', 'SeekerController@search')->name('search')->middleware('auth');;

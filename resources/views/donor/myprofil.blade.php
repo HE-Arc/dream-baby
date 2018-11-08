@@ -19,7 +19,7 @@
     </div>
     <p>Here you can edit your profil ! Be the dream donor ;)</p>
     <h1>Edit my profil</h1>
-    <form method="POST" action="{{route('donor.profil', $user, $donor)}}">
+    <form method="POST" action="{{route('donor.myprofil.update', $user, $donor)}}">
         @csrf
         @method('PATCH')
 
