@@ -1,7 +1,7 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
     "content-hash": "20172fcd9b347a92768a68010414df54",
@@ -593,9 +593,7 @@
                 "framework",
                 "laravel"
             ],
-
             "time": "2018-10-30T14:44:34+00:00"
-
         },
         {
             "name": "laravel/tinker",
@@ -2006,9 +2004,7 @@
                 "portable",
                 "shim"
             ],
-
             "time": "2018-09-21T13:07:52+00:00"
-
         },
         {
             "name": "symfony/polyfill-php72",
@@ -2063,9 +2059,7 @@
                 "portable",
                 "shim"
             ],
-
             "time": "2018-09-21T13:07:52+00:00"
-
         },
         {
             "name": "symfony/process",
@@ -2610,9 +2604,7 @@
                 "throwable",
                 "whoops"
             ],
-
             "time": "2018-10-23T09:00:00+00:00"
-
         },
         {
             "name": "fzaninotto/faker",
@@ -3266,9 +3258,7 @@
                 "testing",
                 "xunit"
             ],
-
             "time": "2018-10-31T16:06:48+00:00"
-
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -3457,9 +3447,7 @@
             "keywords": [
                 "tokenizer"
             ],
-
             "time": "2018-10-30T05:52:18+00:00"
-
         },
         {
             "name": "phpunit/phpunit",
@@ -3543,9 +3531,7 @@
                 "testing",
                 "xunit"
             ],
-
             "time": "2018-10-23T05:57:41+00:00"
-
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
