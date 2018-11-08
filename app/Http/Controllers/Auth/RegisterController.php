@@ -9,6 +9,9 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Seeker;
 use App\Donor;
+use App\Ethnicity;
+use App\HairColor;
+use App\EyeColor;
 
 class RegisterController extends Controller
 {
@@ -79,10 +82,12 @@ class RegisterController extends Controller
         ]);
 
         if (isset($data['user_type']) && $data['user_type']=='seeker') {
+            $this->redirectTo = '/seeker';
             $donor=Seeker::create([
             'user_id'=>$user->id,
           ]);
         } elseif (isset($data['user_type']) && $data['user_type']=='donor') {
+            $this->redirectTo = '/donor';
             $donor=Donor::create([
             'user_id'=>$user->id,
             'sex'=>$data['sex']=='1'?true:false,
@@ -94,5 +99,12 @@ class RegisterController extends Controller
           ]);
         }
         return $user;
+    }
+
+    public function showRegistrationForm() {
+      $ethnicityNames=Ethnicity::all();
+      $hairColorNames=HairColor::all();
+      $eyeColorNames=EyeColor::all();
+      return view('auth.register',['ethnicities'=>$ethnicityNames, 'hair_colors'=>$hairColorNames, 'eye_colors'=>$eyeColorNames]);
     }
 }

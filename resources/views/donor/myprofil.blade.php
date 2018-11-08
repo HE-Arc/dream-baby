@@ -53,7 +53,7 @@
 
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Eye color:</label>
-        
+
             <div class="col-md-6">
                 <select id="eye_color" name="eye_color" required>
                     @foreach ($eye_colors as $item)
@@ -65,9 +65,9 @@
 
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Skin color:</label>
-        
+
             <div class="col-md-6">
-            <select id="skin_color" name="skin_color" required>
+            <select id="ethnicity" name="ethnicity" required>
                 @foreach ($ethnicities as $item)
                     <option value="{{$item->id}}" {{($donor->ethnicity == $item->id ? "selected":"") }}>{{$item->name}}</option>
                 @endforeach
@@ -77,7 +77,7 @@
 
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Hair color:</label>
-        
+
             <div class="col-md-6">
                 <select id="hair_color" name="hair_color" required>
                     @foreach ($hair_colors as $item)
@@ -89,15 +89,15 @@
 
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Medical antecedents:</label>
-        
+
             <div class="col-md-6">
                 <textarea id="medical_antecedents" name="medical_antecedents" required>{{$donor->family_antecedents}}</textarea>
             </div>
         </div>
-        
+
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Familial antecedents:</label>
-        
+
             <div class="col-md-6">
         <textarea id="family_antecedents" name="family_antecedents" required>{{$donor->medical_antecedents}}</textarea>
             </div>
