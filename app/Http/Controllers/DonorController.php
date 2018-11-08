@@ -20,7 +20,13 @@ class DonorController extends Controller
      */
     public function index()
     {
-        return view('donor.home');
+        $usertype=User::where('id',Auth::id())->first()->user_type_id;
+
+        if ($usertype==1){
+          return view('donor.home');
+        }else{
+          abort(403);
+        }
     }
 
     public function myquestions()
@@ -42,7 +48,7 @@ class DonorController extends Controller
     }
 
     public function update(User $user, Donor $donor)
-    { 
+    {
         // https://laracasts.com/discuss/channels/laravel/edit-user-profile-best-practice-in-laravel-55?page=1
         $this->validate(request(), [
             'name' => 'required',
