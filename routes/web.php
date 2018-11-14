@@ -30,3 +30,5 @@ Route::patch('/donor/profil/update/{id}', 'DonorController@update')->name('donor
 Route::get('/seeker', 'SeekerController@index')->name('seeker.home')->middleware('auth');;
 Route::get('/seeker/search', 'SeekerController@search')->name('search')->middleware('auth');;
 Route::get('/seeker/criteria', 'SeekerController@criteria')->name('seeker.criteria')->middleware('auth');;
+Route::get('/seeker/profil', 'SeekerController@myprofil')->name('seeker.myprofil')->middleware('auth');;
+Route::patch('/seeker/profil/update/{id}', 'SeekerController@update')->name('seeker.myprofil.update')->middleware('auth');;
