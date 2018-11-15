@@ -91,7 +91,7 @@
             <label class="col-md-4 col-form-label text-md-right">Medical antecedents:</label>
 
             <div class="col-md-6">
-                <textarea id="medical_antecedents" name="medical_antecedents" required>{{$donor->family_antecedents}}</textarea>
+                <textarea id="medical_antecedents" name="medical_antecedents" required>{{$donor->medical_antecedents}}</textarea>
             </div>
         </div>
 
@@ -99,7 +99,7 @@
             <label class="col-md-4 col-form-label text-md-right">Familial antecedents:</label>
 
             <div class="col-md-6">
-        <textarea id="family_antecedents" name="family_antecedents" required>{{$donor->medical_antecedents}}</textarea>
+        <textarea id="family_antecedents" name="family_antecedents" required>{{$donor->family_antecedents}}</textarea>
             </div>
         </div>
 

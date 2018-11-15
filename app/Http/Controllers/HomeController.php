@@ -26,12 +26,13 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            $usertype=User::where('id', Auth::id())->first()->user_type_id;
-
-            if ($usertype==2) {
-                return view('seeker.home');
-            } elseif ($usertype==1) {
-                return view('donor.home');
+            switch(Auth::user()->user_type_id){
+                case 1:
+                    return view('donor.home');
+                break;
+                case 2:
+                    return view('seeker.home');
+                break;
             }
         } else {
             return view('home');
