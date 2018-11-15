@@ -19,7 +19,5 @@
     <h3>Ethnicity: {{$ethnicity}}</h3>
     <h3>Family antecedents: {{$donor->family_antecedents}}</h3>
     <h3>Medical antecedents: {{$donor->medical_antecedents}}</h3>
-  {{$donor}}<br/>
-  {{$user}}
 </div>
 @endsection

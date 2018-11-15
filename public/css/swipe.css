@@ -1,0 +1,31 @@
+.swiper-container {
+    width: 30%;
+    height: 20em;
+  }
+
+  #center-wrapper{
+    text-align:center;
+  }
+
+  #swipe-profil{
+    display: inline-block;
+    text-align:left;
+  }
+
+
+
+  #swipe-div-no{
+    background-color:red;
+  }
+
+  #swipe-div-yes{
+    background-color:green;
+  }
+
+  #hidden-profil{
+    display:none;
+  }
+
+  h1{
+    text-align:center;
+  }

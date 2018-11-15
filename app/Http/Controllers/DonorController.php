@@ -127,4 +127,27 @@ class DonorController extends Controller
         }
         return view('donor.profil', ['donor'=>$donorProfil,'user'=>$userProfil,'ethnicity'=>$ethnicityName,'haircolor'=>$hairColorName,'eyecolor'=>$eyeColorName]);
     }
+
+
+    //TO-DO: don't get a donor profil if you have already swiped it
+    public static function getRandomDonorProfil(int $seekerId)
+    {
+        $donorProfil=Donor::inRandomOrder()->take(2)->get();
+        
+        $userName=User::where('id', $donorProfil[0]->user_id)->first()->name;
+        $ethnicityName=Ethnicity::where('id',$donorProfil[0]->ethnicity)->first()->name;
+        $hairColorName=HairColor::where('id',$donorProfil[0]->hair_color)->first()->name;
+        $eyeColorName=EyeColor::where('id',$donorProfil[0]->eye_color)->first()->name;
+
+        $donor1=['donor'=>$donorProfil[0],'username'=>$userName,'ethnicity'=>$ethnicityName,'haircolor'=>$hairColorName,'eyecolor'=>$eyeColorName];
+
+        $userName=User::where('id', $donorProfil[1]->user_id)->first()->name;
+        $ethnicityName=Ethnicity::where('id',$donorProfil[1]->ethnicity)->first()->name;
+        $hairColorName=HairColor::where('id',$donorProfil[1]->hair_color)->first()->name;
+        $eyeColorName=EyeColor::where('id',$donorProfil[1]->eye_color)->first()->name;
+
+        $donor2=['donor'=>$donorProfil[1],'username'=>$userName,'ethnicity'=>$ethnicityName,'haircolor'=>$hairColorName,'eyecolor'=>$eyeColorName];
+
+        return ['donor1'=>$donor1,'donor2'=>$donor2];
+    }
 }

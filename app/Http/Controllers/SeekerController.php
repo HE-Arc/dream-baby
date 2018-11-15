@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 
+
+
 class SeekerController extends Controller
 {
     /**
@@ -26,11 +28,19 @@ class SeekerController extends Controller
 
     public function search()
     {
-        return view('seeker.search');
+        if (Auth::user()->user_type_id==2){
+            return view('seeker.search',DonorController::getRandomDonorProfil(0));
+        }else{
+          abort(403);
+        }
     }
 
     public function criteria()
     {
-        return view('seeker.criteria');
+        if (Auth::user()->user_type_id==2){
+            return view('seeker.criteria');
+        }else{
+          abort(403);
+        }
     }
 }
