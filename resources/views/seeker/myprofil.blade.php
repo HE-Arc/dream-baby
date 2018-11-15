@@ -10,14 +10,6 @@
         </div>
     @endif
     </div>
-    <div class="links">
-        <ul>
-            <li><a href="/">home seeker</a></li>
-            <li><a href="/seeker/search">Search a donor</a></li>
-            <li><a href="/seeker/criteria">Criteria</a></li>
-            <li><a href="/seeker/myprofil">myprofil</a></li>
-        </ul>
-    </div>
     <p>Here you can edit your profil ! Search the dream donor ;)</p>
     <h1>Edit my profil</h1>
     <form method="POST" action="{{route('seeker.myprofil.update', $user->id)}}">
