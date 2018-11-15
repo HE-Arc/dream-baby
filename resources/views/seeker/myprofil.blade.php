@@ -10,8 +10,8 @@
         </div>
     @endif
     </div>
-    <p>Here you can edit your profil ! Search the dream donor ;)</p>
     <h1>Edit my profil</h1>
+    <h3>User settings</h3>
     <form method="POST" action="{{route('seeker.myprofil.update', $user->id)}}">
         @csrf
         @method('PATCH')
@@ -60,5 +60,27 @@
             </div>
         </div>
     </form>
+    <h3>Search criteria</h3>
+    <form method="POST" action="#">
+        @csrf
+
+        
+
+        <div class="form-group row mb-0">
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-primary">
+                    {{ __('Validate') }}
+                </button>
+            </div>
+        </div>
+    </form>
+    <h3>Swipe history</h3>
+    <div class="form-group row mb-0">
+        <div class="col-md-6 offset-md-4">
+            <a href="#" class="btn btn-primary">
+                {{ __('Delete history') }}
+            </a>
+        </div>
+    </div>
 </div>
 @endsection

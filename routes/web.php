@@ -29,6 +29,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('/donor/profil/update/{id}', 'DonorController@update')->name('donor.myprofil.update');
 
     Route::get('/seeker/search', 'SeekerController@search')->name('search');
-    Route::get('/seeker/criteria', 'SeekerController@criteria')->name('seeker.criteria');
     Route::patch('/seeker/profil/update/{id}', 'SeekerController@update')->name('seeker.myprofil.update')->middleware('auth');;
 });
