@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Donor;
 use App\User;
 use App\QuestionAnswer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use App\Ethnicity;
 use App\HairColor;
 use App\EyeColor;
@@ -29,6 +32,7 @@ class DonorController extends Controller
             'hair_color' => 'required',
             'medical_antecedents' => 'required',
             'family_antecedents' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $user = User::findOrFail($user_id);
@@ -42,9 +46,20 @@ class DonorController extends Controller
         $donor->hair_color = request('hair_color');
         $donor->medical_antecedents = request('medical_antecedents');
         $donor->family_antecedents = request('family_antecedents');
+        
+        $image = request()->file('image');
+        if($image){
+            if($donor->photo_uri && $donor->photo_uri=='defaultuser.png'){
+                Storage::disk('local')->delete($donor->photo_uri);
+            }
+            $filename = str_random(42) . "." . request('image')->getClientOriginalExtension();
+            Storage::disk('local')->put($filename, File::get($image));
+            $donor->photo_uri = $filename;
+        }
+        
         $donor->update();
-
-        return back();
+        
+        return back()->with('success','Profile Updated Successfully');
     }
 
     private function getQuestions($id)
@@ -84,5 +99,38 @@ class DonorController extends Controller
           abort(404);
       }
       return $donorId;
+    }
+
+    public function image($filename)
+    {
+        if(!Storage::disk('local')->has($filename))
+        {
+            $filename = 'defaultuser.png';
+        }
+        $file = Storage::disk('local')->get($filename);
+        return new Response($file, 200);
+    }
+
+
+    //TO-DO: don't get a donor profil if you have already swiped it
+    public static function getRandomDonorProfil(int $seekerId)
+    {
+        $donorProfil=Donor::inRandomOrder()->take(2)->get();
+        
+        $userName=User::where('id', $donorProfil[0]->user_id)->first()->name;
+        $ethnicityName=Ethnicity::where('id',$donorProfil[0]->ethnicity)->first()->name;
+        $hairColorName=HairColor::where('id',$donorProfil[0]->hair_color)->first()->name;
+        $eyeColorName=EyeColor::where('id',$donorProfil[0]->eye_color)->first()->name;
+
+        $donor1=['donor'=>$donorProfil[0],'username'=>$userName,'ethnicity'=>$ethnicityName,'haircolor'=>$hairColorName,'eyecolor'=>$eyeColorName];
+
+        $userName=User::where('id', $donorProfil[1]->user_id)->first()->name;
+        $ethnicityName=Ethnicity::where('id',$donorProfil[1]->ethnicity)->first()->name;
+        $hairColorName=HairColor::where('id',$donorProfil[1]->hair_color)->first()->name;
+        $eyeColorName=EyeColor::where('id',$donorProfil[1]->eye_color)->first()->name;
+
+        $donor2=['donor'=>$donorProfil[1],'username'=>$userName,'ethnicity'=>$ethnicityName,'haircolor'=>$hairColorName,'eyecolor'=>$eyeColorName];
+
+        return ['donor1'=>$donor1,'donor2'=>$donor2];
     }
 }

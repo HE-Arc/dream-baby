@@ -12,7 +12,7 @@
     </div>
     <p>Here you can edit your profil ! Be the dream donor ;)</p>
     <h1>Edit my profil</h1>
-    <form method="POST" action="{{route('donor.myprofil.update', $user->id)}}">
+    <form method="POST" action="{{route('donor.myprofil.update', $user->id)}}"  enctype="multipart/form-data">
         @csrf
         @method('PATCH')
 
@@ -92,7 +92,15 @@
             <label class="col-md-4 col-form-label text-md-right">Familial antecedents:</label>
 
             <div class="col-md-6">
-        <textarea id="family_antecedents" name="family_antecedents" required>{{$donor->family_antecedents}}</textarea>
+                <textarea id="family_antecedents" name="family_antecedents" required>{{$donor->family_antecedents}}</textarea>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-md-4 col-form-label text-md-right">Upload Profile Image:</label>
+
+            <div class="col-md-6">
+                <input type="file" name="image"/>
             </div>
         </div>
 
@@ -104,5 +112,6 @@
             </div>
         </div>
     </form>
+
 </div>
 @endsection

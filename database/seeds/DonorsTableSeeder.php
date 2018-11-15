@@ -20,7 +20,6 @@ class DonorsTableSeeder extends Seeder
             'ethnicity'            => 1,
             'family_antecedents'    => 'psycho brother',
             'medical_antecedents'   => 'depression, anger issues, memory loss',
-            'photo_uri'             => 'https://cdn.pixabay.com/photo/2017/06/15/11/39/male-2405126_960_720.jpg',
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
@@ -40,7 +39,7 @@ class DonorsTableSeeder extends Seeder
             'sex'                   => 1,
             'eye_color'             => 1,
             'hair_color'            => 2,
-            'ethnicity'            => 0,
+            'ethnicity'            => 1,
             'family_antecedents'    => 'A badass genetics. My eggs are the best!',
             'medical_antecedents'   => 'All good',
             'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
