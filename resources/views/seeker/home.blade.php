@@ -11,13 +11,6 @@
     @endif
     You are logged in as seeker!
     </div>
-    <div class="links">
-        <ul>
-            <li><a href="/seeker">home seeker</a></li>
-            <li><a href="/seeker/search">Search a donor</a></li>
-            <li><a href="/seeker/criteria">Criteria</a></li>
-        </ul>
-    </div>
     <p>This is your home as a seeker
 </div>
 

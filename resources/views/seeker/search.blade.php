@@ -15,6 +15,7 @@
         </div>
     @endif
     </div>
+<<<<<<< HEAD
     <h1><span id="username">{{$donor1['username']}}</span></h1>
     <div class="swiper-container">
         <div class="swiper-wrapper">
@@ -45,6 +46,9 @@
         <span id="hidden-family_antecedents">{{$donor2['donor']->family_antecedents}}</span>
         <span id="hidden-medical_antecedents">{{$donor2['donor']->medical_antecedents}}</span>
     </div>
+=======
+    <p>Search for a donor ! Let's swipe and find your dream donor !
+>>>>>>> beb62a94befc16bb3290a3996e9f8c1eb571ddc3
 </div>
 <script src="/js/swipe.js"></script>
 @endsection

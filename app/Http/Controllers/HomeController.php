@@ -29,10 +29,8 @@ class HomeController extends Controller
             switch(Auth::user()->user_type_id){
                 case 1:
                     return view('donor.home');
-                break;
                 case 2:
                     return view('seeker.home');
-                break;
             }
         } else {
             return view('home');
