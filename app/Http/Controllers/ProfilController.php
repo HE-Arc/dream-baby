@@ -44,7 +44,7 @@ class ProfilController extends Controller
         $user = User::where('id', $id)->first();
         if (Auth::check() && isset($user)) {
             switch($user->user_type_id){
-                case 1:
+                case 1: //Donor
                     $donorProfil=DonorController::getDonorInfo($id);
                     $userProfil=DonorController::getUserInfo($id);
                     $ethnicityName=Ethnicity::where('id',$donorProfil->ethnicity)->first()->name;
@@ -54,7 +54,7 @@ class ProfilController extends Controller
                         abort(404);
                     }
                     return view('donor.profil', ['donor'=>$donorProfil,'user'=>$userProfil,'ethnicity'=>$ethnicityName,'haircolor'=>$hairColorName,'eyecolor'=>$eyeColorName]);
-                case 2:
+                case 2: //Seeker
                     // TODO seeker.profil view 
                     return view('seeker.home');
             }
