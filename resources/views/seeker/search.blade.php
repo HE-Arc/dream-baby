@@ -19,7 +19,7 @@
     <div class="swiper-container">
         <div class="swiper-wrapper">
             <div class="swiper-slide" id="swipe-div-no"></div>
-            <div class="swiper-slide"><img id="photo" src="{{$donor1['donor']->photo_uri}}"/><br/></div>
+            <div class="swiper-slide"><img id="photo" src="{{route('donor.image', ['filename' => $donor1['donor']->photo_uri])}}"/><br/></div>
             <div class="swiper-slide" id="swipe-div-yes"></div>
         </div>
     </div>
@@ -37,7 +37,7 @@
     </div>
     <div id="hidden-profil">
         <span id="hidden-username">{{$donor2['username']}}</span>
-        <span id="hidden-photo_uri">{{$donor2['donor']->photo_uri}}</span>
+        <span id="hidden-photo_uri">{{route('donor.image', ['filename' => $donor2['donor']->photo_uri])}}</span>
         <span id="hidden-sex">{{$donor2['donor']->sex == 0 ? 'Male' : 'Female'}}</span>
         <span id="hidden-eyecolor">{{$donor2['eyecolor']}}</span>
         <span id="hidden-haircolor">{{$donor2['haircolor']}}</span>
