@@ -7,6 +7,8 @@ use App\Donor;
 use App\User;
 use App\QuestionAnswer;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use App\Ethnicity;
 use App\HairColor;
 use App\EyeColor;
@@ -58,6 +60,7 @@ class DonorController extends Controller
             'hair_color' => 'required',
             'medical_antecedents' => 'required',
             'family_antecedents' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         $user = User::findOrFail($user_id);
@@ -71,9 +74,17 @@ class DonorController extends Controller
         $donor->hair_color = request('hair_color');
         $donor->medical_antecedents = request('medical_antecedents');
         $donor->family_antecedents = request('family_antecedents');
+        
+        $image = request()->file('image');
+        $filename = $user->name . "-" . $user->id . "." . request('image')->getClientOriginalExtension();
+        if($image){
+            Storage::disk('local')->put($filename, File::get($image));
+        }
+        
+        $donor->photo_uri = $filename;
         $donor->update();
-
-        return back();
+        
+        return back()->with('success','Profile Updated Successfully');
     }
 
     private function getQuestions($id)
