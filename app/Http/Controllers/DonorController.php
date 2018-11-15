@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use App\Donor;
 use App\User;
 use App\QuestionAnswer;
@@ -22,9 +23,8 @@ class DonorController extends Controller
      */
     public function index()
     {
-        $usertype=User::where('id',Auth::id())->first()->user_type_id;
-
-        if ($usertype==1){
+        
+        if (Auth::user()->user_type_id==1){
           return view('donor.home');
         }else{
           abort(403);
@@ -76,12 +76,15 @@ class DonorController extends Controller
         $donor->family_antecedents = request('family_antecedents');
         
         $image = request()->file('image');
-        $filename = $user->name . "-" . $user->id . "." . request('image')->getClientOriginalExtension();
         if($image){
+            if($donor->photo_uri){
+                Storage::disk('local')->delete($donor->photo_uri);
+            }
+            $filename = str_random(42) . "." . request('image')->getClientOriginalExtension();
             Storage::disk('local')->put($filename, File::get($image));
+            $donor->photo_uri = $filename;
         }
         
-        $donor->photo_uri = $filename;
         $donor->update();
         
         return back()->with('success','Profile Updated Successfully');
@@ -138,5 +141,15 @@ class DonorController extends Controller
             abort(404);
         }
         return view('donor.profil', ['donor'=>$donorProfil,'user'=>$userProfil,'ethnicity'=>$ethnicityName,'haircolor'=>$hairColorName,'eyecolor'=>$eyeColorName]);
+    }
+
+    public function image($filename)
+    {
+        if(!Storage::disk('local')->has($filename))
+        {
+            $filename = 'defaultuser.png';
+        }
+        $file = Storage::disk('local')->get($filename);
+        return new Response($file, 200);
     }
 }
