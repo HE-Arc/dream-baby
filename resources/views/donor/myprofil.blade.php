@@ -10,13 +10,6 @@
         </div>
     @endif
     </div>
-    <div class="links">
-        <ul>
-            <li><a href="/donor">home donor</a></li>
-            <li><a href="/donor/questions">Questions</a></li>
-            <li><a href="/donor/profil">Edit profil</a></li>
-        </ul>
-    </div>
     <p>Here you can edit your profil ! Be the dream donor ;)</p>
     <h1>Edit my profil</h1>
     <form method="POST" action="{{route('donor.myprofil.update', $user->id)}}"  enctype="multipart/form-data">

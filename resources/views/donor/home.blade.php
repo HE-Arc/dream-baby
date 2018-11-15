@@ -11,13 +11,6 @@
     @endif
     You are logged in as donor!
     </div>
-    <div class="links">
-        <ul>
-            <li><a href="/donor">home donor</a></li>
-            <li><a href="/donor/questions">Questions</a></li>
-            <li><a href="/donor/profil">Edit profil</a></li>
-        </ul>
-    </div>
     <p>This is your home as a donor
 </div>
 @endsection

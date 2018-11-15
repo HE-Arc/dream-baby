@@ -21,17 +21,15 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/donor', 'DonorController@index')->name('donor.home');
+    Route::get('/profil', 'ProfilController@myprofil')->name('profil.myprofil');
+    Route::get('/profil/{id}', 'ProfilController@profil')->name('profil.profil');
+
     Route::get('/donor/{id}/questions', 'DonorController@questions')->name('donor.questions');
-    Route::get('/donor/{id}/profil', 'DonorController@profil')->name('donor.profil');
     Route::get('/donor/questions', 'DonorController@myquestions')->name('donor.myquestions');
-    Route::get('/donor/profil', 'DonorController@myprofil')->name('donor.myprofil');
     Route::get('/donor/image/{filename}', 'DonorController@image')->name('donor.image');
     Route::patch('/donor/profil/update/{id}', 'DonorController@update')->name('donor.myprofil.update');
 
-    Route::get('/seeker', 'SeekerController@index')->name('seeker.home');
     Route::get('/seeker/search', 'SeekerController@search')->name('search');
     Route::get('/seeker/criteria', 'SeekerController@criteria')->name('seeker.criteria');
-    Route::get('/seeker/profil', 'SeekerController@myprofil')->name('seeker.myprofil')->middleware('auth');;
     Route::patch('/seeker/profil/update/{id}', 'SeekerController@update')->name('seeker.myprofil.update')->middleware('auth');;
 });
