@@ -33,6 +33,7 @@ class SeekerController extends Controller
         $this->validate(request(), [
             'name' => 'required',
             'email' => 'required|email|exists:users',
+            'bio' => 'required',
         ]);
 
         $user = User::findOrFail($user_id);
@@ -41,8 +42,8 @@ class SeekerController extends Controller
         $user->update();
         
         $seeker = Seeker::where('user_id', $user_id)->firstOrFail();
-        
-        //$seeker->update();
+        $seeker->bio = request('bio');
+        $seeker->update();
 
         return back();
     }
