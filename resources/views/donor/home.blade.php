@@ -13,7 +13,7 @@
     </div>
     <div class="links">
         <ul>
-            <li><a href="/donor">home donor</a></li>
+            <li><a href="/">home donor</a></li>
             <li><a href="/donor/questions">Questions</a></li>
             <li><a href="/donor/profil">Edit profil</a></li>
         </ul>

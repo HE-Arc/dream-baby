@@ -13,7 +13,7 @@
     </div>
     <div class="links">
         <ul>
-            <li><a href="/seeker">home seeker</a></li>
+            <li><a href="/">home seeker</a></li>
             <li><a href="/seeker/search">Search a donor</a></li>
             <li><a href="/seeker/criteria">Criteria</a></li>
             <li><a href="/seeker/profil">Edit my profil</a></li>
