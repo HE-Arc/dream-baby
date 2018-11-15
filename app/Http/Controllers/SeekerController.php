@@ -15,10 +15,8 @@ class SeekerController extends Controller
      */
     public function index()
     {
-
-      $usertype=User::where('id',Auth::id())->first()->user_type_id;
-
-      if ($usertype==2){
+      
+      if (Auth::user()->user_type_id==2){
           return view('seeker.home');
       }else{
         abort(403);

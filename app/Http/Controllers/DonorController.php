@@ -20,9 +20,8 @@ class DonorController extends Controller
      */
     public function index()
     {
-        $usertype=User::where('id',Auth::id())->first()->user_type_id;
-
-        if ($usertype==1){
+        
+        if (Auth::user()->user_type_id==1){
           return view('donor.home');
         }else{
           abort(403);
