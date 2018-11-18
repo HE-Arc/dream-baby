@@ -48,7 +48,7 @@
             <label class="col-md-4 col-form-label text-md-right">Eye color:</label>
 
             <div class="col-md-6">
-                <select id="eye_color" name="eye_color" required>
+                <select class="form-control" id="eye_color" name="eye_color" required>
                     @foreach ($eye_colors as $item)
                         <option value="{{$item->id}}" {{($donor->eye_color == $item->id ? "selected":"") }}>{{$item->name}}</option>
                     @endforeach
@@ -60,7 +60,7 @@
             <label class="col-md-4 col-form-label text-md-right">Skin color:</label>
 
             <div class="col-md-6">
-            <select id="ethnicity" name="ethnicity" required>
+            <select class="form-control" id="ethnicity" name="ethnicity" required>
                 @foreach ($ethnicities as $item)
                     <option value="{{$item->id}}" {{($donor->ethnicity == $item->id ? "selected":"") }}>{{$item->name}}</option>
                 @endforeach
@@ -72,7 +72,7 @@
             <label class="col-md-4 col-form-label text-md-right">Hair color:</label>
 
             <div class="col-md-6">
-                <select id="hair_color" name="hair_color" required>
+                <select class="form-control" id="hair_color" name="hair_color" required>
                     @foreach ($hair_colors as $item)
                         <option value="{{$item->id}}" {{($donor->hair_color == $item->id ? "selected":"") }}>{{$item->name}}</option>
                     @endforeach
@@ -100,7 +100,7 @@
             <label class="col-md-4 col-form-label text-md-right">Upload Profile Image:</label>
 
             <div class="col-md-6">
-                <input type="file" name="image"/>
+                <input class="form-control-file" type="file" name="image"/>
             </div>
         </div>
 

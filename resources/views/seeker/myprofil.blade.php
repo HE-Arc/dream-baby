@@ -68,8 +68,14 @@
         <div class="form-group row">
             <h5 class="col-md-4 text-md-right">Sex</h5>
             <div class="col-md-6">
-                <input type="radio" id="femaleSex" value="0" name="sex" required><label for="femaleSex">Female </label>
-                <input type="radio" id="maleSex" value="1" name="sex" required><label for="maleSex">Male </label>
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" id="femaleSex" value="0" name="sex" required>
+                    <label for="femaleSex" class="form-check-label">Female </label>
+                </div>
+                <div class="form-check-inline">
+                    <input class="form-check-input" type="radio" id="maleSex" value="1" name="sex" required>
+                    <label for="maleSex" class="form-check-label">Male </label>
+                </div>
             </div>
         </div>
 

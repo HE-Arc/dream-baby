@@ -43,8 +43,14 @@
                             <label class="col-md-4 col-form-label text-md-right">{{ __('I am...') }}</label>
 
                             <div class="col-md-6">
-                                <input onclick="showDonorForm();" id="user_type_donor" type="radio" name="user_type" value="donor" required><label for="user_type_donor" required>... a donor</label>
-                                <input onclick="hideDonorForm();"  id="user_type_seeker" type="radio" name="user_type" value="seeker" required><label for="user_type_seeker" required>... a seeker</label>
+                                <div class="form-check-inline">
+                                    <input class="form-check-input" onclick="showDonorForm();" id="user_type_donor" type="radio" name="user_type" value="donor" required>
+                                    <label for="user_type_donor" class="form-check-label" required>... a donor</label>
+                                </div>
+                                <div class="form-check-inline">
+                                    <input class="form-check-input" onclick="hideDonorForm();"  id="user_type_seeker" type="radio" name="user_type" value="seeker" required>
+                                    <label for="user_type_seeker" class="form-check-label" required>... a seeker</label>
+                                </div>
                             </div>
                         </div>
                         <div id="donorInfo" style="display:none;">
@@ -52,15 +58,22 @@
                               <label class="col-md-4 col-form-label text-md-right">Sex:</label>
 
                               <div class="col-md-6">
-                                  <input type="radio" id="femaleSex" value="0" name="sex" required><label for="femaleSex">Female </label><input type="radio" id="maleSex" value="1" name="sex" required><label for="maleSex">Male </label>
-                              </div>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="radio" id="femaleSex" value="0" name="sex" required>
+                                        <label for="femaleSex"class="form-check-label">Female </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="radio" id="maleSex" value="1" name="sex" required>
+                                        <label for="maleSex" class="form-check-label">Male </label>
+                                    </div>
+                                </div>
                           </div>
 
                           <div class="form-group row">
                               <label class="col-md-4 col-form-label text-md-right">Eye color:</label>
 
                               <div class="col-md-6">
-                                  <select id="eye_color" name="eye_color" required>
+                                  <select class="form-control" id="eye_color" name="eye_color" required>
                                     @foreach ($eye_colors as $item)
                                         <option value="{{$item->id}}">{{$item->name}}</option>
                                     @endforeach
@@ -72,7 +85,7 @@
                               <label class="col-md-4 col-form-label text-md-right">Ethnicity:</label>
 
                               <div class="col-md-6">
-                                <select id="ethnicity" name="ethnicity" required>
+                                <select class="form-control" id="ethnicity" name="ethnicity" required>
                                   @foreach ($ethnicities as $item)
                                       <option value="{{$item->id}}">{{$item->name}}</option>
                                   @endforeach
@@ -84,7 +97,7 @@
                               <label class="col-md-4 col-form-label text-md-right">Hair color:</label>
 
                               <div class="col-md-6">
-                                <select id="hair_color" name="hair_color" required>
+                                <select class="form-control" id="hair_color" name="hair_color" required>
                                   @foreach ($hair_colors as $item)
                                       <option value="{{$item->id}}">{{$item->name}}</option>
                                   @endforeach
@@ -104,7 +117,7 @@
                               <label class="col-md-4 col-form-label text-md-right">Familial antecedents:</label>
 
                               <div class="col-md-6">
-                          <textarea class="form-control" id="family_antecedents" name="family_antecedents" required></textarea>
+                                <textarea class="form-control" id="family_antecedents" name="family_antecedents" required></textarea>
                               </div>
                           </div>
                         </div>
