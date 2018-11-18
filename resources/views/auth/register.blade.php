@@ -96,7 +96,7 @@
                               <label class="col-md-4 col-form-label text-md-right">Medical antecedents:</label>
 
                               <div class="col-md-6">
-                                <textarea id="medical_antecedents" name="medical_antecedents" required></textarea>
+                                <textarea class="form-control" id="medical_antecedents" name="medical_antecedents" required></textarea>
                               </div>
                           </div>
 
@@ -104,7 +104,7 @@
                               <label class="col-md-4 col-form-label text-md-right">Familial antecedents:</label>
 
                               <div class="col-md-6">
-                          <textarea id="family_antecedents" name="family_antecedents" required></textarea>
+                          <textarea class="form-control" id="family_antecedents" name="family_antecedents" required></textarea>
                               </div>
                           </div>
                         </div>

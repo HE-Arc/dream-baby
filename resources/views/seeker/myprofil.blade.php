@@ -17,7 +17,7 @@
         @method('PATCH')
 
         <div class="form-group row">
-            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+            <label for="name" class="col-md-4 text-md-right">{{ __('Name') }}</label>
 
             <div class="col-md-6">
                 <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{$user->name}}" required autofocus>
@@ -31,7 +31,7 @@
         </div>
 
         <div class="form-group row">
-            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+            <label for="email" class="col-md-4 text-md-right">{{ __('E-Mail Address') }}</label>
 
             <div class="col-md-6">
                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{$user->email}}" required>
@@ -45,16 +45,16 @@
         </div>
 
         <div class="form-group row">
-            <label class="col-md-4 col-form-label text-md-right">Biography:</label>
+                <h5 class="col-md-4 text-md-right">Biography</h5>
 
             <div class="col-md-6">
-        <textarea id="bio" name="bio" required>{{$seeker->bio}}</textarea>
+                <textarea class="form-control" id="bio" name="bio" required>{{$seeker->bio}}</textarea>
             </div>
         </div>
 
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary btn-block">
                     {{ __('Validate') }}
                 </button>
             </div>
@@ -64,11 +64,53 @@
     <form method="POST" action="#">
         @csrf
 
+        <!-- sperm or egg -->
+        <div class="form-group row">
+            <h5 class="col-md-4 text-md-right">Sex</h5>
+            <div class="col-md-6">
+                <input type="radio" id="femaleSex" value="0" name="sex" required><label for="femaleSex">Female </label>
+                <input type="radio" id="maleSex" value="1" name="sex" required><label for="maleSex">Male </label>
+            </div>
+        </div>
+
+        <!-- donor age -->
         
+        <!-- eye color -->
+        <div class="form-group row">
+                <h5 class="col-md-4 text-md-right">Eyes colors</h5>
+            <div class="col-md-6">
+                <!-- automatique generation -->
+                <label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
+                <label class="checkbox-inline"><input type="checkbox" value="">Option 2</label>
+                <label class="checkbox-inline"><input type="checkbox" value="">Option 3</label>
+            </div>
+        </div>
+
+        <!-- hair color -->
+        <div class="form-group row">
+            <h5 class="col-md-4 text-md-right">Hair colors</h5>
+            <div class="col-md-6">
+                <!-- automatique generation -->
+                <label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
+                <label class="checkbox-inline"><input type="checkbox" value="">Option 2</label>
+                <label class="checkbox-inline"><input type="checkbox" value="">Option 3</label>
+            </div>
+        </div>
+
+        <!-- ethnicity -->
+        <div class="form-group row">
+            <h5 class="col-md-4 text-md-right">Ethnicities</h5>
+            <div class="col-md-6">
+                <!-- automatique generation -->
+                <label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
+                <label class="checkbox-inline"><input type="checkbox" value="">Option 2</label>
+                <label class="checkbox-inline"><input type="checkbox" value="">Option 3</label>
+            </div>
+        </div>
 
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary btn-block">
                     {{ __('Validate') }}
                 </button>
             </div>
@@ -77,7 +119,7 @@
     <h3>Swipe history</h3>
     <div class="form-group row mb-0">
         <div class="col-md-6 offset-md-4">
-            <a href="#" class="btn btn-primary">
+            <a href="#" class="btn btn-primary btn-block">
                 {{ __('Delete history') }}
             </a>
         </div>
