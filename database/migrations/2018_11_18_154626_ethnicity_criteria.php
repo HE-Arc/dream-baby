@@ -13,7 +13,7 @@ class EthnicityCriteria extends Migration
      */
     public function up()
     {
-        Schema::create('ethnicity_criteria', function (Blueprint $table) {
+        Schema::create('ethnicity_criterias', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('ethnicity_id');
@@ -28,6 +28,6 @@ class EthnicityCriteria extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ethnicity_criteria');
+        Schema::dropIfExists('ethnicity_criterias');
     }
 }

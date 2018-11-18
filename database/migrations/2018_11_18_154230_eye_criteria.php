@@ -13,7 +13,7 @@ class EyeCriteria extends Migration
      */
     public function up()
     {
-        Schema::create('eye_criteria', function (Blueprint $table) {
+        Schema::create('eye_criterias', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('eye_color');
@@ -28,6 +28,6 @@ class EyeCriteria extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('eye_criteria');
+        Schema::dropIfExists('eye_criterias');
     }
 }

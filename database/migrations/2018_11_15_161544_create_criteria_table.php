@@ -14,7 +14,7 @@ class CreateCriteriaTable extends Migration
      */
     public function up()
     {
-        Schema::create('criteria', function (Blueprint $table) {
+        Schema::create('criterias', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->tinyInteger('sex');
@@ -30,6 +30,6 @@ class CreateCriteriaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('criteria');
+        Schema::dropIfExists('criterias');
     }
 }

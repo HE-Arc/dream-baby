@@ -13,7 +13,7 @@ class HairCriteria extends Migration
      */
     public function up()
     {
-        Schema::create('hair_criteria', function (Blueprint $table) {
+        Schema::create('hair_criterias', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('hair_color');
@@ -28,6 +28,6 @@ class HairCriteria extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('hair_criteria');
+        Schema::dropIfExists('hair_criterias');
     }
 }
