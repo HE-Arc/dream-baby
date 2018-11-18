@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCriteriaTable extends Migration
+class EthnicityCriteria extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateCriteriaTable extends Migration
      */
     public function up()
     {
-        Schema::create('criteria', function (Blueprint $table) {
+        Schema::create('ethnicity_criteria', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->tinyInteger('sex');
-            $table->date('birth_data_max');
+            $table->unsignedInteger('ethnicity_color');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateCriteriaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('criteria');
+        Schema::dropIfExists('ethnicity_criteria');
     }
 }
