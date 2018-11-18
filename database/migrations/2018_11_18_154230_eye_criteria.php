@@ -17,6 +17,7 @@ class EyeCriteria extends Migration
             $table->increments('id');
             $table->unsignedInteger('user_id');
             $table->unsignedInteger('eye_color');
+            $table->boolean('searched');
             $table->timestamps();
         });
     }

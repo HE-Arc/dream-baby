@@ -70,11 +70,11 @@
             <div class="col-md-6">
                 <div class="form-check-inline">
                     <input class="form-check-input" type="radio" id="femaleSex" value="1" name="sex" required>
-                    <label for="femaleSex" class="form-check-label" {{ $criteria['criteria']->sex == 1 ? "checked" : "" }}>Female </label>
+                    <label for="femaleSex" class="form-check-label" {{ $userCriteria['criteria']->sex == 1 ? "checked" : "" }}>Female </label>
                 </div>
                 <div class="form-check-inline">
                     <input class="form-check-input" type="radio" id="maleSex" value="2" name="sex" required>
-                    <label for="maleSex" class="form-check-label" {{ $criteria['criteria']->sex == 0 ? "checked" : "" }}>Male </label>
+                    <label for="maleSex" class="form-check-label" {{ $userCriteria['criteria']->sex == 0 ? "checked" : "" }}>Male </label>
                 </div>
             </div>
         </div>
@@ -85,7 +85,7 @@
         <div class="form-group row">
                 <h5 class="col-md-4 text-md-right">Eyes colors</h5>
             <div class="col-md-6">
-                @foreach ($eye_colors as $item)
+                @foreach ($userCriteria['eye_criteria'] as $item)
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
                         <input type="checkbox"  class="form-check-input" value="{{$item->id}}">
@@ -100,10 +100,10 @@
         <div class="form-group row">
             <h5 class="col-md-4 text-md-right">Hair colors</h5>
             <div class="col-md-6">
-                @foreach ($hair_colors as $item)
+                @foreach ($userCriteria['hair_criteria'] as $item)
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <input type="checkbox"  class="form-check-input" value="{{$item->id}}">
+                        <input type="checkbox"  class="form-check-input" value="{{$item->id}}" {{$item->searched ? 'checked' : ''}}>
                         {{ $item->name }}
                     </label>
                 </div>
@@ -115,7 +115,7 @@
         <div class="form-group row">
             <h5 class="col-md-4 text-md-right">Ethnicities</h5>
             <div class="col-md-6">
-                @foreach ($ethnicities as $item)
+                @foreach ($userCriteria['ethnicity_criteria'] as $item)
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
                         <input type="checkbox"  class="form-check-input" value="{{$item->id}}">
@@ -142,8 +142,5 @@
             </a>
         </div>
     </div>
-</div>
-<div class="form-group row mb-0">
-    <p><?php print($criteria['criteria']->sex); ?>
 </div>
 @endsection

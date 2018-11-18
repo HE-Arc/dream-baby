@@ -29,14 +29,11 @@ class ProfilController extends Controller
                 case 2: // Seeker
                     $seekerProfil=SeekerController::getSeekerInfo(Auth::id());
                     $userProfil=SeekerController::getUserInfo(Auth::id());
-                    $criteria = CriteriaController::getUserCriteria(Auth::id());
-                    $ethnicityNames=Ethnicity::all();
-                    $hairColorNames=HairColor::all();
-                    $eyeColorNames=EyeColor::all();
-                    if ($seekerProfil==null) {
+                    $userCriteria = CriteriaController::getUserCriteria(Auth::id());
+                    if ($seekerProfil==null || $userCriteria == null) {
                         abort(404);
                     }
-                    return view('seeker.myprofil', ['seeker'=>$seekerProfil,'user'=>$userProfil, 'criteria'=>$criteria, 'ethnicities'=>$ethnicityNames, 'hair_colors'=>$hairColorNames, 'eye_colors'=>$eyeColorNames]);
+                    return view('seeker.myprofil', ['seeker'=>$seekerProfil,'user'=>$userProfil, 'userCriteria'=>$userCriteria]);
             }
         } else {
             return view('home');
