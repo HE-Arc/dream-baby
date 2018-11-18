@@ -16,7 +16,7 @@ class EthnicityCriteria extends Migration
         Schema::create('ethnicity_criteria', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id');
-            $table->unsignedInteger('ethnicity_color');
+            $table->unsignedInteger('ethnicity_id');
             $table->timestamps();
         });
     }

@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
             EthnicitiesTableSeeder::class,
             HairColorsTableSeeder::class,
             EyeColorsTableSeeder::class,
+            CriteriaTableSeeder::class,
         ]);
     }
 }
