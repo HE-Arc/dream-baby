@@ -20,10 +20,10 @@ class CriteriaController extends Controller
     public static function getUserCriteria($user_id)
     {
         $user_criteria = [
-            "criteria"      => Criteria::where('user_id', $user_id)->first(),
-            "ethnicity"     => EthnicityCriteria::where('user_id', $user_id),
-            "eye"           => EyeCriteria::where('user_id', $user_id),
-            "hair"          => HairCriteria::where('user_id', $user_id),
+            "criteria"              => Criteria::where('user_id', $user_id)->first(),
+            "ethnicity_criteria"    => EthnicityCriteria::where('user_id', $user_id),
+            "eye_criteria"          => EyeCriteria::where('user_id', $user_id),
+            "hair_criteria"         => HairCriteria::where('user_id', $user_id),
         ];
         return $user_criteria;
     }

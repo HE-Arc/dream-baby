@@ -69,12 +69,12 @@
             <h5 class="col-md-4 text-md-right">Sex</h5>
             <div class="col-md-6">
                 <div class="form-check-inline">
-                    <input class="form-check-input" type="radio" id="femaleSex" value="0" name="sex" required>
-                    <label for="femaleSex" class="form-check-label">Female </label>
+                    <input class="form-check-input" type="radio" id="femaleSex" value="1" name="sex" required>
+                    <label for="femaleSex" class="form-check-label" {{ $criteria['criteria']->sex == 1 ? "checked" : "" }}>Female </label>
                 </div>
                 <div class="form-check-inline">
-                    <input class="form-check-input" type="radio" id="maleSex" value="1" name="sex" required>
-                    <label for="maleSex" class="form-check-label">Male </label>
+                    <input class="form-check-input" type="radio" id="maleSex" value="2" name="sex" required>
+                    <label for="maleSex" class="form-check-label" {{ $criteria['criteria']->sex == 0 ? "checked" : "" }}>Male </label>
                 </div>
             </div>
         </div>
@@ -85,10 +85,14 @@
         <div class="form-group row">
                 <h5 class="col-md-4 text-md-right">Eyes colors</h5>
             <div class="col-md-6">
-                <!-- automatique generation -->
-                <label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
-                <label class="checkbox-inline"><input type="checkbox" value="">Option 2</label>
-                <label class="checkbox-inline"><input type="checkbox" value="">Option 3</label>
+                @foreach ($eye_colors as $item)
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input type="checkbox"  class="form-check-input" value="{{$item->id}}">
+                        {{ $item->name }}
+                    </label>
+                </div>
+                @endforeach
             </div>
         </div>
 
@@ -96,10 +100,14 @@
         <div class="form-group row">
             <h5 class="col-md-4 text-md-right">Hair colors</h5>
             <div class="col-md-6">
-                <!-- automatique generation -->
-                <label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
-                <label class="checkbox-inline"><input type="checkbox" value="">Option 2</label>
-                <label class="checkbox-inline"><input type="checkbox" value="">Option 3</label>
+                @foreach ($hair_colors as $item)
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input type="checkbox"  class="form-check-input" value="{{$item->id}}">
+                        {{ $item->name }}
+                    </label>
+                </div>
+                @endforeach
             </div>
         </div>
 
@@ -107,10 +115,14 @@
         <div class="form-group row">
             <h5 class="col-md-4 text-md-right">Ethnicities</h5>
             <div class="col-md-6">
-                <!-- automatique generation -->
-                <label class="checkbox-inline"><input type="checkbox" value="">Option 1</label>
-                <label class="checkbox-inline"><input type="checkbox" value="">Option 2</label>
-                <label class="checkbox-inline"><input type="checkbox" value="">Option 3</label>
+                @foreach ($ethnicities as $item)
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input type="checkbox"  class="form-check-input" value="{{$item->id}}">
+                        {{ $item->name }}
+                    </label>
+                </div>
+                @endforeach
             </div>
         </div>
 
@@ -130,5 +142,8 @@
             </a>
         </div>
     </div>
+</div>
+<div class="form-group row mb-0">
+    <p><?php print($criteria['criteria']->sex); ?>
 </div>
 @endsection

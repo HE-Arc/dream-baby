@@ -15,47 +15,47 @@ class CriteriaTableSeeder extends Seeder
         //
         // --- Seeker with user_id 3 ---
         //
-        DB::table('criteria')->insert([
+        DB::table('criterias')->insert([
             'user_id'               => 3,
             'sex'                   => 0,
             'birth_date_max'        => Carbon::now()->subYears(30)->format('Y-m-d H:i:s'),
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        // eye_criteria
-        DB::table('eye_criteria')->insert([
+        // eye_criterias
+        DB::table('eye_criterias')->insert([
             'user_id'               => 3,
             'eye_color'             => 1,
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        DB::table('eye_criteria')->insert([
+        DB::table('eye_criterias')->insert([
             'user_id'               => 3,
             'eye_color'             => 2,
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        // hair_criteria
-        DB::table('hair_criteria')->insert([
+        // hair_criterias
+        DB::table('hair_criterias')->insert([
             'user_id'               => 3,
             'hair_color'            => 1,
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        DB::table('hair_criteria')->insert([
+        DB::table('hair_criterias')->insert([
             'user_id'               => 3,
             'hair_color'            => 3,
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        // ethnicity_criteria
-        DB::table('ethnicity_criteria')->insert([
+        // ethnicity_criterias
+        DB::table('ethnicity_criterias')->insert([
             'user_id'               => 3,
             'ethnicity_id'          => 2,
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        DB::table('ethnicity_criteria')->insert([
+        DB::table('ethnicity_criterias')->insert([
             'user_id'               => 3,
             'ethnicity_id'          => 3,
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
@@ -64,46 +64,46 @@ class CriteriaTableSeeder extends Seeder
         //
         // --- Seeker with user_id 4 ---
         //
-        DB::table('criteria')->insert([
+        DB::table('criterias')->insert([
             'user_id'               => 4,
             'sex'                   => 0,
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        // eye_criteria
-        DB::table('eye_criteria')->insert([
+        // eye_criterias
+        DB::table('eye_criterias')->insert([
             'user_id'               => 4,
             'eye_color'             => 2,
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        DB::table('eye_criteria')->insert([
+        DB::table('eye_criterias')->insert([
             'user_id'               => 4,
             'eye_color'             => 3,
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        // hair_criteria
-        DB::table('hair_criteria')->insert([
+        // hair_criterias
+        DB::table('hair_criterias')->insert([
             'user_id'               => 4,
             'hair_color'            => 2,
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        DB::table('hair_criteria')->insert([
+        DB::table('hair_criterias')->insert([
             'user_id'               => 4,
             'hair_color'            => 3,
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        // ethnicity_criteria
-        DB::table('ethnicity_criteria')->insert([
+        // ethnicity_criterias
+        DB::table('ethnicity_criterias')->insert([
             'user_id'               => 4,
             'ethnicity_id'          => 1,
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        DB::table('ethnicity_criteria')->insert([
+        DB::table('ethnicity_criterias')->insert([
             'user_id'               => 4,
             'ethnicity_id'          => 2,
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),

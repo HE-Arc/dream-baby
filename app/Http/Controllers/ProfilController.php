@@ -30,10 +30,13 @@ class ProfilController extends Controller
                     $seekerProfil=SeekerController::getSeekerInfo(Auth::id());
                     $userProfil=SeekerController::getUserInfo(Auth::id());
                     $criteria = CriteriaController::getUserCriteria(Auth::id());
+                    $ethnicityNames=Ethnicity::all();
+                    $hairColorNames=HairColor::all();
+                    $eyeColorNames=EyeColor::all();
                     if ($seekerProfil==null) {
                         abort(404);
                     }
-                    return view('seeker.myprofil', ['seeker'=>$seekerProfil,'user'=>$userProfil, 'criteria'=>$criteria]);
+                    return view('seeker.myprofil', ['seeker'=>$seekerProfil,'user'=>$userProfil, 'criteria'=>$criteria, 'ethnicities'=>$ethnicityNames, 'hair_colors'=>$hairColorNames, 'eye_colors'=>$eyeColorNames]);
             }
         } else {
             return view('home');
