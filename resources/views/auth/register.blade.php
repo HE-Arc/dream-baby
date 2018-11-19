@@ -59,11 +59,11 @@
 
                               <div class="col-md-6">
                                     <div class="form-check-inline">
-                                        <input class="form-check-input" type="radio" id="femaleSex" value="0" name="sex" required>
+                                        <input class="form-check-input" type="radio" id="femaleSex" value="0" name="sex">
                                         <label for="femaleSex"class="form-check-label">Female </label>
                                     </div>
                                     <div class="form-check-inline">
-                                        <input class="form-check-input" type="radio" id="maleSex" value="1" name="sex" required>
+                                        <input class="form-check-input" type="radio" id="maleSex" value="1" name="sex">
                                         <label for="maleSex" class="form-check-label">Male </label>
                                     </div>
                                 </div>
