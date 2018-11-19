@@ -87,12 +87,11 @@
         <div class="form-group row">
                 <h5 class="col-md-4 text-md-right">Eyes colors</h5>
             <div class="col-md-6">
-                <p> {{ count($seekerCriteria['eye']) }}
                 @foreach ($seekerCriteria['eye'] as $item)
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <input type="checkbox"  class="form-check-input" value="{{$item->id}}">
-                        {{ $item->name }}
+                        <input type="checkbox"  class="form-check-input" value="{{$item->id}}" {{$item->searched ? 'checked' : ''}}>
+                        {{ $eye_colors[$item->eye_color] }}
                     </label>
                 </div>
                 @endforeach
@@ -107,7 +106,7 @@
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
                         <input type="checkbox"  class="form-check-input" value="{{$item->id}}" {{$item->searched ? 'checked' : ''}}>
-                        {{ $item->name }}
+                        {{ $hair_colors[$item->hair_color] }}
                     </label>
                 </div>
                 @endforeach
@@ -121,8 +120,8 @@
                 @foreach ($seekerCriteria['ethnicity'] as $item)
                 <div class="form-check form-check-inline">
                     <label class="form-check-label">
-                        <input type="checkbox"  class="form-check-input" value="{{$item->id}}">
-                        {{ $item->name }}
+                        <input type="checkbox"  class="form-check-input" value="{{$item->id}}" {{$item->searched ? 'checked' : ''}}>
+                        {{ $ethnicities[$item->ethnicity] }}
                     </label>
                 </div>
                 @endforeach

@@ -12,6 +12,15 @@ use App\EyeColor;
 
 class ProfilController extends Controller
 {
+    private static function getNamesArray($tab)
+    {
+        $new_tab = [];
+        foreach($tab as $item) {
+            $new_tab[$item->id] = $item->name;
+        }
+        return $new_tab;
+    }
+
     public function myprofil()
     {
         if (Auth::check()) {
@@ -30,10 +39,13 @@ class ProfilController extends Controller
                     $seeker=SeekerController::getSeekerInfo(Auth::id());
                     $user=SeekerController::getUserInfo(Auth::id());
                     $seekerCriteria = $seeker->criterions();
+                    $ethnicities=ProfilController::getNamesArray(Ethnicity::all());
+                    $hair_colors=ProfilController::getNamesArray(HairColor::all());
+                    $eye_colors=ProfilController::getNamesArray(EyeColor::all());
                     if ($seeker==null || $seekerCriteria == null) {
                         abort(404);
                     }
-                    return view('seeker.myprofil', compact('seeker', 'user', 'seekerCriteria'));
+                    return view('seeker.myprofil', compact('seeker', 'user', 'seekerCriteria', 'ethnicities', 'hair_colors', 'eye_colors'));
             }
         } else {
             return view('home');
