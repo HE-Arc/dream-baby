@@ -116,7 +116,7 @@ class RandomDonorSeeder extends Seeder
                 $id = DB::table('users')->insertGetId([
                     'user_type_id'  => 1,
                     'name'          => $fn . ' ' . $ln,
-                    'email'         => $fn . '' . $ln .'@egg.ch',
+                    'email'         => $fn . '.' . $ln .'@egg.ch',
                     'password'      => bcrypt('123456'),
                     'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
                 ]);
@@ -147,7 +147,7 @@ class RandomDonorSeeder extends Seeder
                 $id = DB::table('users')->insertGetId([
                     'user_type_id'  => 1,
                     'name'          => $fn . ' ' . $ln,
-                    'email'         => $fn . ' ' . $ln .'@sperm.ch',
+                    'email'         => $fn . '.' . $ln .'@sperm.ch',
                     'password'      => bcrypt('123456'),
                     'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
                 ]);
