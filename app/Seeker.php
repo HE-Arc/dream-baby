@@ -22,7 +22,7 @@ class Seeker extends Model
 
     public function criteria()
     {
-        return $this->belongsTo("App\Criteria");
+        return Criteria::where('seeker_id', $this->id)->first();
     }
 
     public function eyes()
