@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Storage;
 use App\Ethnicity;
 use App\HairColor;
 use App\EyeColor;
+use App\HistorySwipe;
 
 class DonorController extends Controller
 {
@@ -112,11 +113,21 @@ class DonorController extends Controller
     }
 
 
-    //TO-DO: don't get a donor profil if you have already swiped it
-    public static function getRandomDonorProfil(int $seekerId)
+    //TO-DO: filter by criteria
+    //choper ca en ajax, si le 1er donor a le même id que celui affiché, mettre le 2ème donor en hidden
+    public static function getRandomDonorProfil()
     {
-        $donorProfil=Donor::inRandomOrder()->take(2)->get();
+        $seekerId=SeekerController::getSeekerInfo(Auth::id())->id;
+
+        $alreadySwipedId=HistorySwipe::where('seeker_id',$seekerId)->pluck('donor_id')->toArray();
+
+        $donorProfil=Donor::whereNotIn('id',$alreadySwipedId)->inRandomOrder()->take(2)->get();
         
+        if(count($donorProfil)==0)
+        {
+            return ['donor1'=>null,'donor2'=>null];
+        }
+
         $userName=User::where('id', $donorProfil[0]->user_id)->first()->name;
         $ethnicityName=Ethnicity::where('id',$donorProfil[0]->ethnicity)->first()->name;
         $hairColorName=HairColor::where('id',$donorProfil[0]->hair_color)->first()->name;
@@ -124,13 +135,18 @@ class DonorController extends Controller
 
         $donor1=['donor'=>$donorProfil[0],'username'=>$userName,'ethnicity'=>$ethnicityName,'haircolor'=>$hairColorName,'eyecolor'=>$eyeColorName];
 
+        if(count($donorProfil)==1)
+        {
+            return ['donor1'=>$donor1,'donor2'=>null];
+        }
+
         $userName=User::where('id', $donorProfil[1]->user_id)->first()->name;
         $ethnicityName=Ethnicity::where('id',$donorProfil[1]->ethnicity)->first()->name;
         $hairColorName=HairColor::where('id',$donorProfil[1]->hair_color)->first()->name;
         $eyeColorName=EyeColor::where('id',$donorProfil[1]->eye_color)->first()->name;
 
         $donor2=['donor'=>$donorProfil[1],'username'=>$userName,'ethnicity'=>$ethnicityName,'haircolor'=>$hairColorName,'eyecolor'=>$eyeColorName];
-
+        
         return ['donor1'=>$donor1,'donor2'=>$donor2];
     }
 }
