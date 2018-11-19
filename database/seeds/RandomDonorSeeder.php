@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
+use App\Exceptions\Handler;
 
 class RandomDonorSeeder extends Seeder
 {
@@ -111,24 +112,30 @@ class RandomDonorSeeder extends Seeder
             $fn = $firstnames_female[rand(0, 29)];
             $ln = $lastnames[rand(0, 29)];
 
-            $id = DB::table('users')->insertGetId([
-                'user_type_id'  => 1,
-                'name'          => $fn . ' ' . $ln,
-                'email'         => $fn . ' ' . $ln .'@egg.ch',
-                'password'      => bcrypt('123456'),
-                'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
-            ]);
+            try {
+                $id = DB::table('users')->insertGetId([
+                    'user_type_id'  => 1,
+                    'name'          => $fn . ' ' . $ln,
+                    'email'         => $fn . '' . $ln .'@egg.ch',
+                    'password'      => bcrypt('123456'),
+                    'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
+                ]);
 
-            DB::table('donors')->insert([
-                'user_id'               => $id,
-                'sex'                   => 1,
-                'eye_color'             => rand(1, 3),
-                'hair_color'            => rand(1, 3),
-                'ethnicity'             => rand(1, 3),
-                'family_antecedents'    => $family_antecedents[rand(0, 29)],
-                'medical_antecedents'   => $medical_antecedents[rand(0, 29)],
-                'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
-            ]);
+                DB::table('donors')->insert([
+                    'user_id'               => $id,
+                    'sex'                   => 1,
+                    'eye_color'             => rand(1, 3),
+                    'hair_color'            => rand(1, 3),
+                    'ethnicity'             => rand(1, 3),
+                    'family_antecedents'    => $family_antecedents[rand(0, 29)],
+                    'medical_antecedents'   => $medical_antecedents[rand(0, 29)],
+                    'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
+                ]);
+            }
+            catch(Exception $e)
+            {
+                $i--;
+            }
         }
 
         // Sperm Donor
@@ -136,24 +143,30 @@ class RandomDonorSeeder extends Seeder
             $fn = $firstnames_female[rand(0, 29)];
             $ln = $lastnames[rand(0, 29)];
 
-            $id = DB::table('users')->insertGetId([
-                'user_type_id'  => 1,
-                'name'          => $fn . ' ' . $ln,
-                'email'         => $fn . ' ' . $ln .'@egg.ch',
-                'password'      => bcrypt('123456'),
-                'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
-            ]);
+            try {
+                $id = DB::table('users')->insertGetId([
+                    'user_type_id'  => 1,
+                    'name'          => $fn . ' ' . $ln,
+                    'email'         => $fn . ' ' . $ln .'@sperm.ch',
+                    'password'      => bcrypt('123456'),
+                    'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
+                ]);
 
-            DB::table('donors')->insert([
-                'user_id'               => $id,
-                'sex'                   => 0,
-                'eye_color'             => rand(1, 3),
-                'hair_color'            => rand(1, 3),
-                'ethnicity'             => rand(1, 3),
-                'family_antecedents'    => $family_antecedents[rand(0, 29)],
-                'medical_antecedents'   => $medical_antecedents[rand(0, 29)],
-                'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
-            ]);
+                DB::table('donors')->insert([
+                    'user_id'               => $id,
+                    'sex'                   => 0,
+                    'eye_color'             => rand(1, 3),
+                    'hair_color'            => rand(1, 3),
+                    'ethnicity'             => rand(1, 3),
+                    'family_antecedents'    => $family_antecedents[rand(0, 29)],
+                    'medical_antecedents'   => $medical_antecedents[rand(0, 29)],
+                    'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
+                ]);
+            }
+            catch(Exception $e)
+            {
+                $i--;
+            }
         }
     }
 }
