@@ -82,12 +82,10 @@ class RegisterController extends Controller
         ]);
 
         if (isset($data['user_type']) && $data['user_type']=='seeker') {
-            $this->redirectTo = '/seeker';
             $donor=Seeker::create([
             'user_id'=>$user->id,
           ]);
         } elseif (isset($data['user_type']) && $data['user_type']=='donor') {
-            $this->redirectTo = '/donor';
             $donor=Donor::create([
             'user_id'=>$user->id,
             'sex'=>$data['sex']=='1'?true:false,
