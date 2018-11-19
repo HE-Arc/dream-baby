@@ -25,17 +25,17 @@ class Seeker extends Model
         return $this->belongsTo("App\Criteria");
     }
 
-    public function eye()
+    public function eyes()
     {
         return $this->hasMany("App\EyeCriteria");
     }
 
-    public function hair()
+    public function hairs()
     {
         return $this->hasMany("App\HairCriteria");
     }
 
-    public function ethnicity()
+    public function ethnicities()
     {
         return $this->hasMany("App\EthnicityCriteria");
     }
@@ -43,9 +43,9 @@ class Seeker extends Model
     public function criterions()
     {
         $main = $this->criteria();
-        $eye = $this->eye();
-        $hair = $this->hair();
-        $ethnicity = $this->ethnicity();
+        $eye = $this->eyes;
+        $hair = $this->hairs;
+        $ethnicity = $this->ethnicities;
         return compact('main', 'eye', 'hair', 'ethnicity');
     }
 }

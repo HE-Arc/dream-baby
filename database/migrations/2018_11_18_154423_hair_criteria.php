@@ -15,7 +15,7 @@ class HairCriteria extends Migration
     {
         Schema::create('hair_criterias', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('seeker_id');
             $table->unsignedInteger('hair_color');
             $table->boolean('searched');
             $table->timestamps();
