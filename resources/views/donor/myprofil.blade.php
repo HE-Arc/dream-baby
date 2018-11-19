@@ -16,6 +16,21 @@
         @csrf
         @method('PATCH')
 
+        @if (session('success'))
+        <div class = "alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
+        @if (count($errors) > 0)
+        <div class = "alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         <div class="form-group row">
             <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
 
@@ -101,6 +116,7 @@
 
             <div class="col-md-6">
                 <input class="form-control-file" type="file" name="image"/>
+                <p>( jpg|png|gif , < 2 Mo )</p>
             </div>
         </div>
 

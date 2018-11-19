@@ -12,7 +12,7 @@
     @endif
     </div>
     <h1>{{$user->name}}</h1>
-    <img src="{{ route('donor.image', ['filename' => $donor->photo_uri]) }}" alt="{{$donor->photo_uri}}"/><br/>
+    <img class="w-25 m-3 img-fluid" src="{{ route('donor.image', ['filename' => $donor->photo_uri]) }}" alt="{{$user->name}} - Profile Picture"/><br/>
     <h2>Sex: {{$donor->sex == 0 ? 'Male' : 'Female'}}</h2>
     <h3>Eye color: {{$eyecolor}}</h3>
     <h3>Hair color: {{$haircolor}}</h3>
