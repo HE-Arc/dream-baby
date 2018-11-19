@@ -17,23 +17,23 @@ class ProfilController extends Controller
         if (Auth::check()) {
             switch(Auth::user()->user_type_id){
                 case 1: // Donor
-                    $donorProfil=DonorController::getDonorInfo(Auth::id());
-                    $userProfil=DonorController::getUserInfo(Auth::id());
-                    $ethnicityNames=Ethnicity::all();
-                    $hairColorNames=HairColor::all();
-                    $eyeColorNames=EyeColor::all();
-                    if ($donorProfil==null) {
+                    $donor=DonorController::getDonorInfo(Auth::id());
+                    $user=DonorController::getUserInfo(Auth::id());
+                    $ethnicities=Ethnicity::all();
+                    $hair_colors=HairColor::all();
+                    $eye_colors=EyeColor::all();
+                    if ($donor==null) {
                         abort(404);
                     }
-                    return view('donor.myprofil', ['donor'=>$donorProfil,'user'=>$userProfil, 'ethnicities'=>$ethnicityNames, 'hair_colors'=>$hairColorNames, 'eye_colors'=>$eyeColorNames]);
+                    return view('donor.myprofil', compact('donor', 'user', 'ethnicities', 'hair_colors', 'eye_colors'));
                 case 2: // Seeker
-                    $seekerProfil=SeekerController::getSeekerInfo(Auth::id());
-                    $userProfil=SeekerController::getUserInfo(Auth::id());
-                    $userCriteria = CriteriaController::getUserCriteria(Auth::id());
-                    if ($seekerProfil==null || $userCriteria == null) {
+                    $seeker=SeekerController::getSeekerInfo(Auth::id());
+                    $user=SeekerController::getUserInfo(Auth::id());
+                    $seekerCriteria = $seeker->criterions();
+                    if ($seeker==null || $seekerCriteria == null) {
                         abort(404);
                     }
-                    return view('seeker.myprofil', ['seeker'=>$seekerProfil,'user'=>$userProfil, 'userCriteria'=>$userCriteria]);
+                    return view('seeker.myprofil', compact('seeker', 'user', 'seekerCriteria'));
             }
         } else {
             return view('home');
@@ -46,15 +46,15 @@ class ProfilController extends Controller
         if (Auth::check() && isset($user)) {
             switch($user->user_type_id){
                 case 1: //Donor
-                    $donorProfil=DonorController::getDonorInfo($id);
-                    $userProfil=DonorController::getUserInfo($id);
-                    $ethnicityName=Ethnicity::where('id',$donorProfil->ethnicity)->first()->name;
-                    $hairColorName=HairColor::where('id',$donorProfil->hair_color)->first()->name;
-                    $eyeColorName=EyeColor::where('id',$donorProfil->eye_color)->first()->name;
-                    if ($donorProfil==null) {
+                    $donor=DonorController::getDonorInfo($id);
+                    $user=DonorController::getUserInfo($id);
+                    $ethnicity=Ethnicity::where('id',$donor->ethnicity)->first()->name;
+                    $haircolor=HairColor::where('id',$donor->hair_color)->first()->name;
+                    $eyecolor=EyeColor::where('id',$donor->eye_color)->first()->name;
+                    if ($donor==null) {
                         abort(404);
                     }
-                    return view('donor.profil', ['donor'=>$donorProfil,'user'=>$userProfil,'ethnicity'=>$ethnicityName,'haircolor'=>$hairColorName,'eyecolor'=>$eyeColorName]);
+                    return view('donor.profil', compact('donor','user','ethnicity','haircolor','eyecolor'));
                 case 2: //Seeker
                     // TODO seeker.profil view 
                     return view('seeker.home');
