@@ -9,9 +9,13 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use App\Seeker;
 use App\Donor;
+use App\Criteria;
 use App\Ethnicity;
+use App\EthnicityCriteria;
 use App\HairColor;
+use App\HairCriteria;
 use App\EyeColor;
+use App\EyeCriteria;
 
 class RegisterController extends Controller
 {
@@ -82,9 +86,10 @@ class RegisterController extends Controller
         ]);
 
         if (isset($data['user_type']) && $data['user_type']=='seeker') {
-            $donor=Seeker::create([
-            'user_id'=>$user->id,
-          ]);
+            $seeker=Seeker::create([
+                'user_id'=>$user->id,
+            ]);
+            RegisterController::createSeekerCriterions($seeker);
         } elseif (isset($data['user_type']) && $data['user_type']=='donor') {
             $donor=Donor::create([
             'user_id'=>$user->id,
@@ -104,5 +109,37 @@ class RegisterController extends Controller
       $hairColorNames=HairColor::all();
       $eyeColorNames=EyeColor::all();
       return view('auth.register',['ethnicities'=>$ethnicityNames, 'hair_colors'=>$hairColorNames, 'eye_colors'=>$eyeColorNames]);
+    }
+
+    private static function createSeekerCriterions($seeker) {
+        Criteria::create([
+            'seeker_id' => $seeker->id,
+            'sex' => 0,
+        ]);
+
+        foreach(Ethnicity::all() as $item)
+        {
+            EthnicityCriteria::create([
+                'seeker_id' => $seeker->id,
+                'ethnicity' => $item->id,
+                'searched'  => true,
+            ]);
+        }
+        foreach(HairColor::all() as $item)
+        {
+            HairCriteria::create([
+                'seeker_id' => $seeker->id,
+                'hair_color' => $item->id,
+                'searched'  => true,
+            ]);
+        }
+        foreach(EyeColor::all() as $item)
+        {
+            EyeCriteria::create([
+                'seeker_id' => $seeker->id,
+                'eye_color' => $item->id,
+                'searched'  => true,
+            ]);
+        }
     }
 }

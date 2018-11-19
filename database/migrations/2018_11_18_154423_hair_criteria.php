@@ -17,7 +17,7 @@ class HairCriteria extends Migration
             $table->increments('id');
             $table->unsignedInteger('seeker_id');
             $table->unsignedInteger('hair_color');
-            $table->boolean('searched');
+            $table->boolean('searched')->default(true);
             $table->timestamps();
         });
     }

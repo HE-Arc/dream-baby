@@ -17,7 +17,7 @@ class EthnicityCriteria extends Migration
             $table->increments('id');
             $table->unsignedInteger('seeker_id');
             $table->unsignedInteger('ethnicity');
-            $table->boolean('searched');
+            $table->boolean('searched')->default(true);
             $table->timestamps();
         });
     }

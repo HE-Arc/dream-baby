@@ -12,6 +12,6 @@ class HairCriteria extends Model
    * @var array
    */
     protected $fillable = [
-        'user_id','hair_color',
+        'seeker_id','hair_color', 'searched',
     ];
 }

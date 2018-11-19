@@ -12,6 +12,6 @@ class EyeCriteria extends Model
    * @var array
    */
     protected $fillable = [
-        'user_id','eye_color',
+        'seeker_id','eye_color','searched',
     ];
 }

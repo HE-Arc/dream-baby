@@ -12,6 +12,6 @@ class Criteria extends Model
    * @var array
    */
     protected $fillable = [
-        'user_id','sex','birth_date_max',
+        'seeker_id','sex','birth_date_max',
     ];
 }

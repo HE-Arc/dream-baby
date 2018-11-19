@@ -12,6 +12,6 @@ class EthnicityCriteria extends Model
    * @var array
    */
     protected $fillable = [
-        'user_id','ethnicity_id',
+        'seeker_id','ethnicity','searched',
     ];
 }
