@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Seeker;
+use App\HistorySwipe;
+use Illuminate\Support\Facades\Input;
+use Response;
 
 
 
@@ -81,7 +84,7 @@ class SeekerController extends Controller
     public function search()
     {
         if (Auth::user()->user_type_id==2){
-            return view('seeker.search',DonorController::getRandomDonorProfil(0));
+            return view('seeker.search',DonorController::getRandomDonorProfil());
         }else{
           abort(403);
         }
@@ -94,5 +97,32 @@ class SeekerController extends Controller
         }else{
           abort(403);
         }
+    }
+
+    public function addToSwipeHistory(Request $request)
+    {
+
+        if (Auth::user()->user_type_id==2) {
+              $historySwipe = new HistorySwipe();
+      
+              $historySwipe->seeker_id = SeekerController::getSeekerInfo(Auth::id())->id;
+              $historySwipe->donor_id = Input::get('donor_id');
+              $historySwipe->like    =  Input::get('like');
+
+              $historySwipe->save();
+      
+              $response = array(
+                'status' => 'success',
+                'msg' => 'Swipe correctly added to history',
+              );
+              return Response::json($response);
+            
+          } else {
+            $response = array(
+              'status' => 'KO',
+              'msg' => 'Invalid use',
+            );
+            return Response::json($response);
+          }
     }
 }
