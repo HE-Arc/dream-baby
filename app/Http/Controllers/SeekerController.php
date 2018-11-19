@@ -18,6 +18,14 @@ class SeekerController extends Controller
             'name' => 'required',
             'email' => 'required|email|exists:users',
             'bio' => 'required',
+            'sex' => 'required',
+            //'birth_date_max' => 'required',   // TODO
+            'eye_criteria' => 'required',       // https://github.com/laravel/framework/issues/21728
+            //'eye_criteria.*' => 'accepted',   // should pass but no...
+            'hair_criteria' => 'required',
+            //'hair_criteria.*' => 'accepted',
+            'ethnicity_criteria' => 'required',
+            //'ethnicity_criteria.*' => 'accepted',
         ]);
 
         $user = User::findOrFail($user_id);
@@ -29,6 +37,32 @@ class SeekerController extends Controller
         $seeker->bio = request('bio');
         $seeker->update();
 
+        $main_criteria = $seeker->criteria();
+        $main_criteria->sex = request('sex');
+        //$main_criteria->birth_date_max = request('birth_date_max');   // TODO
+        $main_criteria->update();
+
+        $eyes = $seeker->eyes;
+        $eyes_criteria = request('eye_criteria');
+        foreach ($eyes as $eye) {
+            $eye->searched = $eyes_criteria[$eye->id];
+            $eye->update();
+        }
+
+        $hairs = $seeker->hairs;
+        $hair_criteria = request('hair_criteria');
+        foreach ($hairs as $hair) {
+            $hair->searched = $hair_criteria[$hair->id];
+            $hair->update();
+        }
+
+        $ethnicities = $seeker->ethnicities;
+        $ethnicity_criteria = request('ethnicity_criteria');
+        foreach ($ethnicities as $eth) {
+            $eth->searched = $ethnicity_criteria[$eth->id];
+            $eth->update();
+        }
+        
         return back();
     }
 

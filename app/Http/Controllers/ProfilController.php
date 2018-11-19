@@ -12,15 +12,6 @@ use App\EyeColor;
 
 class ProfilController extends Controller
 {
-    private static function getNamesArray($tab)
-    {
-        $new_tab = [];
-        foreach($tab as $item) {
-            $new_tab[$item->id] = $item->name;
-        }
-        return $new_tab;
-    }
-
     public function myprofil()
     {
         if (Auth::check()) {
@@ -50,6 +41,15 @@ class ProfilController extends Controller
         } else {
             return view('home');
         }
+    }
+
+    private static function getNamesArray($tab)
+    {
+        $new_tab = [];
+        foreach($tab as $item) {
+            $new_tab[$item->id] = $item->name;
+        }
+        return $new_tab;
     }
 
     public function profil(int $id)
