@@ -20,44 +20,44 @@
         </div>
     @endif
     </div>
-    @if(is_null($donor1))
+    @if(is_null($donorsArray))
     <h1>You have already swiped all the available donors on this website ! Congratulations !</h1>
     @else
-    <h1><span id="username">{{$donor1['username']}}</span></h1>
+    <h1><span id="username">{{$donorsArray[0]['username']}}</span></h1>
     <div class="swiper-container">
         <div class="swiper-wrapper">
             <div class="swiper-slide" id="swipe-div-no"></div>
-            <div class="swiper-slide"><img id="photo" src="{{route('donor.image', ['filename' => $donor1['donor']->photo_uri])}}"/><br/></div>
+            <div class="swiper-slide"><img id="photo" class="img-fluid" src="{{route('donor.image', ['filename' => $donorsArray[0]['donor']->photo_uri])}}"/><br/></div>
             <div class="swiper-slide" id="swipe-div-yes"></div>
         </div>
     </div>
     <div id="center-wrapper">
         <div id="swipe-profil">
             <button id="swipe-no">No</button><button id="swipe-yes">Yes</button>
-            <h2>Sex: <span id="sex">{{$donor1['donor']->sex == 0 ? 'Male' : 'Female'}}</span></h2>
-            <h3>Eye color: <span id="eyecolor">{{$donor1['eyecolor']}}</span></h3>
-            <h3>Hair color: <span id="haircolor">{{$donor1['haircolor']}}</span></h3>
-            <h3>Ethnicity: <span id="ethnicity">{{$donor1['ethnicity']}}</span></h3>
-            <h3>Family antecedents: <span id="family_antecedents">{{$donor1['donor']->family_antecedents}}</span></h3>
-            <h3>Medical antecedents: <span id="medical_antecedents">{{$donor1['donor']->medical_antecedents}}</span></h3>
-            <span style="display:none;" id="donor_id">{{$donor1['donor']->id}}</span>
+            <h2><strong>Sex: </strong><span id="sex">{{$donorsArray[0]['donor']->sex == 0 ? 'Male' : 'Female'}}</span></h2>
+            <h3><strong>Eye color: </strong><span id="eyecolor">{{$donorsArray[0]['eyecolor']}}</span></h3>
+            <h3><strong>Hair color: </strong><span id="haircolor">{{$donorsArray[0]['haircolor']}}</span></h3>
+            <h3><strong>Ethnicity: </strong><span id="ethnicity">{{$donorsArray[0]['ethnicity']}}</span></h3>
+            <h3><strong>Family antecedents: </strong><span id="family_antecedents">{{$donorsArray[0]['donor']->family_antecedents}}</span></h3>
+            <h3><strong>Medical antecedents: </strong><span id="medical_antecedents">{{$donorsArray[0]['donor']->medical_antecedents}}</span></h3>
+            <span style="display:none;" id="donor_id">{{$donorsArray[0]['donor']->id}}</span>
         </div>
     </div>
-    @if(is_null($donor2))
-    @else
-    <div id="hidden-profil">
-        <span id="hidden-username">{{$donor2['username']}}</span>
-        <span id="hidden-photo_uri">{{route('donor.image', ['filename' => $donor2['donor']->photo_uri])}}</span>
-        <span id="hidden-sex">{{$donor2['donor']->sex == 0 ? 'Male' : 'Female'}}</span>
-        <span id="hidden-eyecolor">{{$donor2['eyecolor']}}</span>
-        <span id="hidden-haircolor">{{$donor2['haircolor']}}</span>
-        <span id="hidden-ethnicity">{{$donor2['ethnicity']}}</span>
-        <span id="hidden-family_antecedents">{{$donor2['donor']->family_antecedents}}</span>
-        <span id="hidden-medical_antecedents">{{$donor2['donor']->medical_antecedents}}</span>
-        <span id="hidden-donor_id">{{$donor1['donor']->id}}</span>
-        
+    <div id="hidden-profils">
+    @for ($i = 1; $i < count($donorsArray); $i++)
+    <div id="hidden-profil{{$i}}">
+        <span class="hidden-username">{{$donorsArray[$i]['username']}}</span>
+        <span class="hidden-photo"><img class="img-fluid" class="photo" src="{{route('donor.image', ['filename' => $donorsArray[$i]['donor']->photo_uri])}}"/></span>
+        <span class="hidden-sex">{{$donorsArray[$i]['donor']->sex == 0 ? 'Male' : 'Female'}}</span>
+        <span class="hidden-eyecolor">{{$donorsArray[$i]['eyecolor']}}</span>
+        <span class="hidden-haircolor">{{$donorsArray[$i]['haircolor']}}</span>
+        <span class="hidden-ethnicity">{{$donorsArray[$i]['ethnicity']}}</span>
+        <span class="hidden-family_antecedents">{{$donorsArray[$i]['donor']->family_antecedents}}</span>
+        <span class="hidden-medical_antecedents">{{$donorsArray[$i]['donor']->medical_antecedents}}</span>
+        <span class="hidden-donor_id">{{$donorsArray[$i]['donor']->id}}</span>
     </div>
-    @endif
+    @endfor
+    </div>
     @endif
 </div>
 <script src="/js/swipe.js"></script>

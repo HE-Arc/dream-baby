@@ -1,23 +1,23 @@
-function showDonorForm()
-{
-    document.getElementById('donorInfo').style.display = 'block';
-    document.getElementById('femaleSex').required=true;
-    document.getElementById('maleSex').required=true;
-    document.getElementById('eye_color').required=true;
-    document.getElementById('ethnicity').required=true;
-    document.getElementById('hair_color').required=true;
-    document.getElementById('medical_antecedents').required=true;
-    document.getElementById('family_antecedents').required=true;
+function applyDisplayStyleAndSetRequiredToChildren(parentDiv, displayStyle, requiredBool) {
+    let donorInfoDiv = document.getElementById(parentDiv);
+    donorInfoDiv.style.display = displayStyle;
+
+    donorInfoDiv.querySelectorAll('select,textarea,input').forEach(child => {
+        child.required = requiredBool;
+    });
 }
 
-function hideDonorForm()
-{
-    document.getElementById('donorInfo').style.display = 'none';
-    document.getElementById('femaleSex').required=false;
-    document.getElementById('maleSex').required=false;
-    document.getElementById('eye_color').required=false;
-    document.getElementById('ethnicity').required=false;
-    document.getElementById('hair_color').required=false;
-    document.getElementById('medical_antecedents').required=false;
-    document.getElementById('family_antecedents').required=false;
+function setShowHideButtonListeners() {
+    document.getElementById('user_type_donor').addEventListener('click', () => {
+        applyDisplayStyleAndSetRequiredToChildren('donorInfo', 'block', true);
+    });
+    document.getElementById('user_type_seeker').addEventListener('click', () => {
+        applyDisplayStyleAndSetRequiredToChildren('donorInfo', 'none', false);
+    });
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setShowHideButtonListeners);
+} else {
+    setShowHideButtonListeners();
 }

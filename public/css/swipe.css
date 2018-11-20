@@ -12,8 +12,6 @@
     text-align:left;
   }
 
-
-
   #swipe-div-no{
     background-color:red;
   }
@@ -22,7 +20,7 @@
     background-color:green;
   }
 
-  #hidden-profil{
+  #hidden-profils{
     display:none;
   }
 

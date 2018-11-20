@@ -9,6 +9,7 @@ use App\Seeker;
 use App\HistorySwipe;
 use Illuminate\Support\Facades\Input;
 use Response;
+use Cookie;
 
 
 
@@ -81,10 +82,24 @@ class SeekerController extends Controller
         return $userProfil;
     }
 
+    
     public function search()
     {
         if (Auth::user()->user_type_id==2){
-            return view('seeker.search',DonorController::getRandomDonorProfil());
+            $bufferSize=3;
+
+            $donorsArray=DonorController::getRandomDonorProfil($bufferSize+1);
+            Cookie::queue(Cookie::forget('hiddenDonorIds'));
+            $hiddenDonorIds=array();
+            if($donorsArray['donorsArray']!=null){
+                foreach($donorsArray['donorsArray'] as $key=>$value){
+                    array_push($hiddenDonorIds,$value['donor']->id);
+                }
+                Cookie::queue(Cookie::forever('hiddenDonorIds',json_encode($hiddenDonorIds)));
+            }
+           
+
+            return view('seeker.search',$donorsArray);
         }else{
           abort(403);
         }
@@ -101,7 +116,7 @@ class SeekerController extends Controller
 
     public function addToSwipeHistory(Request $request)
     {
-
+        //TO-DO: add validator for request
         if (Auth::user()->user_type_id==2) {
               $historySwipe = new HistorySwipe();
       
@@ -111,18 +126,14 @@ class SeekerController extends Controller
 
               $historySwipe->save();
       
-              $response = array(
-                'status' => 'success',
-                'msg' => 'Swipe correctly added to history',
-              );
-              return Response::json($response);
+              return Response::json(DonorController::getRandomDonorProfil(1));
             
           } else {
             $response = array(
               'status' => 'KO',
               'msg' => 'Invalid use',
             );
-            return Response::json($response);
+            return Response::json($response,401);
           }
     }
 }

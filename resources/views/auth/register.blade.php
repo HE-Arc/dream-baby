@@ -44,11 +44,11 @@
 
                             <div class="col-md-6">
                                 <div class="form-check-inline">
-                                    <input class="form-check-input" onclick="showDonorForm();" id="user_type_donor" type="radio" name="user_type" value="donor" required>
+                                    <input class="form-check-input" id="user_type_donor" type="radio" name="user_type" value="donor" required>
                                     <label for="user_type_donor" class="form-check-label" required>... a donor</label>
                                 </div>
                                 <div class="form-check-inline">
-                                    <input class="form-check-input" onclick="hideDonorForm();"  id="user_type_seeker" type="radio" name="user_type" value="seeker" required>
+                                    <input class="form-check-input" id="user_type_seeker" type="radio" name="user_type" value="seeker" required>
                                     <label for="user_type_seeker" class="form-check-label" required>... a seeker</label>
                                 </div>
                             </div>
