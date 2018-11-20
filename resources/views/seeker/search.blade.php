@@ -8,6 +8,9 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+
+
 
 
 @section('content')
@@ -21,7 +24,7 @@
     @endif
     </div>
     @if(is_null($donorsArray))
-    <h1>You have already swiped all the available donors on this website ! Congratulations !</h1>
+    <h1>You have already swiped all the available donors based on your criterions on this website ! Congratulations !</h1>
     @else
     <h1><span id="username">{{$donorsArray[0]['username']}}</span></h1>
     <div class="swiper-container">
@@ -35,6 +38,8 @@
         <div id="swipe-profil">
             <button id="swipe-no">No</button><button id="swipe-yes">Yes</button>
             <h2><strong>Sex: </strong><span id="sex">{{$donorsArray[0]['donor']->sex == 0 ? 'Male' : 'Female'}}</span></h2>
+            <h2><strong>Birth Date: </strong><span id="birthdate">{{date("d F Y" ,strtotime($donorsArray[0]['donor']->birth_date))}}</span></h2>
+            <h2><strong>Age: </strong><span id="age">{{ floor((time() - strtotime($donorsArray[0]['donor']->birth_date)) / 31556926) }}</span></h2>
             <h3><strong>Eye color: </strong><span id="eyecolor">{{$donorsArray[0]['eyecolor']}}</span></h3>
             <h3><strong>Hair color: </strong><span id="haircolor">{{$donorsArray[0]['haircolor']}}</span></h3>
             <h3><strong>Ethnicity: </strong><span id="ethnicity">{{$donorsArray[0]['ethnicity']}}</span></h3>
@@ -55,6 +60,8 @@
         <span class="hidden-family_antecedents">{{$donorsArray[$i]['donor']->family_antecedents}}</span>
         <span class="hidden-medical_antecedents">{{$donorsArray[$i]['donor']->medical_antecedents}}</span>
         <span class="hidden-donor_id">{{$donorsArray[$i]['donor']->id}}</span>
+        <span class="hidden-age">{{ floor((time() - strtotime($donorsArray[0]['donor']->birth_date)) / 31556926) }}</span>
+        <span class="hidden-birthdate">{{date("d F Y" ,strtotime($donorsArray[0]['donor']->birth_date))}}</span>
     </div>
     @endfor
     </div>

@@ -139,9 +139,11 @@ class DonorController extends Controller
         }
 
         $alreadySwipedId = HistorySwipe::where('seeker_id', $seekerId)->pluck('donor_id')->toArray();
+
         $donorProfil = Donor::whereNotIn('id', $alreadySwipedId)
             ->whereNotIn('id', $hiddenDonorIds)
             ->where('sex', $criterions['main']->sex)
+            ->whereDate('birth_date','>', $criterions['main']->birth_date_max)
             ->whereIn('eye_color', DonorController::getCriterionIdArray($criterions, 'eye'))
             ->whereIn('hair_color', DonorController::getCriterionIdArray($criterions, 'hair'))
             ->whereIn('ethnicity', DonorController::getCriterionIdArray($criterions, 'ethnicity'))
@@ -151,7 +153,7 @@ class DonorController extends Controller
             return ['donorsArray' => null];
         }
 
-        $donorsArray = array();
+        $donorsArray=[];
 
         for ($i = 0; $i < $count; $i++) {
             if (isset($donorProfil[$i])) {
@@ -161,9 +163,11 @@ class DonorController extends Controller
                 $haircolor = HairColor::where('id', $donor->hair_color)->first()->name;
                 $eyecolor = EyeColor::where('id', $donor->eye_color)->first()->name;
                 array_push($donorsArray, compact('donor', 'username', 'ethnicity', 'haircolor', 'eyecolor'));
+                array_push($hiddenDonorIds, $donor->id);
             }
         }
 
+        Cookie::queue(Cookie::forever('hiddenDonorIds', json_encode($hiddenDonorIds)));
         return ['donorsArray' => $donorsArray];
     }
 

@@ -84,17 +84,9 @@ class SeekerController extends Controller
     public function search()
     {
         if (Auth::user()->user_type_id == 2) {
-            $bufferSize = 3;
-
-            $donorsArray = DonorController::getRandomDonorProfil($bufferSize + 1);
+            $bufferSize = 2;
             Cookie::queue(Cookie::forget('hiddenDonorIds'));
-            $hiddenDonorIds = array();
-            if ($donorsArray['donorsArray'] != null) {
-                foreach ($donorsArray['donorsArray'] as $key => $value) {
-                    array_push($hiddenDonorIds, $value['donor']->id);
-                }
-                Cookie::queue(Cookie::forever('hiddenDonorIds', json_encode($hiddenDonorIds)));
-            }
+            $donorsArray = DonorController::getRandomDonorProfil($bufferSize + 1);
 
             return view('seeker.search', $donorsArray);
         } else {

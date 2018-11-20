@@ -1,6 +1,6 @@
 function showNoSwipesAvalaibleToast() {
     Toastify({
-        text: "You have already swiped this donor, maybe it means that you have already swiped all the available donors on this website ! Congratulations !",
+        text: "You have already swiped all the available donors based on your criterions on this website ! Congratulations !",
         duration: 10000,
         close: true,
         gravity: "top", // `top` or `bottom`
@@ -46,8 +46,6 @@ function loadNextProfil(swiper) {
                         fetch('/donor/image/' + fetchedDonor.donor.photo_uri, {
                             method: 'get',
                             headers: {
-                                'Accept': 'application/json, text/plain, */*',
-                                'Content-Type': 'application/json',
                                 'X-CSRF-TOKEN': _token
                             }
                         }).then(photoRes => {
@@ -55,9 +53,14 @@ function loadNextProfil(swiper) {
                             fetchedPhoto.src = photoRes.url;
                             fetchedPhoto.classList.add("img-fluid");
                             fetchedPhoto.id = "photo";
+
+                            let fetchedAge=Math.abs(new Date(Date.now() - new Date(fetchedDonor.donor.birth_date).getTime()).getUTCFullYear() - 1970);
+                            let fetchedBirthdate=moment(new Date(fetchedDonor.donor.birth_date)).format("D MMMM YYYY");
+
                             donorQueue.add(new Donor(Number(fetchedDonor.donor.id), fetchedDonor.username,
                                 fetchedDonor.donor.sex, fetchedDonor.eyecolor, fetchedDonor.haircolor,
-                                fetchedDonor.ethnicity, fetchedDonor.donor.family_antecedents, fetchedDonor.donor.medical_antecedents, fetchedPhoto));
+                                fetchedDonor.ethnicity, fetchedDonor.donor.family_antecedents, fetchedDonor.donor.medical_antecedents, fetchedPhoto,
+                                fetchedAge,fetchedBirthdate));
                         }).catch(photoErr => console.log(photoErr));
                     }
                 }).catch(err => console.log(err));
@@ -74,6 +77,8 @@ function loadNextProfil(swiper) {
                 document.getElementById('ethnicity').innerText = nextDisplayedDonor.ethnicity;
                 document.getElementById('family_antecedents').innerText = nextDisplayedDonor.family_antecedents;
                 document.getElementById('medical_antecedents').innerText = nextDisplayedDonor.medical_antecedents;
+                document.getElementById('age').innerText=nextDisplayedDonor.age;
+                document.getElementById('birthdate').innerText=nextDisplayedDonor.birthdate;
             } else {
                 showNoSwipesAvalaibleToast();
             }
@@ -115,7 +120,7 @@ class Queue {
 }
 
 class Donor {
-    constructor(id, username, sex, eyecolor, haircolor, ethnicity, family_antecedents, medical_antecedents, photo) {
+    constructor(id, username, sex, eyecolor, haircolor, ethnicity, family_antecedents, medical_antecedents, photo,age,birthdate) {
         this.id = id;
         this.username = username;
         this.sex = sex;
@@ -125,6 +130,8 @@ class Donor {
         this.family_antecedents = family_antecedents;
         this.medical_antecedents = medical_antecedents;
         this.photo = photo;
+        this.age=age;
+        this.birthdate=birthdate;
     }
 }
 
@@ -153,7 +160,9 @@ function initPage() {
         let family_antecedents = document.getElementById('family_antecedents').innerText;
         let medical_antecedents = document.getElementById('medical_antecedents').innerText;
         let photo = document.getElementById('photo');
-        donorQueue.add(new Donor(id, username, sex, eyecolor, haircolor, ethnicity, family_antecedents, medical_antecedents, photo));
+        let age = document.getElementById('age').innerText;
+        let birthdate = document.getElementById('birthdate').innerText;
+        donorQueue.add(new Donor(id, username, sex, eyecolor, haircolor, ethnicity, family_antecedents, medical_antecedents, photo,age,birthdate));
     }
 
     if (document.getElementById('hidden-profils') != null) {
@@ -167,8 +176,10 @@ function initPage() {
             let family_antecedents = child.querySelector('.hidden-family_antecedents').innerText;
             let medical_antecedents = child.querySelector('.hidden-medical_antecedents').innerText;
             let photo = child.querySelector('.hidden-photo img');
+            let age=child.querySelector('.hidden-age').innerText;
+            let birthdate=child.querySelector('.hidden-birthdate').innerText;
             photo.id = "photo";
-            donorQueue.add(new Donor(id, username, sex, eyecolor, haircolor, ethnicity, family_antecedents, medical_antecedents, photo));
+            donorQueue.add(new Donor(id, username, sex, eyecolor, haircolor, ethnicity, family_antecedents, medical_antecedents, photo,age,birthdate));
             child.remove();
 
         });

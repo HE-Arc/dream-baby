@@ -93,7 +93,7 @@
         <div class="form-group row">
             <h5 class="col-md-4 text-md-right">Maximum Age</h5>
             <div class="col-md-6">
-                <input class="form-control w-25 h-75" type="number" min="18" max="99" value="99" name="age_max">
+                <input class="form-control w-25 h-75" type="number" min="18" max="99" value="{{ floor((time() - strtotime($seekerCriteria['main']->birth_date_max)) / 31556926) }}" name="age_max">
             </div>
         </div>
 
