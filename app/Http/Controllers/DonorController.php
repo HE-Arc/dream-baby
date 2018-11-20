@@ -57,7 +57,7 @@ class DonorController extends Controller
             if ($donor->photo_uri != 'defaultuser.png') {
                 Storage::disk('local')->delete($donor->photo_uri);
             }
-            $filename = str_random(42) . '.' . request('image')->getClientOriginalExtension();
+            $filename = str_random(42) . 'profilImage.' . request('image')->getClientOriginalExtension();
             Storage::disk('local')->put($filename, File::get($image));
             $donor->photo_uri = $filename;
         }

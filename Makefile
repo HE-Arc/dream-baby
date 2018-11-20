@@ -1,8 +1,10 @@
 
-all: migrate serve
+all: clean migrate serve
+
+clean:
+	rm -rf ./storage/app/*profilImage.*
 
 migrate:
-	composer dump-autoload
 	php artisan migrate:refresh --seed || (composer dump-autoload; php artisan migrate:refresh --seed;)
 
 serve:
