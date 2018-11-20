@@ -34,4 +34,6 @@ Route::group(['middleware' => ['auth']], function () {
 
     Route::post('/seeker/swipe','SeekerController@addToSwipeHistory')->middleware('ajax');
     Route::get('/seeker/swipe/next','DonorController@getRandomDonorProfil')->middleware('ajax');
+
+    Route::get('/seeker/deletehistory','SeekerController@deleteSwipeHistory');
 });
