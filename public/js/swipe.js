@@ -9,8 +9,6 @@ function showNoSwipesAvalaibleToast() {
     }).showToast();
 }
 
-var lastDonorId = -1;
-
 function loadNextProfil(swiper) {
     if (swiper.activeIndex != 1) {
         if (donorQueue.size() > 0) {

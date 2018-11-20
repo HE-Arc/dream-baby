@@ -125,4 +125,16 @@ class SeekerController extends Controller
             return Response::json($response, 401);
         }
     }
+
+    public function deleteSwipeHistory()
+    {
+        if (Auth::user()->user_type_id == 2) 
+        {
+            $seeker_id = SeekerController::getSeekerInfo(Auth::id())->id;
+            HistorySwipe::where('seeker_id',$seeker_id)->delete();
+            return back()->with('success', 'Swipe history deleted successfully');
+        }else {
+            abort(403);
+        }
+    }
 }

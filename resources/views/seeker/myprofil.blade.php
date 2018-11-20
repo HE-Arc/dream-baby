@@ -157,7 +157,7 @@
     <h3>Swipe history</h3>
     <div class="form-group row mb-0">
         <div class="col-md-6 offset-md-4">
-            <a href="#" class="btn btn-primary btn-block">
+            <a href="/seeker/deletehistory" class="btn btn-primary btn-block">
                 {{ __('Delete history') }}
             </a>
         </div>
