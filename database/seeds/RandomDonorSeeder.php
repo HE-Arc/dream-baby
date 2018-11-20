@@ -111,6 +111,9 @@ class RandomDonorSeeder extends Seeder
         for ($i=0; $i < 30; $i++) { 
             $fn = $firstnames_female[rand(0, 29)];
             $ln = $lastnames[rand(0, 29)];
+            
+            $dateint = mt_rand(strtotime('1940-01-01'), strtotime('2000-12-31'));
+            $date = date("Y-m-d", $dateint);
 
             try {
                 $id = DB::table('users')->insertGetId([
@@ -124,6 +127,7 @@ class RandomDonorSeeder extends Seeder
                 DB::table('donors')->insert([
                     'user_id'               => $id,
                     'sex'                   => 1,
+                    'birth_date'            => $date,
                     'eye_color'             => rand(1, 3),
                     'hair_color'            => rand(1, 3),
                     'ethnicity'             => rand(1, 3),
@@ -143,6 +147,9 @@ class RandomDonorSeeder extends Seeder
             $fn = $firstnames_female[rand(0, 29)];
             $ln = $lastnames[rand(0, 29)];
 
+            $dateint = mt_rand(strtotime('1940-01-01'), strtotime('2000-12-31'));
+            $date = date("Y-m-d", $dateint);
+
             try {
                 $id = DB::table('users')->insertGetId([
                     'user_type_id'  => 1,
@@ -155,6 +162,7 @@ class RandomDonorSeeder extends Seeder
                 DB::table('donors')->insert([
                     'user_id'               => $id,
                     'sex'                   => 0,
+                    'birth_date'            => $date,
                     'eye_color'             => rand(1, 3),
                     'hair_color'            => rand(1, 3),
                     'ethnicity'             => rand(1, 3),

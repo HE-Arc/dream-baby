@@ -18,7 +18,7 @@ class CriteriaTableSeeder extends Seeder
         DB::table('criterias')->insert([
             'seeker_id'               => 1,
             'sex'                   => 0,
-            'birth_date_max'        => Carbon::now()->subYears(30)->format('Y-m-d H:i:s'),
+            'birth_date_max'        => Carbon::now()->subYears(30)->format('Y-m-d'),
             'created_at'            => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 

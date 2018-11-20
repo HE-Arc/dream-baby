@@ -15,6 +15,7 @@ class DonorsTableSeeder extends Seeder
         DB::table('donors')->insert([
             'user_id'               => 1,
             'sex'                   => 0,
+            'birth_date'            => "1985-04-19",
             'eye_color'             => 1,
             'hair_color'            => 1,
             'ethnicity'             => 1,
@@ -26,6 +27,7 @@ class DonorsTableSeeder extends Seeder
         DB::table('donors')->insert([
             'user_id'               => 2,
             'sex'                   => 0,
+            'birth_date'            => "1976-03-28",
             'eye_color'             => 1,
             'hair_color'            => 2,
             'ethnicity'             => 1,
@@ -37,6 +39,7 @@ class DonorsTableSeeder extends Seeder
         DB::table('donors')->insert([
             'user_id'               => 5,
             'sex'                   => 1,
+            'birth_date'            => "1990-12-24",
             'eye_color'             => 1,
             'hair_color'            => 2,
             'ethnicity'             => 1,

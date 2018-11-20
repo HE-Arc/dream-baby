@@ -69,6 +69,14 @@
                                 </div>
                           </div>
 
+                        <div class="form-group row">
+                              <label class="col-md-4 col-form-label text-md-right">Birth Date:</label>
+
+                              <div class="col-md-6">
+                                  <input class="form-control" type="date" id="birth_date" name="birth_date" required>
+                              </div>
+                          </div>
+
                           <div class="form-group row">
                               <label class="col-md-4 col-form-label text-md-right">Eye color:</label>
 

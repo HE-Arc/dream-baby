@@ -94,6 +94,7 @@ class RegisterController extends Controller
             $donor=Donor::create([
             'user_id'=>$user->id,
             'sex'=>$data['sex']=='1'?true:false,
+            'birth_date'=>$data['birth_date'],
             'eye_color'=>$data['eye_color'],
             'ethnicity'=>$data['ethnicity'],
             'hair_color'=>$data['hair_color'],

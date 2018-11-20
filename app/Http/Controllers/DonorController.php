@@ -8,14 +8,14 @@ use App\EyeColor;
 use App\HairColor;
 use App\HistorySwipe;
 use App\QuestionAnswer;
+use App\Seeker;
 use App\User;
+use Cookie;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use Cookie;
-use App\Seeker;
 
 class DonorController extends Controller
 {
@@ -30,6 +30,7 @@ class DonorController extends Controller
         $this->validate(request(), [
             'name' => 'required',
             'email' => 'required|email|exists:users',
+            'birth_date' => 'date|required',
             'eye_color' => 'required',
             'ethnicity' => 'required',
             'hair_color' => 'required',
@@ -44,6 +45,7 @@ class DonorController extends Controller
         $user->update();
 
         $donor = Donor::where('user_id', $user_id)->firstOrFail();
+        $donor->birth_date = request('birth_date');
         $donor->eye_color = request('eye_color');
         $donor->ethnicity = request('ethnicity');
         $donor->hair_color = request('hair_color');
@@ -113,15 +115,12 @@ class DonorController extends Controller
         return new Response($file, 200);
     }
 
-
-    private static function getCriterionIdArray($criterions,$criterionKey)
+    private static function getCriterionIdArray($criterions, $criterionKey)
     {
-        $criterionsIds=[];
-        foreach($criterions[$criterionKey] as $item)
-        {
-            if($item->searched)
-            {
-                array_push($criterionsIds,$item->id);
+        $criterionsIds = [];
+        foreach ($criterions[$criterionKey] as $item) {
+            if ($item->searched) {
+                array_push($criterionsIds, $item->id);
             }
         }
         return $criterionsIds;
@@ -131,9 +130,9 @@ class DonorController extends Controller
     {
         $seekerId = SeekerController::getSeekerInfo(Auth::id())->id;
 
-        $criterions=Seeker::where('id',$seekerId)->first()->criterions();
+        $criterions = Seeker::where('id', $seekerId)->first()->criterions();
 
-        if (Cookie::get('hiddenDonorIds')!=null && $count==1) { //if count == 1 it means that this function is called from an ajax request
+        if (Cookie::get('hiddenDonorIds') != null && $count == 1) { //if count == 1 it means that this function is called from an ajax request
             $hiddenDonorIds = json_decode(Cookie::get('hiddenDonorIds'));
         } else {
             $hiddenDonorIds = [];
@@ -141,12 +140,12 @@ class DonorController extends Controller
 
         $alreadySwipedId = HistorySwipe::where('seeker_id', $seekerId)->pluck('donor_id')->toArray();
         $donorProfil = Donor::whereNotIn('id', $alreadySwipedId)
-        ->whereNotIn('id', $hiddenDonorIds)
-        ->where('sex',$criterions['main']->sex)
-        ->whereIn('eye_color',DonorController::getCriterionIdArray($criterions,'eye'))
-        ->whereIn('hair_color',DonorController::getCriterionIdArray($criterions,'hair'))
-        ->whereIn('ethnicity',DonorController::getCriterionIdArray($criterions,'ethnicity'))
-        ->inRandomOrder()->take($count)->get();
+            ->whereNotIn('id', $hiddenDonorIds)
+            ->where('sex', $criterions['main']->sex)
+            ->whereIn('eye_color', DonorController::getCriterionIdArray($criterions, 'eye'))
+            ->whereIn('hair_color', DonorController::getCriterionIdArray($criterions, 'hair'))
+            ->whereIn('ethnicity', DonorController::getCriterionIdArray($criterions, 'ethnicity'))
+            ->inRandomOrder()->take($count)->get();
 
         if (count($donorProfil) == 0) {
             return ['donorsArray' => null];

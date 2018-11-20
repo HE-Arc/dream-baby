@@ -15,6 +15,21 @@
         @csrf
         @method('PATCH')
 
+        @if (session('success'))
+        <div class = "alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
+        @if (count($errors) > 0)
+        <div class = "alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         <h3>User settings</h3>
 
         <div class="form-group row">
@@ -73,7 +88,15 @@
         </div>
 
         <!-- donor age -->
+        <!-- TODO : change value to reflect seeker actual wanted age -->
         
+        <div class="form-group row">
+            <h5 class="col-md-4 text-md-right">Maximum Age</h5>
+            <div class="col-md-6">
+                <input class="form-control w-25 h-75" type="number" min="18" max="99" value="99" name="age_max">
+            </div>
+        </div>
+
         <!-- eye color -->
         <div class="form-group row">
                 <h5 class="col-md-4 text-md-right">Eyes colors</h5>
