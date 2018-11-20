@@ -9,7 +9,7 @@ use App\Seeker;
 use App\HistorySwipe;
 use Illuminate\Support\Facades\Input;
 use Response;
-
+use Carbon\Carbon;
 
 
 class SeekerController extends Controller
@@ -22,7 +22,7 @@ class SeekerController extends Controller
             'email' => 'required|email|exists:users',
             'bio' => 'required',
             'sex' => 'required',
-            //'birth_date_max' => 'required',   // TODO
+            'age_max' => 'numeric|min:18|max:99|required',
             'eye_criteria' => 'required',       // https://github.com/laravel/framework/issues/21728
             //'eye_criteria.*' => 'accepted',   // should pass but no...
             'hair_criteria' => 'required',
@@ -42,7 +42,7 @@ class SeekerController extends Controller
 
         $main_criteria = $seeker->criteria();
         $main_criteria->sex = request('sex');
-        //$main_criteria->birth_date_max = request('birth_date_max');   // TODO
+        $main_criteria->birth_date_max = Carbon::now()->subYears(request('age_max'))->format('Y-m-d');
         $main_criteria->update();
 
         $eyes = $seeker->eyes;
@@ -66,7 +66,7 @@ class SeekerController extends Controller
             $eth->update();
         }
         
-        return back();
+        return back()->with('success','Criterias Updated Successfully');
     }
 
     public static function getSeekerInfo(int $id)

@@ -28,6 +28,7 @@ class DonorController extends Controller
         $this->validate(request(), [
             'name' => 'required',
             'email' => 'required|email|exists:users',
+            'birth_date' => 'date|required',
             'eye_color' => 'required',
             'ethnicity' => 'required',
             'hair_color' => 'required',
@@ -42,6 +43,7 @@ class DonorController extends Controller
         $user->update();
         
         $donor = Donor::where('user_id', $user_id)->firstOrFail();
+        $donor->birth_date = request('birth_date');
         $donor->eye_color = request('eye_color');
         $donor->ethnicity = request('ethnicity');
         $donor->hair_color = request('hair_color');
