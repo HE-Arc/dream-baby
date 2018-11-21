@@ -21,7 +21,21 @@ class DonorController extends Controller
 {
     public function myquestions()
     {
-        return view('donor.myquestions');
+       
+        if (Auth::user()->user_type_id == 1) {
+            $donor=DonorController::getDonorInfo(Auth::id());
+            $user=DonorController::getUserInfo(Auth::id());
+
+            $questions=QuestionAnswer::where('donor_id',$donor->id)
+            ->select('question_answers.*','users.name','seekers.id as seeker_id')
+            ->join('seekers','question_answers.seeker_id','seekers.id')
+            ->join('users','seekers.user_id','users.id')->get();
+
+        } else {
+            abort(403);
+        }
+
+        return view('donor.myquestions',compact('questions','donor','user'));
     }
 
     public function update($user_id)
@@ -75,13 +89,26 @@ class DonorController extends Controller
 
     public function questions(int $id)
     {
-        $questions = DonorController::getQuestions(getDonorIdFromuserId($id));
+        $donor = DonorController::getDonorInfo($id);
+        $user = DonorController::getUserInfo($donor->user_id);
+       
+        $questions = QuestionAnswer::where('donor_id', $id)
+            ->select('question_answers.*', 'users.name','seekers.id as seeker_id')
+            ->join('seekers', 'question_answers.seeker_id', 'seekers.id')
+            ->join('users', 'seekers.user_id', 'users.id')->get();
 
         if ($questions == null) {
             abort(404);
         }
 
-        return view('donor.questions', ['questions' => $questions]);
+        $swiped = null;
+
+        if (Auth::user()->user_type_id == 2) {
+            $swiped = HistorySwipe::where('seeker_id', SeekerController::getSeekerInfo(Auth::user()->id)->id)->where('donor_id', $donor->id)->first();
+
+        }
+
+        return view('donor.questions', compact('user','donor','questions','swiped'));
     }
 
     public static function getDonorInfo(int $id)
@@ -126,6 +153,17 @@ class DonorController extends Controller
         return $criterionsIds;
     }
 
+    public function deleteQuestion($id)
+    {
+        if (Auth::user()->user_type_id == 1) {
+            $donorId = DonorController::getDonorInfo(Auth::id())->id;
+            QuestionAnswer::where('donor_id', $donorId)->where('id', $id)->delete();
+            return back()->with('success', 'Question deleted successfully');
+        } else {
+            abort(403);
+        }
+    }
+
     public static function getRandomDonorProfil($count)
     {
         $seekerId = SeekerController::getSeekerInfo(Auth::id())->id;
@@ -143,7 +181,7 @@ class DonorController extends Controller
         $donorProfil = Donor::whereNotIn('id', $alreadySwipedId)
             ->whereNotIn('id', $hiddenDonorIds)
             ->where('sex', $criterions['main']->sex)
-            ->whereDate('birth_date','>', $criterions['main']->birth_date_max)
+            ->whereDate('birth_date', '>', $criterions['main']->birth_date_max)
             ->whereIn('eye_color', DonorController::getCriterionIdArray($criterions, 'eye'))
             ->whereIn('hair_color', DonorController::getCriterionIdArray($criterions, 'hair'))
             ->whereIn('ethnicity', DonorController::getCriterionIdArray($criterions, 'ethnicity'))
@@ -153,7 +191,7 @@ class DonorController extends Controller
             return ['donorsArray' => null];
         }
 
-        $donorsArray=[];
+        $donorsArray = [];
 
         for ($i = 0; $i < $count; $i++) {
             if (isset($donorProfil[$i])) {
@@ -169,6 +207,68 @@ class DonorController extends Controller
 
         Cookie::queue(Cookie::forever('hiddenDonorIds', json_encode($hiddenDonorIds)));
         return ['donorsArray' => $donorsArray];
+    }
+
+    public function ask($id)
+    {
+        if (Auth::user()->user_type_id == 2) {
+            $this->validate(request(), [
+                'message' => 'required',
+            ]);
+
+            $question = new QuestionAnswer();
+
+            $question->seeker_id = SeekerController::getSeekerInfo(Auth::id())->id;
+            $question->donor_id = $id;
+            $question->message = request('message');
+            $anonymous = request('anonymous');
+            if ($anonymous == 1) {
+                $question->anonymous = true;
+            } else {
+                $question->anonymous = false;
+            }
+
+            $question->question = true;
+
+            $question->save();
+
+            return back()->with('success', 'Question asked successfully');
+        }
+    }
+
+    public function reply()
+    {
+        if (Auth::user()->user_type_id == 1) {
+            $this->validate(request(), [
+                'message' => 'required',
+                'seeker_id'=>'required',
+            ]);
+
+            $question = new QuestionAnswer();
+
+            $question->seeker_id = request('seeker_id');
+            $question->donor_id = DonorController::getDonorInfo(Auth::user()->id)->id;
+            $question->message = request('message');
+            $question->anonymous = false;
+
+            $question->question = false;
+
+            $question->save();
+
+            return back()->with('success', 'Question answered successfully');
+        }
+    }
+
+    public function deleteAllQuestions()
+    {
+        if (Auth::user()->user_type_id == 1) 
+        {
+            $donor_id = DonorController::getDonorInfo(Auth::id())->id;
+            QuestionAnswer::where('donor_id',$donor_id)->delete();
+            return back()->with('success', 'Questions deleted successfully');
+        }else {
+            abort(403);
+        }
     }
 
 }

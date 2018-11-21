@@ -48,4 +48,9 @@ class Seeker extends Model
         $ethnicity = $this->ethnicities;
         return compact('main', 'eye', 'hair', 'ethnicity');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

@@ -36,4 +36,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/seeker/swipe/next','DonorController@getRandomDonorProfil')->middleware('ajax');
 
     Route::get('/seeker/deletehistory','SeekerController@deleteSwipeHistory');
+    Route::get('/donor/deletequestion/{id}','DonorController@deleteQuestion');
+
+    Route::post('/donor/ask/{id}','DonorController@ask');
+    Route::post('/donor/reply','DonorController@reply');
+
+    Route::get('donor/deleteallquestions','DonorController@deleteAllQuestions');
 });

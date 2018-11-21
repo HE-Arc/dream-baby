@@ -16,4 +16,9 @@ class QuestionAnswer extends Model
   protected $fillable = [
       'seeker_id','donor_id','message','anonymous'
   ];
+
+  public function seeker()
+  {
+      return $this->belongsTo('App\Seeker');
+  }
 }

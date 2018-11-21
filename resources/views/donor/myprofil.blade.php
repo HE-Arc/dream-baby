@@ -136,6 +136,7 @@
             </div>
         </div>
     </form>
+    <h3><a href="/donor/questions">View, edit and answer to my public questions</a></h3>
     <h3>Swipe history</h3>
     <div class="row">
         <div class="col-md-6 offset-md-4">
@@ -144,5 +145,7 @@
             @endforeach
         </div>
     </div>
+   
+   
 </div>
 @endsection

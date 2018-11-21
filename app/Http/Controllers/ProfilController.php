@@ -11,6 +11,7 @@ use App\HairColor;
 use App\EyeColor;
 use App\HistorySwipe;
 use App\Seeker;
+use App\QuestionAnswer;
 
 class ProfilController extends Controller
 {
@@ -33,6 +34,7 @@ class ProfilController extends Controller
                     $positiveSwipeSeekerNames=User::whereIn('id',$positiveSwipeUserIds)->pluck('name')->toArray();
 
                     $positiveSwipesArray=array_combine($positiveSwipeUserIds,$positiveSwipeSeekerNames);
+
 
                     return view('donor.myprofil', compact('donor', 'user', 'ethnicities', 'hair_colors', 'eye_colors','positiveSwipesArray'));
                 case 2: // Seeker
@@ -77,13 +79,14 @@ class ProfilController extends Controller
             switch($user->user_type_id){
                 case 1: //Donor
                     $donor=DonorController::getDonorInfo($id);
+                    if ($donor==null) {
+                        abort(404);
+                    }
                     $user=DonorController::getUserInfo($id);
                     $ethnicity=Ethnicity::where('id',$donor->ethnicity)->first()->name;
                     $haircolor=HairColor::where('id',$donor->hair_color)->first()->name;
                     $eyecolor=EyeColor::where('id',$donor->eye_color)->first()->name;
-                    if ($donor==null) {
-                        abort(404);
-                    }
+
                     return view('donor.profil', compact('donor','user','ethnicity','haircolor','eyecolor'));
                 case 2: //Seeker
                     // TODO seeker.profil view 
