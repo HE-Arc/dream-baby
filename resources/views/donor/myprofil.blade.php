@@ -136,5 +136,13 @@
             </div>
         </div>
     </form>
+    <h3>Swipe history</h3>
+    <div class="row">
+        <div class="col-md-6 offset-md-4">
+            @foreach ($positiveSwipesArray as $id => $name)
+            <a href="/profil/{{$id}}">{{$name}}</a><br/>
+            @endforeach
+        </div>
+    </div>
 </div>
 @endsection

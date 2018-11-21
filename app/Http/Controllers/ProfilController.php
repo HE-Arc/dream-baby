@@ -9,6 +9,8 @@ use App\User;
 use App\Ethnicity;
 use App\HairColor;
 use App\EyeColor;
+use App\HistorySwipe;
+use App\Seeker;
 
 class ProfilController extends Controller
 {
@@ -18,25 +20,41 @@ class ProfilController extends Controller
             switch(Auth::user()->user_type_id){
                 case 1: // Donor
                     $donor=DonorController::getDonorInfo(Auth::id());
+                    if ($donor==null) {
+                        abort(404);
+                    }
                     $user=DonorController::getUserInfo(Auth::id());
                     $ethnicities=Ethnicity::all();
                     $hair_colors=HairColor::all();
                     $eye_colors=EyeColor::all();
-                    if ($donor==null) {
-                        abort(404);
-                    }
-                    return view('donor.myprofil', compact('donor', 'user', 'ethnicities', 'hair_colors', 'eye_colors'));
+                    
+                    $positiveSwipeSeekerIds=HistorySwipe::where('donor_id',$donor->id)->where('like',1)->pluck('seeker_id')->toArray();
+                    $positiveSwipeUserIds=Seeker::whereIn('id',$positiveSwipeSeekerIds)->pluck('user_id')->toArray();
+                    $positiveSwipeSeekerNames=User::whereIn('id',$positiveSwipeUserIds)->pluck('name')->toArray();
+
+                    $positiveSwipesArray=array_combine($positiveSwipeUserIds,$positiveSwipeSeekerNames);
+
+                    return view('donor.myprofil', compact('donor', 'user', 'ethnicities', 'hair_colors', 'eye_colors','positiveSwipesArray'));
                 case 2: // Seeker
                     $seeker=SeekerController::getSeekerInfo(Auth::id());
                     $user=SeekerController::getUserInfo(Auth::id());
                     $seekerCriteria = $seeker->criterions();
-                    $ethnicities=ProfilController::getNamesArray(Ethnicity::all());
-                    $hair_colors=ProfilController::getNamesArray(HairColor::all());
-                    $eye_colors=ProfilController::getNamesArray(EyeColor::all());
+                    
                     if ($seeker==null || $seekerCriteria == null) {
                         abort(404);
                     }
-                    return view('seeker.myprofil', compact('seeker', 'user', 'seekerCriteria', 'ethnicities', 'hair_colors', 'eye_colors'));
+
+                    $ethnicities=ProfilController::getNamesArray(Ethnicity::all());
+                    $hair_colors=ProfilController::getNamesArray(HairColor::all());
+                    $eye_colors=ProfilController::getNamesArray(EyeColor::all());
+
+                    $positiveSwipeDonorIds=HistorySwipe::where('seeker_id',$seeker->id)->where('like',1)->pluck('donor_id')->toArray();
+                    $positiveSwipeUserIds=Donor::whereIn('id',$positiveSwipeDonorIds)->pluck('user_id')->toArray();
+                    $positiveSwipeDonorNames=User::whereIn('id',$positiveSwipeUserIds)->pluck('name')->toArray();
+
+                    $positiveSwipesArray=array_combine($positiveSwipeUserIds,$positiveSwipeDonorNames);
+
+                    return view('seeker.myprofil', compact('seeker', 'user', 'seekerCriteria', 'ethnicities', 'hair_colors', 'eye_colors','positiveSwipesArray'));
             }
         } else {
             return view('home');

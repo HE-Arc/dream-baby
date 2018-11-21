@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -89,7 +90,7 @@
 
         <!-- donor age -->
         <!-- TODO : change value to reflect seeker actual wanted age -->
-        
+
         <div class="form-group row">
             <h5 class="col-md-4 text-md-right">Maximum Age</h5>
             <div class="col-md-6">
@@ -153,14 +154,24 @@
             </div>
         </div>
     </form>
-    
+
     <h3>Swipe history</h3>
+    <div class="row">
+        <div class="col-md-6 offset-md-4">
+            @foreach ($positiveSwipesArray as $id => $name)
+            <a href="/profil/{{$id}}">{{$name}}</a><br/>
+            @endforeach
+        </div>
+    </div>
+    <br/>
     <div class="form-group row mb-0">
         <div class="col-md-6 offset-md-4">
-            <a href="/seeker/deletehistory" class="btn btn-primary btn-block">
+            <a href="/seeker/deletehistory" class="btn btn-danger btn-block">
                 {{ __('Delete history') }}
             </a>
         </div>
     </div>
+
+    
 </div>
 @endsection
