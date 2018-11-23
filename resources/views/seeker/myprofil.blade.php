@@ -100,7 +100,7 @@
 
         <!-- eye color -->
         <div class="form-group row">
-                <h5 class="col-md-4 text-md-right">Eyes colors</h5>
+            <h5 class="col-md-4 text-md-right">Eyes colors</h5>
             <div class="col-md-6">
                 @foreach ($seekerCriteria['eye'] as $item)
                 <div class="form-check form-check-inline">
