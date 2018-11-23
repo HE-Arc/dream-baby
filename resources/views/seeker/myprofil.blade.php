@@ -164,14 +164,15 @@
         </div>
     </div>
     <br/>
-    <div class="form-group row mb-0">
-        <div class="col-md-6 offset-md-4">
-            <a href="/seeker/deletehistory" class="btn btn-danger btn-block">
-                {{ __('Delete history') }}
-            </a>
+    <form method="POST" action="{{route('seeker.deletehistory')}}">
+        @csrf
+        <div class="form-group row mb-0">
+            <div class="col-md-6 offset-md-4">
+                <button type="submit" class="btn btn-danger btn-block">
+                    {{ __('Delete history') }}
+                </button>
+            </div>
         </div>
-    </div>
-
-    
+    </form>
 </div>
 @endsection

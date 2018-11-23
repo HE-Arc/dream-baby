@@ -35,7 +35,6 @@ class ProfilController extends Controller
 
                     $positiveSwipesArray=array_combine($positiveSwipeUserIds,$positiveSwipeSeekerNames);
 
-
                     return view('donor.myprofil', compact('donor', 'user', 'ethnicities', 'hair_colors', 'eye_colors','positiveSwipesArray'));
                 case 2: // Seeker
                     $seeker=SeekerController::getSeekerInfo(Auth::id());
@@ -63,15 +62,6 @@ class ProfilController extends Controller
         }
     }
 
-    private static function getNamesArray($tab)
-    {
-        $new_tab = [];
-        foreach($tab as $item) {
-            $new_tab[$item->id] = $item->name;
-        }
-        return $new_tab;
-    }
-
     public function profil(int $id)
     {
         $user = User::where('id', $id)->first();
@@ -95,5 +85,17 @@ class ProfilController extends Controller
         } else {
             abort(404);
         }
+    }
+
+    /**
+     * Get an array of names from a model array
+     */
+    private static function getNamesArray($tab)
+    {
+        $new_tab = [];
+        foreach($tab as $item) {
+            $new_tab[$item->id] = $item->name;
+        }
+        return $new_tab;
     }
 }

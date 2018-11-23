@@ -21,20 +21,18 @@ class DonorController extends Controller
 {
     public function myquestions()
     {
-       
         if (Auth::user()->user_type_id == 1) {
             $donor=DonorController::getDonorInfo(Auth::id());
             $user=DonorController::getUserInfo(Auth::id());
 
             $questions=QuestionAnswer::where('donor_id',$donor->id)
-            ->select('question_answers.*','users.name','seekers.id as seeker_id')
-            ->join('seekers','question_answers.seeker_id','seekers.id')
-            ->join('users','seekers.user_id','users.id')->get();
+                ->select('question_answers.*','users.name','seekers.id as seeker_id')
+                ->join('seekers','question_answers.seeker_id','seekers.id')
+                ->join('users','seekers.user_id','users.id')->get();
 
         } else {
             abort(403);
         }
-
         return view('donor.myquestions',compact('questions','donor','user'));
     }
 
@@ -91,7 +89,7 @@ class DonorController extends Controller
     {
         $donor = DonorController::getDonorInfo($id);
         $user = DonorController::getUserInfo($donor->user_id);
-       
+        
         $questions = QuestionAnswer::where('donor_id', $id)
             ->select('question_answers.*', 'users.name','seekers.id as seeker_id')
             ->join('seekers', 'question_answers.seeker_id', 'seekers.id')
@@ -105,7 +103,6 @@ class DonorController extends Controller
 
         if (Auth::user()->user_type_id == 2) {
             $swiped = HistorySwipe::where('seeker_id', SeekerController::getSeekerInfo(Auth::user()->id)->id)->where('donor_id', $donor->id)->first();
-
         }
 
         return view('donor.questions', compact('user','donor','questions','swiped'));
@@ -229,7 +226,6 @@ class DonorController extends Controller
             }
 
             $question->question = true;
-
             $question->save();
 
             return back()->with('success', 'Question asked successfully');
@@ -245,14 +241,11 @@ class DonorController extends Controller
             ]);
 
             $question = new QuestionAnswer();
-
             $question->seeker_id = request('seeker_id');
             $question->donor_id = DonorController::getDonorInfo(Auth::user()->id)->id;
             $question->message = request('message');
             $question->anonymous = false;
-
             $question->question = false;
-
             $question->save();
 
             return back()->with('success', 'Question answered successfully');

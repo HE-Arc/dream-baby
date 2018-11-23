@@ -30,21 +30,25 @@ class SeekerController extends Controller
             'ethnicity_criteria' => 'required',
             //'ethnicity_criteria.*' => 'accepted',
         ]);
-
+        
+        // User update
         $user = User::findOrFail($user_id);
         $user->name = request('name');
         $user->email = request('email');
         $user->update();
 
+        // Seeker update
         $seeker = Seeker::where('user_id', $user_id)->firstOrFail();
         $seeker->bio = request('bio');
         $seeker->update();
 
+        // Main cirteria update
         $main_criteria = $seeker->criteria();
         $main_criteria->sex = request('sex');
         $main_criteria->birth_date_max = Carbon::now()->subYears(request('age_max'))->format('Y-m-d');
         $main_criteria->update();
 
+        // Eyes, hair and ethnicities criteria update
         $eyes = $seeker->eyes;
         $eyes_criteria = request('eye_criteria');
         foreach ($eyes as $eye) {
@@ -69,18 +73,9 @@ class SeekerController extends Controller
         return back()->with('success', 'Criterias Updated Successfully');
     }
 
-    public static function getSeekerInfo(int $id)
-    {
-        $seekerProfil = Seeker::where('user_id', $id)->first();
-        return $seekerProfil;
-    }
-
-    public static function getUserInfo(int $id)
-    {
-        $userProfil = User::where('id', $id)->first();
-        return $userProfil;
-    }
-
+    /**
+     * Search random donors for the authented seeker
+     */
     public function search()
     {
         if (Auth::user()->user_type_id == 2) {
@@ -89,15 +84,6 @@ class SeekerController extends Controller
             $donorsArray = DonorController::getRandomDonorProfil($bufferSize + 1);
 
             return view('seeker.search', $donorsArray);
-        } else {
-            abort(403);
-        }
-    }
-
-    public function criteria()
-    {
-        if (Auth::user()->user_type_id == 2) {
-            return view('seeker.criteria');
         } else {
             abort(403);
         }
@@ -136,5 +122,17 @@ class SeekerController extends Controller
         }else {
             abort(403);
         }
+    }
+
+    public static function getSeekerInfo(int $id)
+    {
+        $seekerProfil = Seeker::where('user_id', $id)->first();
+        return $seekerProfil;
+    }
+
+    public static function getUserInfo(int $id)
+    {
+        $userProfil = User::where('id', $id)->first();
+        return $userProfil;
     }
 }

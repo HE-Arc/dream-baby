@@ -22,7 +22,5 @@
     <h3><strong>Family antecedents: </strong>{{$donor->family_antecedents}}</h3>
     <h3><strong>Medical antecedents: </strong>{{$donor->medical_antecedents}}</h3>
     <h2><strong><a href="/donor/{{$donor->id}}/questions">Public questions</a></strong></h2>
-   
-    
 </div>
 @endsection

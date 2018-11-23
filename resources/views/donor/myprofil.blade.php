@@ -21,6 +21,7 @@
             {{ session('success') }}
         </div>
         @endif
+
         @if (count($errors) > 0)
         <div class = "alert alert-danger">
             <ul>
@@ -61,15 +62,13 @@
 
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Birth Date:</label>
-
             <div class="col-md-6">
-            <input class="form-control" type="date" id="birth_date" name="birth_date" value="{{$donor->birth_date}}" required>
+                <input class="form-control" type="date" id="birth_date" name="birth_date" value="{{$donor->birth_date}}" required>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Eye color:</label>
-
             <div class="col-md-6">
                 <select class="form-control" id="eye_color" name="eye_color" required>
                     @foreach ($eye_colors as $item)
@@ -81,7 +80,6 @@
 
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Skin color:</label>
-
             <div class="col-md-6">
             <select class="form-control" id="ethnicity" name="ethnicity" required>
                 @foreach ($ethnicities as $item)
@@ -93,7 +91,6 @@
 
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Hair color:</label>
-
             <div class="col-md-6">
                 <select class="form-control" id="hair_color" name="hair_color" required>
                     @foreach ($hair_colors as $item)
@@ -105,7 +102,6 @@
 
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Medical antecedents:</label>
-
             <div class="col-md-6">
                 <textarea class="form-control" id="medical_antecedents" name="medical_antecedents" required>{{$donor->medical_antecedents}}</textarea>
             </div>
@@ -113,7 +109,6 @@
 
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Familial antecedents:</label>
-
             <div class="col-md-6">
                 <textarea class="form-control" id="family_antecedents" name="family_antecedents" required>{{$donor->family_antecedents}}</textarea>
             </div>
@@ -121,7 +116,6 @@
 
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Upload Profile Image:</label>
-
             <div class="col-md-6">
                 <input class="form-control-file" type="file" name="image"/>
                 <p>( jpg|png|gif , < 2 Mo )</p>
@@ -130,22 +124,25 @@
 
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary">
+                <button type="submit" class="btn btn-primary btn-block">
                     {{ __('Validate') }}
                 </button>
             </div>
         </div>
     </form>
-    <h3><a href="/donor/questions">View, edit and answer to my public questions</a></h3>
+
+    <!--<h3><a href="/donor/questions">View, edit and answer to my public questions</a></h3> Really needed ? cause we have the link in the nav bar-->
     <h3>Swipe history</h3>
     <div class="row">
         <div class="col-md-6 offset-md-4">
+            @if (count($positiveSwipesArray) > 0)
             @foreach ($positiveSwipesArray as $id => $name)
             <a href="/profil/{{$id}}">{{$name}}</a><br/>
             @endforeach
+            @else
+            <p>Still no seeker intrested in your profil but it will not be longer</p>
+            @endif
         </div>
     </div>
-   
-   
 </div>
 @endsection
