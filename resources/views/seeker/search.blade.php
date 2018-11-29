@@ -34,7 +34,7 @@
         </div>
     </div>
 
-    <div id="center-wrapper">
+    <div id="center-wrapper" class="row">
         <div id="swipe-profil">
             <button id="swipe-no">No</button><button id="swipe-yes">Yes</button>
             <h2><strong>Sex: </strong><span id="sex">{{$donorsArray[0]['donor']->sex == 0 ? 'Male' : 'Female'}}</span></h2>

@@ -10482,6 +10482,12 @@ a.text-dark:focus {
   border-color: #ee826c;
 }
 
+.btn-primary:focus:active {
+  /* THIS DOESN'T WORK */
+  background-color: #ef593a;
+  border-color: #ee826c;
+}
+
 .btn-link {
   color: #ee826c;
 }
