@@ -10476,6 +10476,10 @@ a.text-dark:focus {
   background-color: #ffd6c336;
 }
 
+.card-header {
+  background-color: #ffd6c336;
+}
+
 .btn-primary {
   background-color: #ee826c;
   border-color: #ef593a;
