@@ -24,7 +24,7 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ Html::image('img/logoDreamBaby.png', 'logo of Dream Baby', array( 'width' => 70, 'height' => 70 )) }}
+                    {{ Html::image('img/logoDreamBaby2.png', 'logo of Dream Baby', array( 'height' => 80 )) }}
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>

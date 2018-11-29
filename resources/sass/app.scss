@@ -13,6 +13,10 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.jumbotron {
+  background-color: $light_brown_opcity;
+}
+
 .btn-primary {
   background-color: $dark_orange;
   border-color: $darker_orange;

@@ -10472,6 +10472,10 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.jumbotron {
+  background-color: #ffd6c336;
+}
+
 .btn-primary {
   background-color: #ee826c;
   border-color: #ef593a;
