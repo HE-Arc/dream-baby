@@ -54,7 +54,7 @@
         <div id="hidden-profil{{$i}}">
             <span class="hidden-username">{{$donorsArray[$i]['username']}}</span>
             <span class="hidden-photo"><img class="img-fluid" class="photo" src="{{route('donor.image', ['filename' => $donorsArray[$i]['donor']->photo_uri])}}"/></span>
-            <span class="hidden-sex">{{$donorsArray[$i]['donor']->sex == 0 ? 'Male' : 'Female'}}</span>
+            <span class="hidden-sex">{{$donorsArray[$i]['donor']->sex}}</span>
             <span class="hidden-eyecolor">{{$donorsArray[$i]['eyecolor']}}</span>
             <span class="hidden-haircolor">{{$donorsArray[$i]['haircolor']}}</span>
             <span class="hidden-ethnicity">{{$donorsArray[$i]['ethnicity']}}</span>
