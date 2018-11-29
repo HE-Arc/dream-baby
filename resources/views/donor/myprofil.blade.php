@@ -10,7 +10,6 @@
         </div>
     @endif
     </div>
-    <p>Here you can edit your profil ! Be the dream donor ;)</p>
     <h1>Edit my profil</h1>
     <form method="POST" action="{{route('donor.myprofil.update', $user->id)}}"  enctype="multipart/form-data">
         @csrf
@@ -116,13 +115,13 @@
 
         <div class="form-group row">
             <label class="col-md-4 col-form-label text-md-right">Upload Profile Image:</label>
-            <div class="col-md-6">
-                <input class="form-control-file" type="file" name="image"/>
-                <p>( jpg|png|gif , < 2 Mo )</p>
+            <div class="custom-file col-md-6">
+                <input type="file" class="custom-file-input" id="profil_picture" name="image">
+                <label class="custom-file-label" for="profil_picture">( jpg|png|gif , < 2 Mo )</label>
             </div>
         </div>
 
-        <div class="form-group row mb-0">
+        <div class="form-group row">
             <div class="col-md-6 offset-md-4">
                 <button type="submit" class="btn btn-primary btn-block">
                     {{ __('Validate') }}
@@ -135,6 +134,7 @@
     <h3>Swipe history</h3>
     <div class="row">
         <div class="col-md-6 offset-md-4">
+            <div class="jumbotron">
             @if (count($positiveSwipesArray) > 0)
             @foreach ($positiveSwipesArray as $id => $name)
             <a class="btn btn-link" href="/profil/{{$id}}">{{$name}}</a><br/>
@@ -142,6 +142,7 @@
             @else
             <p>Still no seeker intrested in your profil but it will not be longer</p>
             @endif
+            </div>
         </div>
     </div>
 </div>
