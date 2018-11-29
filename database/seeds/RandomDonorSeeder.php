@@ -22,7 +22,7 @@ class RandomDonorSeeder extends Seeder
             'Sylvie', 'Fanny', 'Caroline', 'Dorianne', 'Camille',
             'Louise', 'Anna', 'Delphine', 'Jeanine', 'Amanda',
         ];
-        $first_male = [
+        $firstnames_male = [
             'John', 'Sergiy', 'Célien', 'Hubert', 'David',
             'Yoan', 'Simon', 'Célestin', 'Guillaume', 'Adrien',
             'Louis', 'Maxime', 'Julien', 'Jules', 'Fabien',
@@ -144,7 +144,7 @@ class RandomDonorSeeder extends Seeder
 
         // Sperm Donor
         for ($i=0; $i < 30; $i++) { 
-            $fn = $firstnames_female[rand(0, 29)];
+            $fn = $firstnames_male[rand(0, 29)];
             $ln = $lastnames[rand(0, 29)];
 
             $dateint = mt_rand(strtotime('1940-01-01'), strtotime('2000-12-31'));
