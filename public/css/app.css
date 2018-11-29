@@ -10472,3 +10472,44 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.btn-primary {
+  background-color: #ee826c;
+  border-color: #ef593a;
+}
+
+.btn-primary:hover {
+  background-color: #ef593a;
+  border-color: #ee826c;
+}
+
+.btn-link {
+  color: #ee826c;
+}
+
+.btn-link:hover {
+  color: #ef593a;
+}
+
+.form-control:focus {
+  border-color: #ffd6c3;
+  -webkit-box-shadow: 0 0 0 0.2rem #ffd6c3;
+          box-shadow: 0 0 0 0.2rem #ffd6c3;
+}
+
+.dropdown-item:hover {
+  background-color: #ffd6c3;
+}
+
+.dropdown-item:active {
+  background-color: #ee826c;
+}
+
+.nav-link {
+  font-size: 1.575rem;
+  color: #7f6d65;
+}
+
+.nav-link:hover {
+  color: #7f6d65;
+}
+

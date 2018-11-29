@@ -9,7 +9,7 @@
             {{ session('status') }}
         </div>
     @endif
-    <h1><a href="/profil/{{$user->id}}">{{$user->name}}</a></h1>
+    <h1><a class="btn btn-link" href="/profil/{{$user->id}}">{{$user->name}}</a></h1>
     <img class="w-25 m-3 img-fluid" src="{{ route('donor.image', ['filename' => $donor->photo_uri]) }}" alt="{{$user->name}} - Profile Picture"/><br/>
     <h2>Public questions</h2>
     <div class="row">

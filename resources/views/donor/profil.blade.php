@@ -21,6 +21,6 @@
     <h3><strong>Ethnicity: </strong>{{$ethnicity}}</h3>
     <h3><strong>Family antecedents: </strong>{{$donor->family_antecedents}}</h3>
     <h3><strong>Medical antecedents: </strong>{{$donor->medical_antecedents}}</h3>
-    <h2><strong><a href="/donor/{{$user->id}}/questions">Public questions</a></strong></h2>
+    <h2><strong><a class="btn btn-link" href="/donor/{{$user->id}}/questions">Public questions</a></strong></h2>
 </div>
 @endsection

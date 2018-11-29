@@ -13,3 +13,41 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.btn-primary {
+  background-color: $dark_orange;
+  border-color: $darker_orange;
+}
+.btn-primary:hover {
+  background-color: $darker_orange;
+  border-color: $dark_orange;
+}
+
+.btn-link {
+  color: $dark_orange;
+}
+
+.btn-link:hover{
+  color: $darker_orange;
+}
+
+.form-control:focus {
+  border-color: $light_brown;
+  box-shadow: 0 0 0 0.2rem $light_brown;
+}
+
+.dropdown-item:hover {
+  background-color: $light_brown;
+}
+
+.dropdown-item:active {
+  background-color: $dark_orange;
+}
+
+.nav-link {
+  font-size: 1.575rem;
+  color: $taupe;
+}
+
+.nav-link:hover {
+  color: $taupe;
+}

@@ -15,8 +15,8 @@
                     @endif
                     <div class="links">
                         <ul>
-                            <li><a href="/login">login</a></li>
-                            <li><a href="/register">register</a></li>
+                            <li><a class="btn btn-link" href="/login">login</a></li>
+                            <li><a class="btn btn-link" href="/register">register</a></li>
                         </ul>
                     </div>
                     <div class="description">

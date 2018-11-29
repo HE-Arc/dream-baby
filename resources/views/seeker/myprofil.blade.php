@@ -159,7 +159,7 @@
     <div class="row">
         <div class="col-md-6 offset-md-4">
             @foreach ($positiveSwipesArray as $id => $name)
-            <a href="/profil/{{$id}}">{{$name}}</a><br/>
+            <a class="btn btn-link" href="/profil/{{$id}}">{{$name}}</a><br/>
             @endforeach
         </div>
     </div>
