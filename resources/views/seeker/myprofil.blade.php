@@ -158,9 +158,15 @@
     <h3>Swipe history</h3>
     <div class="row">
         <div class="col-md-6 offset-md-4">
-            @foreach ($positiveSwipesArray as $id => $name)
-            <a class="btn btn-link" href="/profil/{{$id}}">{{$name}}</a><br/>
-            @endforeach
+            <div class="jumbotron">
+                @if (count($positiveSwipesArray) > 0)
+                    @foreach ($positiveSwipesArray as $id => $name)
+                        <a class="btn btn-link" href="/profil/{{$id}}">{{$name}}</a><br/>
+                    @endforeach
+                @else
+                    <p>Oh ! You havn't find any donors... You will find some soon!</p>
+                @endif
+            </div>
         </div>
     </div>
     <br/>
