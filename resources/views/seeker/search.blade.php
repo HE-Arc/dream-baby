@@ -22,7 +22,12 @@
     </div>
 
     @if(is_null($donorsArray))
-    <h1>You have already swiped all the available donors based on your criterions on this website ! Congratulations !</h1>
+    <div class="jumbotron">
+        <h1 class="display-4 text-left">Congratulations !</h1>
+        <p class="lead">You already have swiped all the available donors...</p>
+        <hr class="my-4">
+        <p>But change your criteria or wait a little bit to find new ones !</p>
+    </div>
     @else
     <h1><span id="username">{{$donorsArray[0]['username']}}</span></h1>
 
@@ -34,17 +39,23 @@
         </div>
     </div>
 
-    <div id="center-wrapper" class="row">
+    <div id="center-wrapper" class="jumbotron">
         <div id="swipe-profil">
-            <button id="swipe-no">No</button><button id="swipe-yes">Yes</button>
-            <h2><strong>Sex: </strong><span id="sex">{{$donorsArray[0]['donor']->sex == 0 ? 'Male' : 'Female'}}</span></h2>
-            <h2><strong>Birth Date: </strong><span id="birthdate">{{date("d F Y" ,strtotime($donorsArray[0]['donor']->birth_date))}}</span></h2>
-            <h2><strong>Age: </strong><span id="age">{{ floor((time() - strtotime($donorsArray[0]['donor']->birth_date)) / 31556926) }}</span></h2>
-            <h3><strong>Eye color: </strong><span id="eyecolor">{{$donorsArray[0]['eyecolor']}}</span></h3>
-            <h3><strong>Hair color: </strong><span id="haircolor">{{$donorsArray[0]['haircolor']}}</span></h3>
-            <h3><strong>Ethnicity: </strong><span id="ethnicity">{{$donorsArray[0]['ethnicity']}}</span></h3>
-            <h3><strong>Family antecedents: </strong><span id="family_antecedents">{{$donorsArray[0]['donor']->family_antecedents}}</span></h3>
-            <h3><strong>Medical antecedents: </strong><span id="medical_antecedents">{{$donorsArray[0]['donor']->medical_antecedents}}</span></h3>
+            <div class="btn-group row">
+                <div class="text-center">
+                    <button id="swipe-no" class="btn btn-primary col-md-2 swipe-no">No</button>
+                    <button id="swipe-yes"class="btn btn-primary col-md-2 swipe-yes">Yes</button>
+                <div>
+            </div>
+            <hr class="my-4 row">
+            <h2 class="row"><strong>Sex: </strong><span id="sex">{{$donorsArray[0]['donor']->sex == 0 ? 'Male' : 'Female'}}</span></h2>
+            <h2 class="row"><strong>Birth Date: </strong><span id="birthdate">{{date("d F Y" ,strtotime($donorsArray[0]['donor']->birth_date))}}</span></h2>
+            <h2 class="row"><strong>Age: </strong><span id="age">{{ floor((time() - strtotime($donorsArray[0]['donor']->birth_date)) / 31556926) }}</span></h2>
+            <h3 class="row"><strong>Eye color: </strong><span id="eyecolor">{{$donorsArray[0]['eyecolor']}}</span></h3>
+            <h3 class="row"><strong>Hair color: </strong><span id="haircolor">{{$donorsArray[0]['haircolor']}}</span></h3>
+            <h3 class="row"><strong>Ethnicity: </strong><span id="ethnicity">{{$donorsArray[0]['ethnicity']}}</span></h3>
+            <h3 class="row"><strong>Family antecedents: </strong><span id="family_antecedents">{{$donorsArray[0]['donor']->family_antecedents}}</span></h3>
+            <h3 class="row"><strong>Medical antecedents: </strong><span id="medical_antecedents">{{$donorsArray[0]['donor']->medical_antecedents}}</span></h3>
             <span style="display:none;" id="donor_id">{{$donorsArray[0]['donor']->id}}</span>
         </div>
     </div>
