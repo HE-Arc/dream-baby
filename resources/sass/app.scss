@@ -83,7 +83,12 @@
   background-color: $red;
   border-color: $dark_red;
 }
+
 .swipe-no:hover {
   background-color: $darker_red;
   border-color: $dark_red;
+}
+
+.swipe-info {
+  font-size: 1.2rem;
 }
