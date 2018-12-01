@@ -10,8 +10,12 @@
         </div>
     @endif
     </div>
-    <h1>Public questions</h3>
-    <p>Select a question you want to answer to</p>
+    <div class="row">
+        <h1 class="col">Public questions</h3>
+    </div>
+    <div class="row">
+        <p class="col">Select a question you want to answer to</p>
+    </div>
     <form method="POST" action="{{route('donor.reply')}}"  enctype="multipart/form-data">
     @csrf
         <div class="form-group row">
@@ -33,13 +37,14 @@
             </div>
         </div>
 
-        <h3 class="col-md-6 offset-md-4">Reply to question</h3>
+        
         <div class="form-group row">
             <div class="col-md-6 offset-md-4">
+                <h3>Reply to question</h3>
                 <textarea class="form-control" id="message" name="message" required></textarea>
             </div>
         </div>
-        <div class="form-group row mb-0">
+        <div class="form-group row">
             <div class="col-md-6 offset-md-4">
                 <button type="submit" class="btn btn-primary btn-block">
                     {{ __('Validate') }}
@@ -48,7 +53,7 @@
         </div>
     </form>
 
-    <div class="form-group row mb-0">
+    <div class="form-group row">
         <div class="col-md-6 offset-md-4">
             <a href="/donor/deleteallquestions" class="btn btn-danger btn-block">
                 {{ __('Delete all questions') }}
