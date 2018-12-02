@@ -19,24 +19,11 @@ use Illuminate\Support\Facades\Storage;
 
 class DonorController extends Controller
 {
-    public function myquestions()
-    {
-        if (Auth::user()->user_type_id == 1) {
-            $donor=DonorController::getDonorInfo(Auth::id());
-            $user=DonorController::getUserInfo(Auth::id());
-
-            $questions=QuestionAnswer::where('donor_id',$donor->id)
-                ->select('question_answers.*','users.name','seekers.id as seeker_id')
-                ->join('seekers','question_answers.seeker_id','seekers.id')
-                ->join('users','seekers.user_id','users.id')->get();
-
-        } else {
-            abort(403);
-        }
-        return view('donor.myquestions',compact('questions','donor','user'));
-    }
-
-    public function update($user_id)
+    /**
+     * Upate a Donor Model using request object
+     * @param int $user_id
+     */
+    public function update(int $user_id)
     {
         // https://laracasts.com/discuss/channels/laravel/edit-user-profile-best-practice-in-laravel-55?page=1
         $this->validate(request(), [
@@ -79,12 +66,40 @@ class DonorController extends Controller
         return back()->with('success', 'Profile Updated Successfully');
     }
 
-    private function getQuestions($id)
+    /**
+     * Return myquestion view of the auth user
+     */
+    public function myquestions()
+    {
+        if (Auth::user()->user_type_id == 1) {
+            $donor=DonorController::getDonorInfo(Auth::id());
+            $user=DonorController::getUserInfo(Auth::id());
+
+            $questions=QuestionAnswer::where('donor_id',$donor->id)
+                ->select('question_answers.*','users.name','seekers.id as seeker_id')
+                ->join('seekers','question_answers.seeker_id','seekers.id')
+                ->join('users','seekers.user_id','users.id')->get();
+
+        } else {
+            abort(403);
+        }
+        return view('donor.myquestions',compact('questions','donor','user'));
+    }
+
+    /**
+     * Get questions of a donor form the donor id
+     * @param int $id
+     */
+    private function getQuestions(int $id)
     {
         $questions = QuestionAnswer::where('donor_id', $id)->get();
         return $questions;
     }
 
+    /**
+     * Return the donor's questions of the auth id
+     * @param int $id
+     */
     public function questions(int $id)
     {
         $donor = DonorController::getDonorInfo($id);
@@ -108,18 +123,30 @@ class DonorController extends Controller
         return view('donor.questions', compact('user','donor','questions','swiped'));
     }
 
+    /**
+     * Get the donor info from a donor id
+     * @param int $id
+     */
     public static function getDonorInfo(int $id)
     {
         $donorProfil = Donor::where('user_id', $id)->first();
         return $donorProfil;
     }
 
+    /**
+     * Get the user info from a user id
+     * @param int $id
+     */
     public static function getUserInfo(int $id)
     {
         $userProfil = User::where('id', $id)->first();
         return $userProfil;
     }
 
+    /**
+     * Get the donor id from its user id. Can return an error 404
+     * @param int $id
+     */
     public static function getDonorIdFromuserId(int $id)
     {
         $donorId = Donor::where('user_id', $id)->first()->id;
@@ -130,6 +157,10 @@ class DonorController extends Controller
         return $donorId;
     }
 
+    /**
+     * Search an image from its filename
+     * @param string $filename
+     */
     public function image($filename)
     {
         if (!Storage::disk('local')->has($filename)) {
@@ -139,6 +170,15 @@ class DonorController extends Controller
         return new Response($file, 200);
     }
 
+    /**
+     * Get an array of criterions ids.
+     * Foreach criterions at the criterion key, if the item is searched, this item is push to the array.
+     * Then, the array is return
+     * 
+     * @param array[string]Criteria $criterions array of criterions
+     * @param string $criterionKey criteria class name
+     * @return array[]int array of criterions id
+     */
     private static function getCriterionIdArray($criterions, $criterionKey)
     {
         $criterionsIds = [];
@@ -150,7 +190,11 @@ class DonorController extends Controller
         return $criterionsIds;
     }
 
-    public function deleteQuestion($id)
+    /**
+     * Delete a question using its id. Verifiying if the auth user is a donor. Can throw an 403 error.
+     * @param int $id
+     */
+    public function deleteQuestion(int $id)
     {
         if (Auth::user()->user_type_id == 1) {
             $donorId = DonorController::getDonorInfo(Auth::id())->id;
@@ -161,7 +205,12 @@ class DonorController extends Controller
         }
     }
 
-    public static function getRandomDonorProfil($count)
+    /**
+     * Get random donor profils using the criteria of the auth seeker criterions
+     * @param int $count number of random donor profils
+     * @return ['donorsArray' => $donorsArray]
+     */
+    public static function getRandomDonorProfil(int $count)
     {
         $seekerId = SeekerController::getSeekerInfo(Auth::id())->id;
 
@@ -206,6 +255,11 @@ class DonorController extends Controller
         return ['donorsArray' => $donorsArray];
     }
 
+    /**
+     * Ask a question to a donor using the donor id and the request.
+     * Verifiy the auth user is a seeker and save the question in the DB
+     * @param int $id
+     */
     public function ask($id)
     {
         if (Auth::user()->user_type_id == 2) {
@@ -232,6 +286,10 @@ class DonorController extends Controller
         }
     }
 
+    /**
+     * Reply to a question using the request
+     * Verifying the auth user is a donor and save the answer in the DB
+     */
     public function reply()
     {
         if (Auth::user()->user_type_id == 1) {
@@ -252,6 +310,11 @@ class DonorController extends Controller
         }
     }
 
+    /**
+     * Delete all the questions of a donor
+     * Verifying the auth user is a donor.
+     * Can throw an error 403
+     */
     public function deleteAllQuestions()
     {
         if (Auth::user()->user_type_id == 1) 
