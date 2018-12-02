@@ -10466,6 +10466,46 @@ a.text-dark:focus {
   }
 }
 
+@-webkit-keyframes shade-title {
+  0% {
+    color: #7f6d65;
+  }
+
+  100% {
+    color: #47403d;
+    -webkit-transform: skewX(-10deg);
+            transform: skewX(-10deg);
+  }
+}
+
+@keyframes shade-title {
+  0% {
+    color: #7f6d65;
+  }
+
+  100% {
+    color: #47403d;
+    -webkit-transform: skewX(-10deg);
+            transform: skewX(-10deg);
+  }
+}
+
+.title {
+  color: #7f6d65;
+  font-size: 2.25rem;
+}
+
+.title:hover {
+  -webkit-animation-name: shade-title;
+          animation-name: shade-title;
+  -webkit-animation-duration: 2s;
+          animation-duration: 2s;
+  -webkit-animation-timing-function: ease-out;
+          animation-timing-function: ease-out;
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+}
+
 .navbar-laravel {
   background-color: #ffd6c3;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
@@ -10473,11 +10513,11 @@ a.text-dark:focus {
 }
 
 .jumbotron {
-  background-color: #ffd6c336;
+  background-color: rgba(255, 214, 195, 0.21);
 }
 
 .card-header {
-  background-color: #ffd6c336;
+  background-color: rgba(255, 214, 195, 0.21);
 }
 
 .btn-primary {
