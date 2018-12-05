@@ -14,6 +14,11 @@ use Response;
 
 class SeekerController extends Controller
 {
+    /**
+     * Update a Seeker Model using request object
+     * @param int $user_id
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($user_id)
     {
         // https://laracasts.com/discuss/channels/laravel/edit-user-profile-best-practice-in-laravel-55?page=1
@@ -75,6 +80,8 @@ class SeekerController extends Controller
 
     /**
      * Search random donors for the authented seeker
+     * can throw an error 403 if the authe user_type is not seeker
+     * @return \Illuminate\Http\Response
      */
     public function search()
     {
@@ -89,6 +96,11 @@ class SeekerController extends Controller
         }
     }
 
+    /**
+     * Add a donor in auth user swipe history using request object
+     * @param Request $request
+     * @return \Illuminate\Http\Response
+     */
     public function addToSwipeHistory(Request $request)
     {
         //TO-DO: add validator for request
@@ -112,6 +124,11 @@ class SeekerController extends Controller
         }
     }
 
+    /**
+     * Delete the swipe history of the auth user
+     * Can throw an error 403 if auth user_type is not seeker
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function deleteSwipeHistory()
     {
         if (Auth::user()->user_type_id == 2) 
@@ -124,12 +141,22 @@ class SeekerController extends Controller
         }
     }
 
+    /**
+     * Get the Seeker Model of a user using its user id
+     * @param int $id
+     * @return Seeker $seekerProfil
+     */
     public static function getSeekerInfo(int $id)
     {
         $seekerProfil = Seeker::where('user_id', $id)->first();
         return $seekerProfil;
     }
 
+    /**
+     * Get the User Model of a user using its id
+     * @param int $id
+     * @return User $userProfil
+     */
     public static function getUserInfo(int $id)
     {
         $userProfil = User::where('id', $id)->first();
