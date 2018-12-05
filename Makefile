@@ -1,5 +1,5 @@
 
-all: clean migrate compile-scss serve
+all: clean migrate compile-scss update-npm serve
 
 clean:
 	rm -rf ./storage/app/*profilImage.*
@@ -12,3 +12,6 @@ compile-scss:
 
 serve:
 	php artisan serve;
+
+update-npm:
+	npm install
