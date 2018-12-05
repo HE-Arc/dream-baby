@@ -32,7 +32,7 @@
                 @else
                     <div class="text-md-right"><strong>{{$user->name}}</strong></br>{{$question->message}}
                 @endif
-                <br/><a href="/donor/deletequestion/{{$question->id}}"><span class="text-danger">delete</a></div>
+                <br/><a href="#"><span class="text-danger">delete</a></div>
                 @endforeach
             </div>
         </div>
@@ -55,7 +55,7 @@
 
     <div class="form-group row">
         <div class="col-md-6 offset-md-4">
-            <a href="/donor/deleteallquestions" class="btn btn-danger btn-block">
+            <a href="#" class="btn btn-danger btn-block">
                 {{ __('Delete all questions') }}
             </a>
         </div>

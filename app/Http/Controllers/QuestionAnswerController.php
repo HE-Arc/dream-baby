@@ -3,28 +3,53 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Auth;
+use Illuminate\Support\Facades\Auth;
+use App\Donor;
+use App\Seeker;
+use App\Question;
+use App\Answer;
 
 class QuestionAnswerController extends Controller
 {
     /**
      * Return questions of auth user depending of its user_type
+     * @return \Illuminate\Http\Response
      */
     public function myquestions()
     {
-        if(Auth::user()->user_type_id == 1) // Donor
-        {
-            // TODO
-            // return view myquestions donor
+        if(Auth::check()) {
+            switch(Auth::user()->user_type_id)
+            {
+                case 1: // Donor
+                    $donor=DonorController::getDonorInfo(Auth::id());
+                    $user=DonorController::getUserInfo(Auth::id());
+
+                    $questions = Question::where('donor_id', $seeker->id);
+                    $questions_answers = QuestionAnswerController::getQuestionsAnswersArray($questions);
+
+                    return view('donor.myquestions', compact('donor', 'user', 'questions_answers'));
+                case 2: // Seeker
+                    $seeker=SeekerController::getSeekerInfo(Auth::id());
+                    $user=SeekerController::getUserInfo(Auth::id());
+
+                    $questions = Question::where('seeker_id', $seeker->id);
+                    $questions_answers = QuestionAnswerController::getQuestionsAnswersArray($questions);
+
+                    return view('seeker.myquestions', compact('seeker', 'user', 'questions_answers'));
+            }
+        } else {
+            return view('home');
         }
-        elseif (Auth::user()->user_type_id == 2)    // Seeker
-        {
-            // TODO
-            // return view myquestions seeker
-        }
-        else {
-            abort(403);
-        }
+    }
+
+    /**
+     * Show questions and answers of a donor using its id
+     * @param int $donor_id
+     * @return \Illuminate\Http\Response
+     */
+    public function questions(int $donor_id)
+    {
+        // TODO
     }
 
     /**
@@ -71,5 +96,19 @@ class QuestionAnswerController extends Controller
         } else {
             abort(403);
         }
+    }
+
+    /**
+     * Get an array with questions as key and answers as values
+     * from a questions models array
+     * @param Array[Question => Answer] $questions
+     */
+    private static function getQuestionsAnswersArray($questions)
+    {
+        $questions_answers = [];
+        foreach ($questions as $item) {
+            $questions_answers[$item] = $item->answer();
+        }
+        return $questions_answers;
     }
 }
