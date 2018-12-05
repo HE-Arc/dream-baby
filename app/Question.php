@@ -12,6 +12,6 @@ class Question extends Model
      */
     public function answer()
     {
-        return Answer::where('question_id', $this->id)->first();
+        return $this->hasOne('App\Answer')->first();
     }
 }

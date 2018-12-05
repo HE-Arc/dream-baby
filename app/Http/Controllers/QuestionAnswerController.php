@@ -24,18 +24,18 @@ class QuestionAnswerController extends Controller
                     $donor=DonorController::getDonorInfo(Auth::id());
                     $user=DonorController::getUserInfo(Auth::id());
 
-                    $questions = Question::where('donor_id', $seeker->id);
-                    $questions_answers = QuestionAnswerController::getQuestionsAnswersArray($questions);
+                    $questions = $donor->questions();
+                    $answers = QuestionAnswerController::getAnswersArray($questions);
 
-                    return view('donor.myquestions', compact('donor', 'user', 'questions_answers'));
+                    return view('donor.myquestions', compact('donor', 'user', 'questions', 'answers'));
                 case 2: // Seeker
                     $seeker=SeekerController::getSeekerInfo(Auth::id());
                     $user=SeekerController::getUserInfo(Auth::id());
 
-                    $questions = Question::where('seeker_id', $seeker->id);
-                    $questions_answers = QuestionAnswerController::getQuestionsAnswersArray($questions);
+                    $questions = $seeker->questions();
+                    $answers = QuestionAnswerController::getAnswersArray($questions);
 
-                    return view('seeker.myquestions', compact('seeker', 'user', 'questions_answers'));
+                    return view('seeker.myquestions', compact('seeker', 'user', 'questions', 'answers'));
             }
         } else {
             return view('home');
@@ -43,22 +43,38 @@ class QuestionAnswerController extends Controller
     }
 
     /**
-     * Show questions and answers of a donor using its id
-     * @param int $donor_id
+     * Show questions and answers of a donor using its user id
+     * @param int $user_id
      * @return \Illuminate\Http\Response
      */
-    public function questions(int $donor_id)
+    public function questions(int $user_id)
     {
-        // TODO
+        if(Auth::check())
+        {
+            if(Auth::user()->user_type_id == 2)
+            {
+                $donor=DonorController::getDonorInfo($user_id);
+                if ($donor==null) {
+                    abort(404);
+                }
+                $user_donor = $donor->user();
+
+                $questions = $donor->questions();
+                $answers = QuestionAnswerController::getAnswersArray($questions);
+
+                return view('donor.questions', compact('donor', 'user_donor', 'questions', 'answers'));
+            }
+        }
+        return view('home');
     }
 
     /**
-     * Ask a question to a donor using its id and the request.
+     * Ask a question to a donor using its user_id and the request.
      * Verifiy the auth user is a seeker and save the question in the DB.
-     * @param int $donor_id
+     * @param int $user_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function create_question($donor_id)
+    public function create_question($user_id)
     {
         // TODO
     }
@@ -99,16 +115,17 @@ class QuestionAnswerController extends Controller
     }
 
     /**
-     * Get an array with questions as key and answers as values
-     * from a questions models array
-     * @param Array[Question => Answer] $questions
+     * Get an array of answers from a questions models array.
+     * The key is the question id and the content is the answer
+     * @param Array[Question] $questions
+     * @return Array[Answer]
      */
-    private static function getQuestionsAnswersArray($questions)
+    private static function getAnswersArray($questions)
     {
-        $questions_answers = [];
+        $answers = [];
         foreach ($questions as $item) {
-            $questions_answers[$item] = $item->answer();
+            $answers[$item->id] = $item->answer();
         }
-        return $questions_answers;
+        return $answers;
     }
 }

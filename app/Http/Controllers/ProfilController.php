@@ -28,7 +28,7 @@ class ProfilController extends Controller
                     if ($donor==null) {
                         abort(404);
                     }
-                    $user=DonorController::getUserInfo(Auth::id());
+                    $user=$donor->user();
                     $ethnicities=Ethnicity::all();
                     $hair_colors=HairColor::all();
                     $eye_colors=EyeColor::all();

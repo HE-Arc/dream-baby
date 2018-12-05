@@ -7,6 +7,7 @@ use App\Criteria;
 use App\EyeCriteria;
 use App\HairCriteria;
 use App\EthnicityCriteria;
+use App\Question;
 
 
 class Seeker extends Model
@@ -67,6 +68,14 @@ class Seeker extends Model
         $hair = $this->hairs;
         $ethnicity = $this->ethnicities;
         return compact('main', 'eye', 'hair', 'ethnicity');
+    }
+
+    /**
+     * Return Question Models of the used Seeker
+     */
+    public function questions()
+    {
+        return Question::where('seeker_id', $this->id)->get();
     }
 
     /**

@@ -14,6 +14,22 @@ class RandomQuestionsAnswersTableSeeder extends Seeder
      */
     public function run()
     {
+        // For test
+        $question_id = DB::table('questions')->insertGetId([
+            'seeker_id'     => 1,
+            'donor_id'      => 1,
+            'message'       => 'Hello, Do you have any illness undeclared?',
+            'anonymous'     => 0,
+            'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+        DB::table('answers')->insert([
+            'question_id'   => $question_id,
+            'reply'         => 'No...',
+            'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
+        ]);
+
+
         // questions (30)
         $questions = [
             'Do you swear often?',
