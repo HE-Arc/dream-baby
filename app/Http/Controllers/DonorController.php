@@ -189,7 +189,18 @@ class DonorController extends Controller
         $criterionsIds = [];
         foreach ($criterions[$criterionKey] as $item) {
             if ($item->searched) {
-                array_push($criterionsIds, $item->id);
+                switch($criterionKey){
+                    case "eye":
+                        $criterionId=$item->eye_color;
+                    break;
+                    case "hair":
+                        $criterionId=$item->hair_color;
+                    break;
+                    case "ethnicity":
+                        $criterionId=$item->ethnicity;
+                    break;
+                }
+                array_push($criterionsIds, $criterionId);
             }
         }
         return $criterionsIds;
@@ -228,9 +239,9 @@ class DonorController extends Controller
             $hiddenDonorIds = [];
         }
 
-        $alreadySwipedId = HistorySwipe::where('seeker_id', $seekerId)->pluck('donor_id')->toArray();
+        $alreadySwipedIds = HistorySwipe::where('seeker_id', $seekerId)->pluck('donor_id')->toArray();
 
-        $donorProfil = Donor::whereNotIn('id', $alreadySwipedId)
+        $donorProfil = Donor::whereNotIn('id', $alreadySwipedIds)
             ->whereNotIn('id', $hiddenDonorIds)
             ->where('sex', $criterions['main']->sex)
             ->whereDate('birth_date', '>', $criterions['main']->birth_date_max)
