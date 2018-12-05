@@ -18,5 +18,10 @@
         "lodash": "^4.17.5",
         "popper.js": "^1.12",
         "vue": "^2.5.7"
+    },
+    "dependencies": {
+        "moment": "^2.22.2",
+        "swiper": "^4.4.2",
+        "toastr": "^2.1.4"
     }
 }

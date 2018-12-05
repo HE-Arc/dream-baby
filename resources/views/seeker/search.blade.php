@@ -2,13 +2,9 @@
 <!-- CSRF Token -->
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
 <link rel="stylesheet" href="/css/swipe.css">
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/js/swiper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 
 @section('content')
 
@@ -54,7 +50,7 @@
             </div>
             <div class="row swipe-info">
                 <i class="col-md-2 fa fa-birthday-cake"></i>
-                <p class="col-md-8 text-justify" id="birthdate">{{date("d F Y" ,strtotime($donorsArray[0]['donor']->birth_date))}}</p>
+                <p class="col-md-8 text-justify" id="age">{{ floor((time() - strtotime($donorsArray[0]['donor']->birth_date)) / 31556926) }} ({{date("d F Y" ,strtotime($donorsArray[0]['donor']->birth_date))}})</p>
             </div>
             <div class="row swipe-info">
                 <i class="col-md-2 fa fa-eye"></i>
@@ -92,8 +88,7 @@
             <span class="hidden-family_antecedents">{{$donorsArray[$i]['donor']->family_antecedents}}</span>
             <span class="hidden-medical_antecedents">{{$donorsArray[$i]['donor']->medical_antecedents}}</span>
             <span class="hidden-donor_id">{{$donorsArray[$i]['donor']->id}}</span>
-            <span class="hidden-age">{{ floor((time() - strtotime($donorsArray[0]['donor']->birth_date)) / 31556926) }}</span>
-            <span class="hidden-birthdate">{{date("d F Y" ,strtotime($donorsArray[0]['donor']->birth_date))}}</span>
+            <span class="hidden-age">{{ floor((time() - strtotime($donorsArray[$i]['donor']->birth_date)) / 31556926) }} ({{date("d F Y" ,strtotime($donorsArray[$i]['donor']->birth_date))}})</span>
         </div>
         @endfor
     </div>
