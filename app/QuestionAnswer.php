@@ -17,6 +17,10 @@ class QuestionAnswer extends Model
         'seeker_id','donor_id','message','anonymous'
     ];
 
+    /**
+     * Return Seeker Model related to the used QuestionAnser Model
+     * @return Seeker
+     */
     public function seeker()
     {
         return $this->belongsTo('App\Seeker');
