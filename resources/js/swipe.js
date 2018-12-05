@@ -3,7 +3,7 @@ var toastr=require('toastr');
 var moment=require('moment');
 
 function showNoSwipesAvalaibleToast() {
-   toastr.warning("You have already swiped all the available donors based on your criterions on this website ! Congratulations !");
+   toastr.warning("Congratulations ! <br/>You already have swiped all the available donors...<br/>But change your criteria or wait a little bit to find new ones !");
 }
 
 function loadNextProfil(swiper) {
@@ -131,6 +131,9 @@ class Donor {
 var donorQueue = new Queue();
 
 function initPage() {
+    
+    toastr.options={"positionClass": "toast-top-full-width"};
+
     var swiper = new Swiper.default('.swiper-container', {
         initialSlide: 1,
     });

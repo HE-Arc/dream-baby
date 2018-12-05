@@ -106,6 +106,12 @@ class DonorController extends Controller
      */
     public function questions(int $id)
     {
+        if (Auth::user()->user_type_id == 1)
+        {
+            abort(403);
+        }
+
+
         $donor = DonorController::getDonorInfo($id);
         $user = DonorController::getUserInfo($donor->user_id);
         
@@ -118,13 +124,18 @@ class DonorController extends Controller
             abort(404);
         }
 
-        $swiped = null;
 
-        if (Auth::user()->user_type_id == 2) {
-            $swiped = HistorySwipe::where('seeker_id', SeekerController::getSeekerInfo(Auth::user()->id)->id)->where('donor_id', $donor->id)->first();
+        
+        $swiped = HistorySwipe::where('seeker_id', SeekerController::getSeekerInfo(Auth::user()->id)->id)
+        ->where('donor_id', $donor->id)->where('like',1)->first();
+
+        if ($swiped==null)
+        {
+            abort(403);
         }
+        
 
-        return view('donor.questions', compact('user','donor','questions','swiped'));
+        return view('donor.questions', compact('user','donor','questions'));
     }
 
     /**

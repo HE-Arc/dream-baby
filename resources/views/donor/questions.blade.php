@@ -30,7 +30,6 @@
         </div>
     </div>
 
-    @if(Auth::user()->user_type_id==2 and isset($swiped))
     <h3>Ask a public question</h3>
     <form method="POST" action="/donor/ask/{{$donor->id}}"  enctype="multipart/form-data">
     @csrf
@@ -48,7 +47,6 @@
             </div>
         </div>
     </form>
-    @endif
 
 
 </div>

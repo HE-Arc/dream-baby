@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 169);
+/******/ 	return __webpack_require__(__webpack_require__.s = 164);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1902,7 +1902,7 @@
             try {
                 oldLocale = globalLocale._abbr;
                 var aliasedRequire = require;
-                __webpack_require__(165)("./" + name);
+                __webpack_require__(170)("./" + name);
                 getSetGlobalLocale(oldLocale);
             } catch (e) {}
         }
@@ -4574,7 +4574,7 @@
 
 })));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)(module)))
 
 /***/ }),
 /* 1 */,
@@ -14949,9 +14949,7 @@ return jQuery;
 
 
 /***/ }),
-/* 3 */,
-/* 4 */,
-/* 5 */
+/* 3 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -14979,6 +14977,8 @@ module.exports = function(module) {
 
 
 /***/ }),
+/* 4 */,
+/* 5 */,
 /* 6 */,
 /* 7 */,
 /* 8 */,
@@ -26938,12 +26938,230 @@ var win = (typeof window === 'undefined') ? {
 /* 158 */,
 /* 159 */,
 /* 160 */,
-/* 161 */
+/* 161 */,
+/* 162 */,
+/* 163 */,
+/* 164 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(165);
+
+
+/***/ }),
+/* 165 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Swiper = __webpack_require__(166);
+var toastr = __webpack_require__(168);
+var moment = __webpack_require__(0);
+
+function showNoSwipesAvalaibleToast() {
+    toastr.warning("Congratulations ! <br/>You already have swiped all the available donors...<br/>But change your criteria or wait a little bit to find new ones !");
+}
+
+function loadNextProfil(swiper) {
+    if (swiper.activeIndex != 1) {
+        if (donorQueue.size() > 0) {
+            var _token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            var swipedDonor = donorQueue.remove();
+
+            lastDonorId = swipedDonor.id;
+            var like = -1;
+            if (swiper.activeIndex == 0) {
+                like = 0;
+            } else if (swiper.activeIndex == 2) {
+                like = 1;
+            }
+
+            fetch('/seeker/swipe', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': _token
+                },
+                body: JSON.stringify({
+                    donor_id: swipedDonor.id,
+                    like: like
+                })
+            }).then(function (res) {
+                return res.json();
+            }).catch(function (err) {
+                return console.log(err);
+            }).then(function (data) {
+                if (data.donorsArray != null) {
+                    var fetchedDonor = data.donorsArray[0];
+                    fetch('/donor/image/' + fetchedDonor.donor.photo_uri, {
+                        method: 'get',
+                        headers: {
+                            'X-CSRF-TOKEN': _token
+                        }
+                    }).then(function (photoRes) {
+                        var fetchedPhoto = new Image();
+                        fetchedPhoto.src = photoRes.url;
+                        fetchedPhoto.classList.add("img-fluid");
+                        fetchedPhoto.id = "photo";
+                        var fetchedBirthdate = moment(new Date(fetchedDonor.donor.birth_date)).format("D MMMM YYYY");
+                        var fetchedAge = Math.abs(new Date(Date.now() - new Date(fetchedDonor.donor.birth_date).getTime()).getUTCFullYear() - 1970);
+
+                        donorQueue.add(new Donor(Number(fetchedDonor.donor.id), fetchedDonor.username, fetchedDonor.donor.sex, fetchedDonor.eyecolor, fetchedDonor.haircolor, fetchedDonor.ethnicity, fetchedDonor.donor.family_antecedents, fetchedDonor.donor.medical_antecedents, fetchedPhoto, fetchedAge + " (" + fetchedBirthdate + ")"));
+                    }).catch(function (photoErr) {
+                        return console.log(photoErr);
+                    });
+                }
+            }).catch(function (err) {
+                return console.log(err);
+            });
+
+            if (donorQueue.size() > 0) {
+                var nextDisplayedDonor = donorQueue.last();
+                document.getElementById('username').innerText = nextDisplayedDonor.username;
+                document.getElementById('sex').innerText = nextDisplayedDonor.sex == 0 ? 'Male' : 'Female';
+                document.getElementById('photo').replaceWith(nextDisplayedDonor.photo);
+                document.getElementById('eyecolor').innerText = nextDisplayedDonor.eyecolor;
+                document.getElementById('haircolor').innerText = nextDisplayedDonor.haircolor;
+                document.getElementById('ethnicity').innerText = nextDisplayedDonor.ethnicity;
+                document.getElementById('family_antecedents').innerText = nextDisplayedDonor.family_antecedents;
+                document.getElementById('medical_antecedents').innerText = nextDisplayedDonor.medical_antecedents;
+                document.getElementById('age').innerText = nextDisplayedDonor.age;
+            } else {
+                showNoSwipesAvalaibleToast();
+            }
+        } else {
+            showNoSwipesAvalaibleToast();
+        }
+    }
+    swiper.slideTo(1, 200, false);
+}
+
+//https://hackernoon.com/the-little-guide-of-queue-in-javascript-4f67e79260d9
+
+var Queue = function () {
+    function Queue() {
+        _classCallCheck(this, Queue);
+
+        this.data = [];
+    }
+
+    _createClass(Queue, [{
+        key: 'add',
+        value: function add(record) {
+            this.data.unshift(record);
+        }
+    }, {
+        key: 'remove',
+        value: function remove() {
+            return this.data.pop();
+        }
+    }, {
+        key: 'first',
+        value: function first() {
+            return this.data[0];
+        }
+    }, {
+        key: 'last',
+        value: function last() {
+            return this.data[this.data.length - 1];
+        }
+    }, {
+        key: 'size',
+        value: function size() {
+            return this.data.length;
+        }
+    }]);
+
+    return Queue;
+}();
+
+var Donor = function Donor(id, username, sex, eyecolor, haircolor, ethnicity, family_antecedents, medical_antecedents, photo, age) {
+    _classCallCheck(this, Donor);
+
+    this.id = id;
+    this.username = username;
+    this.sex = sex;
+    this.eyecolor = eyecolor;
+    this.haircolor = haircolor;
+    this.ethnicity = ethnicity;
+    this.family_antecedents = family_antecedents;
+    this.medical_antecedents = medical_antecedents;
+    this.photo = photo;
+    this.age = age;
+};
+
+var donorQueue = new Queue();
+
+function initPage() {
+
+    toastr.options = { "positionClass": "toast-top-full-width" };
+
+    var swiper = new Swiper.default('.swiper-container', {
+        initialSlide: 1
+    });
+
+    swiper.on('transitionEnd', function () {
+        return loadNextProfil(swiper);
+    });
+
+    if (document.getElementById('swipe-no') != null) {
+        document.getElementById('swipe-no').onclick = function () {
+            return swiper.slideTo(0, 200, false);
+        };
+
+        document.getElementById('swipe-yes').onclick = function () {
+            return swiper.slideTo(2, 200, false);
+        };
+    }
+
+    if (document.getElementById('swipe-profil') != null) {
+        var id = Number(document.getElementById('donor_id').innerText);
+        var username = document.getElementById('username').innerText;
+        var sex = document.getElementById('sex').innerText;
+        var eyecolor = document.getElementById('eyecolor').innerText;
+        var haircolor = document.getElementById('haircolor').innerText;
+        var ethnicity = document.getElementById('ethnicity').innerText;
+        var family_antecedents = document.getElementById('family_antecedents').innerText;
+        var medical_antecedents = document.getElementById('medical_antecedents').innerText;
+        var photo = document.getElementById('photo');
+        var age = document.getElementById('age').innerText;
+        donorQueue.add(new Donor(id, username, sex, eyecolor, haircolor, ethnicity, family_antecedents, medical_antecedents, photo, age));
+    }
+
+    if (document.getElementById('hidden-profils') != null) {
+        document.getElementById('hidden-profils').querySelectorAll('div').forEach(function (child) {
+            var id = Number(child.querySelector('.hidden-donor_id').innerText);
+            var username = child.querySelector('.hidden-username').innerText;
+            var sex = child.querySelector('.hidden-sex').innerText;
+            var eyecolor = child.querySelector('.hidden-eyecolor').innerText;
+            var haircolor = child.querySelector('.hidden-haircolor').innerText;
+            var ethnicity = child.querySelector('.hidden-ethnicity').innerText;
+            var family_antecedents = child.querySelector('.hidden-family_antecedents').innerText;
+            var medical_antecedents = child.querySelector('.hidden-medical_antecedents').innerText;
+            var photo = child.querySelector('.hidden-photo img');
+            var age = child.querySelector('.hidden-age').innerText;
+            photo.id = "photo";
+            donorQueue.add(new Donor(id, username, sex, eyecolor, haircolor, ethnicity, family_antecedents, medical_antecedents, photo, age));
+            child.remove();
+        });
+    }
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initPage);
+} else {
+    initPage();
+}
+
+/***/ }),
+/* 166 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_dom7_dist_dom7_modular__ = __webpack_require__(162);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_dom7_dist_dom7_modular__ = __webpack_require__(167);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ssr_window__ = __webpack_require__(12);
 /**
  * Swiper 4.4.2
@@ -33932,7 +34150,7 @@ Swiper.use(components);
 
 
 /***/ }),
-/* 162 */
+/* 167 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -35368,7 +35586,7 @@ function scroll(...args) {
 
 
 /***/ }),
-/* 163 */
+/* 168 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -35841,11 +36059,11 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
         })();
     }).apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
-}(__webpack_require__(164)));
+}(__webpack_require__(169)));
 
 
 /***/ }),
-/* 164 */
+/* 169 */
 /***/ (function(module, exports) {
 
 module.exports = function() {
@@ -35854,7 +36072,7 @@ module.exports = function() {
 
 
 /***/ }),
-/* 165 */
+/* 170 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
@@ -36119,222 +36337,7 @@ webpackContext.keys = function webpackContextKeys() {
 };
 webpackContext.resolve = webpackContextResolve;
 module.exports = webpackContext;
-webpackContext.id = 165;
-
-/***/ }),
-/* 166 */,
-/* 167 */,
-/* 168 */,
-/* 169 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(170);
-
-
-/***/ }),
-/* 170 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Swiper = __webpack_require__(161);
-var toastr = __webpack_require__(163);
-var moment = __webpack_require__(0);
-
-function showNoSwipesAvalaibleToast() {
-    toastr.warning("You have already swiped all the available donors based on your criterions on this website ! Congratulations !");
-}
-
-function loadNextProfil(swiper) {
-    if (swiper.activeIndex != 1) {
-        if (donorQueue.size() > 0) {
-            var _token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            var swipedDonor = donorQueue.remove();
-
-            lastDonorId = swipedDonor.id;
-            var like = -1;
-            if (swiper.activeIndex == 0) {
-                like = 0;
-            } else if (swiper.activeIndex == 2) {
-                like = 1;
-            }
-
-            fetch('/seeker/swipe', {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': _token
-                },
-                body: JSON.stringify({
-                    donor_id: swipedDonor.id,
-                    like: like
-                })
-            }).then(function (res) {
-                return res.json();
-            }).catch(function (err) {
-                return console.log(err);
-            }).then(function (data) {
-                if (data.donorsArray != null) {
-                    var fetchedDonor = data.donorsArray[0];
-                    fetch('/donor/image/' + fetchedDonor.donor.photo_uri, {
-                        method: 'get',
-                        headers: {
-                            'X-CSRF-TOKEN': _token
-                        }
-                    }).then(function (photoRes) {
-                        var fetchedPhoto = new Image();
-                        fetchedPhoto.src = photoRes.url;
-                        fetchedPhoto.classList.add("img-fluid");
-                        fetchedPhoto.id = "photo";
-                        var fetchedBirthdate = moment(new Date(fetchedDonor.donor.birth_date)).format("D MMMM YYYY");
-                        var fetchedAge = Math.abs(new Date(Date.now() - new Date(fetchedDonor.donor.birth_date).getTime()).getUTCFullYear() - 1970);
-
-                        donorQueue.add(new Donor(Number(fetchedDonor.donor.id), fetchedDonor.username, fetchedDonor.donor.sex, fetchedDonor.eyecolor, fetchedDonor.haircolor, fetchedDonor.ethnicity, fetchedDonor.donor.family_antecedents, fetchedDonor.donor.medical_antecedents, fetchedPhoto, fetchedAge + " (" + fetchedBirthdate + ")"));
-                    }).catch(function (photoErr) {
-                        return console.log(photoErr);
-                    });
-                }
-            }).catch(function (err) {
-                return console.log(err);
-            });
-
-            if (donorQueue.size() > 0) {
-                var nextDisplayedDonor = donorQueue.last();
-                document.getElementById('username').innerText = nextDisplayedDonor.username;
-                document.getElementById('sex').innerText = nextDisplayedDonor.sex == 0 ? 'Male' : 'Female';
-                document.getElementById('photo').replaceWith(nextDisplayedDonor.photo);
-                document.getElementById('eyecolor').innerText = nextDisplayedDonor.eyecolor;
-                document.getElementById('haircolor').innerText = nextDisplayedDonor.haircolor;
-                document.getElementById('ethnicity').innerText = nextDisplayedDonor.ethnicity;
-                document.getElementById('family_antecedents').innerText = nextDisplayedDonor.family_antecedents;
-                document.getElementById('medical_antecedents').innerText = nextDisplayedDonor.medical_antecedents;
-                document.getElementById('age').innerText = nextDisplayedDonor.age;
-            } else {
-                showNoSwipesAvalaibleToast();
-            }
-        } else {
-            showNoSwipesAvalaibleToast();
-        }
-    }
-    swiper.slideTo(1, 200, false);
-}
-
-//https://hackernoon.com/the-little-guide-of-queue-in-javascript-4f67e79260d9
-
-var Queue = function () {
-    function Queue() {
-        _classCallCheck(this, Queue);
-
-        this.data = [];
-    }
-
-    _createClass(Queue, [{
-        key: 'add',
-        value: function add(record) {
-            this.data.unshift(record);
-        }
-    }, {
-        key: 'remove',
-        value: function remove() {
-            return this.data.pop();
-        }
-    }, {
-        key: 'first',
-        value: function first() {
-            return this.data[0];
-        }
-    }, {
-        key: 'last',
-        value: function last() {
-            return this.data[this.data.length - 1];
-        }
-    }, {
-        key: 'size',
-        value: function size() {
-            return this.data.length;
-        }
-    }]);
-
-    return Queue;
-}();
-
-var Donor = function Donor(id, username, sex, eyecolor, haircolor, ethnicity, family_antecedents, medical_antecedents, photo, age) {
-    _classCallCheck(this, Donor);
-
-    this.id = id;
-    this.username = username;
-    this.sex = sex;
-    this.eyecolor = eyecolor;
-    this.haircolor = haircolor;
-    this.ethnicity = ethnicity;
-    this.family_antecedents = family_antecedents;
-    this.medical_antecedents = medical_antecedents;
-    this.photo = photo;
-    this.age = age;
-};
-
-var donorQueue = new Queue();
-
-function initPage() {
-    var swiper = new Swiper.default('.swiper-container', {
-        initialSlide: 1
-    });
-
-    swiper.on('transitionEnd', function () {
-        return loadNextProfil(swiper);
-    });
-
-    if (document.getElementById('swipe-no') != null) {
-        document.getElementById('swipe-no').onclick = function () {
-            return swiper.slideTo(0, 200, false);
-        };
-
-        document.getElementById('swipe-yes').onclick = function () {
-            return swiper.slideTo(2, 200, false);
-        };
-    }
-
-    if (document.getElementById('swipe-profil') != null) {
-        var id = Number(document.getElementById('donor_id').innerText);
-        var username = document.getElementById('username').innerText;
-        var sex = document.getElementById('sex').innerText;
-        var eyecolor = document.getElementById('eyecolor').innerText;
-        var haircolor = document.getElementById('haircolor').innerText;
-        var ethnicity = document.getElementById('ethnicity').innerText;
-        var family_antecedents = document.getElementById('family_antecedents').innerText;
-        var medical_antecedents = document.getElementById('medical_antecedents').innerText;
-        var photo = document.getElementById('photo');
-        var age = document.getElementById('age').innerText;
-        donorQueue.add(new Donor(id, username, sex, eyecolor, haircolor, ethnicity, family_antecedents, medical_antecedents, photo, age));
-    }
-
-    if (document.getElementById('hidden-profils') != null) {
-        document.getElementById('hidden-profils').querySelectorAll('div').forEach(function (child) {
-            var id = Number(child.querySelector('.hidden-donor_id').innerText);
-            var username = child.querySelector('.hidden-username').innerText;
-            var sex = child.querySelector('.hidden-sex').innerText;
-            var eyecolor = child.querySelector('.hidden-eyecolor').innerText;
-            var haircolor = child.querySelector('.hidden-haircolor').innerText;
-            var ethnicity = child.querySelector('.hidden-ethnicity').innerText;
-            var family_antecedents = child.querySelector('.hidden-family_antecedents').innerText;
-            var medical_antecedents = child.querySelector('.hidden-medical_antecedents').innerText;
-            var photo = child.querySelector('.hidden-photo img');
-            var age = child.querySelector('.hidden-age').innerText;
-            photo.id = "photo";
-            donorQueue.add(new Donor(id, username, sex, eyecolor, haircolor, ethnicity, family_antecedents, medical_antecedents, photo, age));
-            child.remove();
-        });
-    }
-}
-
-if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", initPage);
-} else {
-    initPage();
-}
+webpackContext.id = 170;
 
 /***/ })
 /******/ ]);
