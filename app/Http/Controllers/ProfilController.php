@@ -15,6 +15,10 @@ use App\QuestionAnswer;
 
 class ProfilController extends Controller
 {
+    /**Return myprofil view of auth user depending on its user_type
+     * Get all the informations related to it
+     * @return \Illuminate\Http\Response
+     */
     public function myprofil()
     {
         if (Auth::check()) {
@@ -62,6 +66,11 @@ class ProfilController extends Controller
         }
     }
 
+    /**
+     * Return profil view of a user depending on its user_type
+     * Get all his user_type info
+     * @return \Illuminate\Http\Response
+     */
     public function profil(int $id)
     {
         $user = User::where('id', $id)->first();
@@ -89,6 +98,7 @@ class ProfilController extends Controller
 
     /**
      * Get an array of names from a model array
+     * @return Array[string]
      */
     private static function getNamesArray($tab)
     {

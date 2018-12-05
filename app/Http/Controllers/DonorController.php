@@ -22,6 +22,7 @@ class DonorController extends Controller
     /**
      * Upate a Donor Model using request object
      * @param int $user_id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(int $user_id)
     {
@@ -68,6 +69,8 @@ class DonorController extends Controller
 
     /**
      * Return myquestion view of the auth user
+     * 
+     * @return \Illuminate\Http\Response
      */
     public function myquestions()
     {
@@ -99,6 +102,7 @@ class DonorController extends Controller
     /**
      * Return the donor's questions of the auth id
      * @param int $id
+     * @return \Illuminate\Http\Response
      */
     public function questions(int $id)
     {
@@ -160,6 +164,7 @@ class DonorController extends Controller
     /**
      * Search an image from its filename
      * @param string $filename
+     * @return \Illuminate\Http\Response
      */
     public function image($filename)
     {
@@ -193,6 +198,7 @@ class DonorController extends Controller
     /**
      * Delete a question using its id. Verifiying if the auth user is a donor. Can throw an 403 error.
      * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteQuestion(int $id)
     {
@@ -259,6 +265,7 @@ class DonorController extends Controller
      * Ask a question to a donor using the donor id and the request.
      * Verifiy the auth user is a seeker and save the question in the DB
      * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function ask($id)
     {
@@ -289,6 +296,7 @@ class DonorController extends Controller
     /**
      * Reply to a question using the request
      * Verifying the auth user is a donor and save the answer in the DB
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function reply()
     {
@@ -314,6 +322,7 @@ class DonorController extends Controller
      * Delete all the questions of a donor
      * Verifying the auth user is a donor.
      * Can throw an error 403
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteAllQuestions()
     {
