@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             EyeColorsTableSeeder::class,
             CriteriaTableSeeder::class,
             RandomDonorSeeder::class,
+            RandomQuestionsAnswersTableSeeder::class,
         ]);
     }
 }
