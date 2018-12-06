@@ -20,43 +20,43 @@
     </div>
     <form method="POST" action="#"  enctype="multipart/form-data">
     @csrf
-        @foreach ($questions as $question)
-        <div class="form-group row">
-            <div class="col-md-6 offset-md-4">
-                <div class="text-md-left">
-                    <input type="radio" id="{{$question->seeker_id}}" name="seeker_id" value="{{$question->seeker_id}}" required>
-                    <p>
-                        {{ $question->anonymous==0 ? $seekers_users[$question->seeker_id]->name : 'Anonymous'}}: {{$question->message}}
-                    </p>
+    @foreach ($questions as $question)
+    <div class="container">
+        <div class="row swipe-info">
+            <p class="col-md text-left">
+                {{ $question->message }}
+            </p>
+            <p class="col-md text-right">
+                {{ $question->anonymous==0 ? $seekers_users[$question->seeker_id]->name : 'Anonymous'}}
+            </p>
+        </div>
+        <div class="row">
+            <div class="col input-group mb-3">
+                @if(isset($answers[$question->id]))
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="">{{$answers[$question->id]->reply}}</span>
                 </div>
-                <div class="text-md-left">
-                    <p>
-                        {{$user->name}} : {{$answers[$question->id]->reply}}
-                    </p>
+                @else
+                <input type="text" class="form-control" placeholder="Reply..." aria-label="Reply..." aria-describedby="basic-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">
+                        <a href="{{route('questions.reply', $question->id)}}" >{{ __('Create') }}</a>
+                    </button>
                 </div>
-                <br/><a href="#"><span class="text-danger">delete</a>
+                @endif
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button">
+                        <a href="{{route('questions.delete', $question->id)}}" >{{ __('Delete') }}</a>
+                    </button>
+                </div>
             </div>
         </div>
-        @endforeach
-
-        <div class="form-group row">
-            <div class="col-md-6 offset-md-4">
-                <h3>Reply to question</h3>
-                <textarea class="form-control" id="message" name="message" required></textarea>
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary btn-block">
-                    {{ __('Validate') }}
-                </button>
-            </div>
-        </div>
-    </form>  
+    </div>
+    @endforeach
     
     <div class="form-group row">
-        <div class="col-md-6 offset-md-4">
-            <a href="#" class="btn btn-danger btn-block">
+        <div class="col mx-auto">
+            <a href="{{route('questions.deleteAll')}}" class="btn btn-danger btn-block">
                 {{ __('Delete all questions') }}
             </a>
         </div>

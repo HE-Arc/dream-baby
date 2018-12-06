@@ -12,13 +12,13 @@
     </div>
     <h2>Questions</h2>
     @if (count($questions) > 0)
-    <form method="DELETE" action="#"  enctype="multipart/form-data">
+    <form method="DELETE" action="questions.delete"  enctype="multipart/form-data">
     @csrf
         @foreach ($questions as $question)
         <div class="form-group row">
             <div class="col-md-6 offset-md-4">
                 <div class="text-md-left">
-                    <input type="radio" id="{{$question->seeker_id}}" name="seeker_id" value="{{$question->seeker_id}}" required>
+                    <input type="radio" id="{{$question->id}}" name="question_id" value="{{$question->id}}" required>
                     <p>
                         {{ $question->anonymous==0 ? $user->name : 'Anonymous'}}: {{$question->message}}
                     </p>
@@ -43,7 +43,7 @@
 
     <div class="form-group row">
         <div class="col-md-6 offset-md-4">
-            <a href="#" class="btn btn-danger btn-block">
+            <a href="questions.deleteAll" class="btn btn-danger btn-block">
                 {{ __('Delete all questions') }}
             </a>
         </div>

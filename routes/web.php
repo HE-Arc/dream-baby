@@ -49,9 +49,9 @@ Route::group(['middleware' => ['auth']], function () {
     // Questions route
     Route::get('questions', 'QuestionAnswerController@myquestions')->name('questions.myquestions');
     Route::post('questions/{id}', 'QuestionAnswerController@questions')->name('questions.donor');
-    // Route::post('questions/ask/{id}', 'QuestionAnswerController@create_question')->name('questions.ask');
-    // Route::post('questions/reply/{id}', 'QuestionAnswerController@create_reply')->name('questions.reply');
-    // Route::delete
-    // Route::deleteall
+    //Route::post('questions/ask/{id}', 'QuestionAnswerController@create_question')->name('questions.ask');
+    Route::post('questions/reply/{id}', 'QuestionAnswerController@create_reply')->name('questions.reply');
+    Route::get('questions/delete/{id}', 'QuestionAnswerController@deleteQuestion')->name('questions.delete');
+    Route::get('questions/delete', 'QuestionAnswerController@deleteAllQuestions')->name('questions.deleteAll');
 
 });

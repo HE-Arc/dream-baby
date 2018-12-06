@@ -92,27 +92,75 @@ class QuestionAnswerController extends Controller
     }
 
     /**
-     * Delete a question using its id.
-     * A seeker can delete a question
+     * Delete a question using its id
+     * and delete the answer if exist
      * 
      * @param int $question_id
      */
     public function deleteQuestion(int $question_id)
     {
-        // TODO
+        if(Auth::check()) {
+            switch(Auth::user()->user_type_id)
+            {
+                case 1: // Donor
+                    $donor = DonorController::getDonorInfo(Auth::id());
+                    $question = Question::where('id', $question_id)->first();
+                    if($question->donor_id == $donor->id) {
+                        $answer = $question->answer();
+                        if(isset($answer)){
+                            $answer->delete();
+                        }
+                        $question->delete();
+                        return back()->with('success', 'Question deleted successfully');
+                    }
+                    return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+                case 2: // Seeker
+                    $seeker = SeekerController::getSeekerInfo(Auth::id());
+                    $question = Question::where('id', $question_id)->first();
+                    if($question->seeker_id == $seeker->id) {
+                        $answer = $question->answer();
+                        if(isset($answer)){
+                            $answer->delete();
+                        }
+                        $question->delete();
+                        return back()->with('success', 'Question deleted successfully');
+                    }
+                    return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+            }
+        } else {
+            return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+        }
     }
 
     /**
-     * Delete all the questions asked by the auth id.
-     * Verifiy the auth user is a seeker and delete all questions and related answers
+     * Delete all the questions of the auth id.
+     * and delete the answers exists
      */
     public function deleteAllQuestions()
     {
-        if(Auth::user()->user_type_id == 2)
+        if(Auth::check())
         {
-            // TODO
+            switch(Auth::user()->user_type_id)
+            {
+                case 1: // Donor
+                    $donor = DonorController::getDonorInfo(Auth::id());
+                    $questions = Question::where('donor_id', $donor->id)->get();
+                    break;
+                case 2: // seeker
+                    $seeker = SeekerController::getSeekerInfo(Auth::id());
+                    $questions = Question::where('seeker_id', $seeker->id)->get();
+                    break;
+            }
+            foreach($questions as $question) {
+                $answer = $question->answer();
+                if(isset($answer)){
+                    $answer->delete();
+                }
+                $question->delete();
+            }
+            return back()->with('success', 'Question deleted successfully');
         } else {
-            abort(403);
+            return back()->withErrors('failure', 'You\'re not allowed to delete this question');
         }
     }
 
