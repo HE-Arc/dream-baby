@@ -12,38 +12,47 @@
     </div>
     <h2>Questions</h2>
     @if (count($questions) > 0)
-    <form method="DELETE" action="questions.delete"  enctype="multipart/form-data">
+    <form method="POST" action="questions.delete"  enctype="multipart/form-data">
     @csrf
         @foreach ($questions as $question)
-        <div class="form-group row">
-            <div class="col-md-6 offset-md-4">
-                <div class="text-md-left">
-                    <input type="radio" id="{{$question->id}}" name="question_id" value="{{$question->id}}" required>
-                    <p>
-                        {{ $question->anonymous==0 ? $user->name : 'Anonymous'}}: {{$question->message}}
-                    </p>
+        <div class="container">
+            <div class="row swipe-info">
+                <p class="col-md text-left">
+                    You've asked to
+                </p>
+                <p>
+                    <a href="{{route('profil.profil', $donors_users[$question->donor_id]->id)}}" class="col-md text-right">
+                        {{$donors_users[$question->donor_id]->name}}
+                    </a>
+                </p>
+            </div>
+            <div class="row">
+                <div class="col input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="">{{$question->message}}</span>
+                    </div>
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button">
+                            <a href="{{route('questions.delete', $question->id)}}" >{{ __('Delete') }}</a>
+                        </button>
+                    </div>
                 </div>
-                <div class="text-md-left">
-                    <p>
-                        {{$donors_users[$question->donor_id]->name}} : {{$answers[$question->id]->reply}}
-                    </p>
-                </div>
+            </div>
+            <div class="text-md-right">
+                <!-- TO IMPROVE -->
+                @if(isset($answers[$question->id]))
+                <p>{{$answers[$question->id]->reply}}</p>
+                @else
+                <p class="font-italic">still no reponses...</p>
+                @endif
             </div>
         </div>
         @endforeach
-
-        <div class="form-group row">
-            <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary btn-block">
-                    {{ __('Delete') }}
-                </button>
-            </div>
-        </div>
     </form>
 
     <div class="form-group row">
         <div class="col-md-6 offset-md-4">
-            <a href="questions.deleteAll" class="btn btn-danger btn-block">
+            <a href="{{route('questions.deleteAll')}}" class="btn btn-danger btn-block">
                 {{ __('Delete all questions') }}
             </a>
         </div>
