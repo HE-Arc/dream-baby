@@ -55,7 +55,7 @@ function loadNextProfil(swiper) {
                             donorQueue.add(new Donor(Number(fetchedDonor.donor.id), fetchedDonor.username,
                                 fetchedDonor.donor.sex, fetchedDonor.eyecolor, fetchedDonor.haircolor,
                                 fetchedDonor.ethnicity, fetchedDonor.donor.family_antecedents, fetchedDonor.donor.medical_antecedents, fetchedPhoto,
-                                fetchedAge+" ("+fetchedBirthdate+")"));
+                                fetchedBirthdate+" ("+fetchedAge+" years old)"));
                         }).catch(photoErr => console.log(photoErr));
                     }
                 }).catch(err => console.log(err));

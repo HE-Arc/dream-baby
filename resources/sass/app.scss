@@ -8,27 +8,17 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
-@keyframes shade-title {
-  0% {
-    color: $taupe;
-  }
-  100% {
-    color: $dark_taupe;
-    -ms-transform: skewX(-$title_angle);
-    transform: skewX(-$title_angle);
-  }
-}
-
 .title {
   color: $taupe;
   font-size: 2.25rem;
+  transition: 1s;
 }
 
 .title:hover {
-  animation-name: shade-title;
-  animation-duration: 2s;
-  animation-timing-function: ease-out;
-  animation-fill-mode: forwards;
+  color: $dark_taupe;
+  -ms-transform: skewX(-$title_angle);
+  transform: skewX(-$title_angle);
+  transition: 1s;
 }
 
 .navbar-laravel {
