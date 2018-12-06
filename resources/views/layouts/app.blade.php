@@ -34,7 +34,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <h1 class="title">Dream Baby</h1>
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            <h1 class="title">Dream Baby</h1>
+                        </a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

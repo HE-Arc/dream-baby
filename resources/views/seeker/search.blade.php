@@ -50,7 +50,7 @@
             </div>
             <div class="row swipe-info">
                 <i class="col-md-2 fa fa-birthday-cake"></i>
-                <p class="col-md-8 text-justify" id="age">{{ floor((time() - strtotime($donorsArray[0]['donor']->birth_date)) / 31556926) }} ({{date("d F Y" ,strtotime($donorsArray[0]['donor']->birth_date))}})</p>
+                <p class="col-md-8 text-justify" id="age">{{date("d F Y", strtotime($donorsArray[0]['donor']->birth_date))}} ({{ floor((time() - strtotime($donorsArray[0]['donor']->birth_date)) / 31556926)}} years old)</p>
             </div>
             <div class="row swipe-info">
                 <i class="col-md-2 fa fa-eye"></i>
@@ -88,7 +88,7 @@
             <span class="hidden-family_antecedents">{{$donorsArray[$i]['donor']->family_antecedents}}</span>
             <span class="hidden-medical_antecedents">{{$donorsArray[$i]['donor']->medical_antecedents}}</span>
             <span class="hidden-donor_id">{{$donorsArray[$i]['donor']->id}}</span>
-            <span class="hidden-age">{{ floor((time() - strtotime($donorsArray[$i]['donor']->birth_date)) / 31556926) }} ({{date("d F Y" ,strtotime($donorsArray[$i]['donor']->birth_date))}})</span>
+            <span class="hidden-age">{{date("d F Y", strtotime($donorsArray[$i]['donor']->birth_date))}} ({{ floor((time() - strtotime($donorsArray[$i]['donor']->birth_date)) / 31556926)}} years old)</span>
         </div>
         @endfor
     </div>
