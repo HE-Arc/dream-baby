@@ -132,7 +132,10 @@ var donorQueue = new Queue();
 
 function initPage() {
     
-    toastr.options={"positionClass": "toast-top-full-width"};
+    toastr.options={
+        "positionClass": "toast-top-full-width",
+        "preventDuplicates": true
+    };
 
     var swiper = new Swiper.default('.swiper-container', {
         initialSlide: 1,

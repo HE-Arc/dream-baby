@@ -22,7 +22,7 @@
         <h1 class="display-4 text-left">Congratulations !</h1>
         <p class="lead">You already have swiped all the available donors...</p>
         <hr class="my-4">
-        <p>But change your criteria or wait a little bit to find new ones !</p>
+        <p>But <a href="/profil">change your criteria</a> or wait a little bit to find new ones !</p>
     </div>
     @else
     <h1><span id="username">{{$donorsArray[0]['username']}}</span></h1>

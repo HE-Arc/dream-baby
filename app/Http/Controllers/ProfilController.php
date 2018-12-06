@@ -33,13 +33,9 @@ class ProfilController extends Controller
                     $hair_colors=HairColor::all();
                     $eye_colors=EyeColor::all();
                     
-                    $positiveSwipeSeekerIds=HistorySwipe::where('donor_id',$donor->id)->where('like',1)->pluck('seeker_id')->toArray();
-                    $positiveSwipeUserIds=Seeker::whereIn('id',$positiveSwipeSeekerIds)->pluck('user_id')->toArray();
-                    $positiveSwipeSeekerNames=User::whereIn('id',$positiveSwipeUserIds)->pluck('name')->toArray();
+                    
 
-                    $positiveSwipesArray=array_combine($positiveSwipeUserIds,$positiveSwipeSeekerNames);
-
-                    return view('donor.myprofil', compact('donor', 'user', 'ethnicities', 'hair_colors', 'eye_colors','positiveSwipesArray'));
+                    return view('donor.myprofil', compact('donor', 'user', 'ethnicities', 'hair_colors', 'eye_colors'));
                 case 2: // Seeker
                     $seeker=SeekerController::getSeekerInfo(Auth::id());
                     $user=SeekerController::getUserInfo(Auth::id());
@@ -53,13 +49,9 @@ class ProfilController extends Controller
                     $hair_colors=ProfilController::getNamesArray(HairColor::all());
                     $eye_colors=ProfilController::getNamesArray(EyeColor::all());
 
-                    $positiveSwipeDonorIds=HistorySwipe::where('seeker_id',$seeker->id)->where('like',1)->pluck('donor_id')->toArray();
-                    $positiveSwipeUserIds=Donor::whereIn('id',$positiveSwipeDonorIds)->pluck('user_id')->toArray();
-                    $positiveSwipeDonorNames=User::whereIn('id',$positiveSwipeUserIds)->pluck('name')->toArray();
 
-                    $positiveSwipesArray=array_combine($positiveSwipeUserIds,$positiveSwipeDonorNames);
 
-                    return view('seeker.myprofil', compact('seeker', 'user', 'seekerCriteria', 'ethnicities', 'hair_colors', 'eye_colors','positiveSwipesArray'));
+                    return view('seeker.myprofil', compact('seeker', 'user', 'seekerCriteria', 'ethnicities', 'hair_colors', 'eye_colors'));
             }
         } else {
             return view('home');

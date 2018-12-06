@@ -1,15 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\HistorySwipe;
 use App\Seeker;
 use App\User;
 use Carbon\Carbon;
-use Cookie;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Input;
 use Response;
 
 class SeekerController extends Controller
@@ -78,68 +73,6 @@ class SeekerController extends Controller
         return back()->with('success', 'Criterias Updated Successfully');
     }
 
-    /**
-     * Search random donors for the authented seeker
-     * can throw an error 403 if the authe user_type is not seeker
-     * @return \Illuminate\Http\Response
-     */
-    public function search()
-    {
-        if (Auth::user()->user_type_id == 2) {
-            $bufferSize = 2;
-            Cookie::queue(Cookie::forget('hiddenDonorIds'));
-            $donorsArray = DonorController::getRandomDonorProfil($bufferSize + 1);
-
-            return view('seeker.search', $donorsArray);
-        } else {
-            abort(403);
-        }
-    }
-
-    /**
-     * Add a donor in auth user swipe history using request object
-     * @param Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function addToSwipeHistory(Request $request)
-    {
-        //TO-DO: add validator for request
-        if (Auth::user()->user_type_id == 2) {
-            $historySwipe = new HistorySwipe();
-
-            $historySwipe->seeker_id = SeekerController::getSeekerInfo(Auth::id())->id;
-            $historySwipe->donor_id = Input::get('donor_id');
-            $historySwipe->like = Input::get('like');
-
-            $historySwipe->save();
-
-            return Response::json(DonorController::getRandomDonorProfil(1));
-
-        } else {
-            $response = array(
-                'status' => 'KO',
-                'msg' => 'Invalid use',
-            );
-            return Response::json($response, 401);
-        }
-    }
-
-    /**
-     * Delete the swipe history of the auth user
-     * Can throw an error 403 if auth user_type is not seeker
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function deleteSwipeHistory()
-    {
-        if (Auth::user()->user_type_id == 2) 
-        {
-            $seeker_id = SeekerController::getSeekerInfo(Auth::id())->id;
-            HistorySwipe::where('seeker_id',$seeker_id)->delete();
-            return back()->with('success', 'Swipe history deleted successfully');
-        }else {
-            abort(403);
-        }
-    }
 
     /**
      * Get the Seeker Model of a user using its user id
