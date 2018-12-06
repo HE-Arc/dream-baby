@@ -49,9 +49,9 @@ class ProfilController extends Controller
                         abort(404);
                     }
 
-                    $ethnicities=ProfilController::getNamesArray(Ethnicity::all());
-                    $hair_colors=ProfilController::getNamesArray(HairColor::all());
-                    $eye_colors=ProfilController::getNamesArray(EyeColor::all());
+                    $ethnicities=Controller::getNamesArray(Ethnicity::all());
+                    $hair_colors=Controller::getNamesArray(HairColor::all());
+                    $eye_colors=Controller::getNamesArray(EyeColor::all());
 
                     $positiveSwipeDonorIds=HistorySwipe::where('seeker_id',$seeker->id)->where('like',1)->pluck('donor_id')->toArray();
                     $positiveSwipeUserIds=Donor::whereIn('id',$positiveSwipeDonorIds)->pluck('user_id')->toArray();
@@ -94,18 +94,5 @@ class ProfilController extends Controller
         } else {
             abort(404);
         }
-    }
-
-    /**
-     * Get an array of names from a model array
-     * @return Array[string]
-     */
-    private static function getNamesArray($tab)
-    {
-        $new_tab = [];
-        foreach($tab as $item) {
-            $new_tab[$item->id] = $item->name;
-        }
-        return $new_tab;
     }
 }

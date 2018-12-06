@@ -33,9 +33,10 @@ class QuestionAnswerController extends Controller
                     $user=SeekerController::getUserInfo(Auth::id());
 
                     $questions = $seeker->questions();
+                    $donors_users = QuestionAnswerController::getDonorsUsersArray($questions);
                     $answers = QuestionAnswerController::getAnswersArray($questions);
 
-                    return view('seeker.myquestions', compact('seeker', 'user', 'questions', 'answers'));
+                    return view('seeker.myquestions', compact('seeker', 'user', 'questions', 'answers', 'donors_users'));
             }
         } else {
             return view('home');
@@ -112,6 +113,22 @@ class QuestionAnswerController extends Controller
         } else {
             abort(403);
         }
+    }
+
+    /**
+     * Get an array of donor users from a questions models array.
+     * The key is the donor id and the content is the user
+     * @param Array[Question] $questions
+     * @return Array[Donor]
+     */
+    private static function getDonorsUsersArray($questions)
+    {
+        $donors_users = [];
+        foreach ($questions as $item) {
+            $donor = $item->donor();
+            $donors_users[$donor->id] = $donor->user();
+        }
+        return $donors_users;
     }
 
     /**
