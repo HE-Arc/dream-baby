@@ -13,30 +13,31 @@
     <div class="row">
         <h1 class="col">Questions</h3>
     </div>
-    @if (isset($questions_answers))
+    @if (count($questions) > 0)
     <!-- Questions form -->
     <div class="row">
         <p class="col">Select a question you want to answer to</p>
     </div>
     <form method="POST" action="#"  enctype="multipart/form-data">
     @csrf
+        @foreach ($questions as $question)
         <div class="form-group row">
             <div class="col-md-6 offset-md-4">
-                @foreach ($questions_answers as $question => $answer)
-                    <div class="text-md-left"><input type="radio" id="{{$question->seeker_id}}" name="seeker_id" value="{{$question->seeker_id}}" required><strong>
-                    @if ($question->anonymous==1)
-                        Anonymous:
-                    @else
-                        {{$question->name}}:
-                    @endif
-                    </strong></strong><br/>{{$question->message}}
-                @if (isset($answer))
-                    <div class="text-md-right"><strong>{{$user->name}}</strong></br>{{$question->message}}
-                @endif
-                <br/><a href="#"><span class="text-danger">delete</a></div>
-                @endforeach
+                <div class="text-md-left">
+                    <input type="radio" id="{{$question->seeker_id}}" name="seeker_id" value="{{$question->seeker_id}}" required>
+                    <p>
+                        {{ $question->anonymous==0 ? $seekers_users[$question->seeker_id]->name : 'Anonymous'}}: {{$question->message}}
+                    </p>
+                </div>
+                <div class="text-md-left">
+                    <p>
+                        {{$user->name}} : {{$answers[$question->id]->reply}}
+                    </p>
+                </div>
+                <br/><a href="#"><span class="text-danger">delete</a>
             </div>
         </div>
+        @endforeach
 
         <div class="form-group row">
             <div class="col-md-6 offset-md-4">

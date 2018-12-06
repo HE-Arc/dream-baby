@@ -21,7 +21,7 @@ class Question extends Model
      */
     public function seeker()
     {
-        return $this->hasOne('App\Seeker')->first();
+        return Seeker::where('id', $this->seeker_id)->first();
     }
 
     /**
