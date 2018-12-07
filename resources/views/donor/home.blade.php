@@ -12,7 +12,7 @@
                 Describe yourself
             </a>
             and 
-            <a class="btn-link" href="{{ route('donor.myquestions') }}">
+            <a class="btn-link" href="{{ route('questions.myquestions') }}">
                 answer to the questions that you've been asked !
             </a>
         </p>
