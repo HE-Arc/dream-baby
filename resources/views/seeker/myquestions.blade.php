@@ -52,7 +52,7 @@
 
     <div class="form-group row">
         <div class="col-md-6 offset-md-4">
-            <a href="{{route('questions.deleteAll')}}" class="btn btn-danger btn-block">
+            <a href="{{route('questions.delete.all')}}" class="btn btn-danger btn-block" role="button">
                 {{ __('Delete all questions') }}
             </a>
         </div>

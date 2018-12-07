@@ -40,19 +40,13 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/seeker/swipe','SwipeController@addToSwipeHistory')->middleware('ajax');
     Route::get('/seeker/swipe/next','SwipeController@getRandomDonorProfil')->middleware('ajax');
     Route::get('/swipes/history', 'SwipeController@history')->name('swipe_history');
-    
-    // Questions routes
-    Route::post('/donor/ask/{id}','DonorController@ask')->name('donor.ask');
-    Route::post('/donor/reply','DonorController@reply')->name('donor.reply');
-    Route::get('/donor/deletequestion/{id}','DonorController@deleteQuestion')->name('donor.delete_question');
-    Route::get('donor/deleteallquestions','DonorController@deleteAllQuestions')->name('donor.delete_all_questions');
 
-    // Questions route
+    // Questions routes
     Route::get('questions', 'QuestionAnswerController@myquestions')->name('questions.myquestions');
     Route::get('questions/{id}', 'QuestionAnswerController@questions')->name('questions.donor');
     Route::post('questions/ask/{id}', 'QuestionAnswerController@create_question')->name('questions.ask');
-    Route::post('questions/reply', 'QuestionAnswerController@create_reply')->name('questions.reply');
+    Route::post('questions/reply/{id}', 'QuestionAnswerController@create_reply')->name('questions.reply');
     Route::get('questions/delete/{id}', 'QuestionAnswerController@deleteQuestion')->name('questions.delete');
-    Route::get('questions/delete', 'QuestionAnswerController@deleteAllQuestions')->name('questions.deleteAll');
+    Route::get('questions/delete_all', 'QuestionAnswerController@deleteAllQuestions')->name('questions.delete.all');
 
 });

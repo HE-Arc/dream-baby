@@ -123,31 +123,28 @@ class QuestionAnswerController extends Controller
     {
         if(Auth::check())
         {
-            echo('Auth checkec');
             $this->validate(request(), [
                 'reply' => 'required',
             ]);
-            echo('request validated');
             switch(Auth::user()->user_type_id) {
                 case 1: // Donor
                     $donor = DonorController::getDonorInfo(Auth::id());
                     $question = Question::where('id', $question_id)->first();
-                    if($question->donor_id == $donor->id) { // If the donor asked is the same as the donor log
-                        echo('donor validated');
+                    if($question->donor_id == $donor->id) { // If the asked donor is the same as the logged donor
                         $answer = new Answer();
                         $answer->question_id = $question->id;
-                        $answer->reply = request('message');
+                        $answer->reply = request('reply');
                         $answer->save();
 
                         echo(request());
 
-                        //return back()->with('success', 'Question deleted successfully');
+                        return back()->with('success', 'Question deleted successfully');
                     }
                 case 2: // Seeker
-                    //return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+                    return back()->withErrors('failure', 'You\'re not allowed to delete this question');
             }
         } else {
-            //return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+            return back()->withErrors('failure', 'You\'re not allowed to delete this question');
         }
     }
 

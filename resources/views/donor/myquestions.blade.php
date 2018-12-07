@@ -18,8 +18,6 @@
     <div class="row">
         <p class="col">Select a question you want to answer to</p>
     </div>
-    <form method="POST" action="#"  enctype="multipart/form-data">
-    @csrf
     @foreach ($questions as $question)
     <div class="container">
         <div class="row swipe-info">
@@ -35,32 +33,36 @@
             </p>
         </div>
         <div class="row">
-            <div class="col input-group mb-3">
-                @if(isset($answers[$question->id]))
+            @if(isset($answers[$question->id]))
+            <div class="col input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text" id="">{{$answers[$question->id]->reply}}</span>
                 </div>
-                @else
-                <input type="text" id="reply" class="form-control" placeholder="Reply..." aria-label="Reply..." aria-describedby="basic-addon2">
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button">
-                        <a href="{{route('questions.reply')}}" >{{ __('Reply') }}</a>
-                    </button>
-                </div>
-                @endif
-                <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button">
-                        <a href="{{route('questions.delete', $question->id)}}" >{{ __('Delete') }}</a>
-                    </button>
-                </div>
             </div>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">
+                    <a href="{{route('questions.delete', $question->id)}}" >{{ __('Delete') }}</a>
+                </button>
+            </div>
+            @else
+            <form method="POST" action="{{route('questions.reply', $question->id)}}" enctype="multipart/form-data">
+            @csrf
+                <div class="col input-group">
+                    <input type="text" name="reply" id="reply" class="form-control" placeholder="Reply..." aria-label="Reply..." aria-describedby="basic-addon2" required>
+                    <div class="input-group-append">
+                        <button type="submit" class="btn btn-outline-secondary">
+                            {{ __('Reply') }}
+                        </button>
+                    </div>
+                </div>
+            </form>
+            @endif
         </div>
     </div>
     @endforeach
-    
-    <div class="form-group row">
-        <div class="col mx-auto">
-            <a href="{{route('questions.deleteAll')}}" class="btn btn-danger btn-block">
+    <div class="row">
+        <div class="mx-auto">
+            <a href="{{route('questions.delete.all')}}" class="btn btn-danger btn-block" role="button">
                 {{ __('Delete all questions') }}
             </a>
         </div>
