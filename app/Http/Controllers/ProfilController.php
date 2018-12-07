@@ -66,9 +66,8 @@ class ProfilController extends Controller
     public function profil(int $id)
     {
         $user = User::where('id', $id)->first();
-        if (Auth::check() && isset($user)) {
-            switch($user->user_type_id){
-                case 1: //Donor
+        if (Auth::check() && isset($user) && $user->user_type_id==1) {
+        
                     $donor=DonorController::getDonorInfo($id);
                     if ($donor==null) {
                         abort(404);
@@ -79,10 +78,7 @@ class ProfilController extends Controller
                     $eyecolor=EyeColor::where('id',$donor->eye_color)->first()->name;
 
                     return view('donor.profil', compact('donor','user','ethnicity','haircolor','eyecolor'));
-                case 2: //Seeker
-                    // TODO seeker.profil view 
-                    return view('seeker.home');
-            }
+                
         } else {
             abort(404);
         }

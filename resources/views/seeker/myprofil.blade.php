@@ -61,13 +61,6 @@
             </div>
         </div>
 
-        <div class="form-group row">
-                <h5 class="col-md-4 text-md-right">Biography</h5>
-
-            <div class="col-md-6">
-                <textarea class="form-control" id="bio" name="bio" required>{{$seeker->bio}}</textarea>
-            </div>
-        </div>
 
         <h3>Search criteria</h3>
 

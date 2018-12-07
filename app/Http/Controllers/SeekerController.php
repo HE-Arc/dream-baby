@@ -20,7 +20,6 @@ class SeekerController extends Controller
         $this->validate(request(), [
             'name' => 'required',
             'email' => 'required|email|exists:users',
-            'bio' => 'required',
             'sex' => 'required',
             'age_max' => 'numeric|min:18|max:99|required',
             'eye_criteria' => 'required', // https://github.com/laravel/framework/issues/21728
@@ -39,7 +38,6 @@ class SeekerController extends Controller
 
         // Seeker update
         $seeker = Seeker::where('user_id', $user_id)->firstOrFail();
-        $seeker->bio = request('bio');
         $seeker->update();
 
         // Main cirteria update
