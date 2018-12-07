@@ -155,30 +155,5 @@
         </div>
     </form>
 
-    <h3>Swipe history</h3>
-    <div class="row">
-        <div class="col-md-6 offset-md-4">
-            <div class="jumbotron">
-                @if (count($positiveSwipesArray) > 0)
-                    @foreach ($positiveSwipesArray as $id => $name)
-                        <a class="btn btn-link" href="/profil/{{$id}}">{{$name}}</a><br/>
-                    @endforeach
-                @else
-                    <p>Oh ! You havn't find any donors... You will find some soon!</p>
-                @endif
-            </div>
-        </div>
-    </div>
-    <br/>
-    <form method="POST" action="{{route('seeker.deletehistory')}}">
-        @csrf
-        <div class="form-group row mb-0">
-            <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-danger btn-block">
-                    {{ __('Delete history') }}
-                </button>
-            </div>
-        </div>
-    </form>
 </div>
 @endsection

@@ -10466,44 +10466,19 @@ a.text-dark:focus {
   }
 }
 
-@-webkit-keyframes shade-title {
-  0% {
-    color: #7f6d65;
-  }
-
-  100% {
-    color: #47403d;
-    -webkit-transform: skewX(-10deg);
-            transform: skewX(-10deg);
-  }
-}
-
-@keyframes shade-title {
-  0% {
-    color: #7f6d65;
-  }
-
-  100% {
-    color: #47403d;
-    -webkit-transform: skewX(-10deg);
-            transform: skewX(-10deg);
-  }
-}
-
 .title {
   color: #7f6d65;
   font-size: 2.25rem;
+  -webkit-transition: 1s;
+  transition: 1s;
 }
 
 .title:hover {
-  -webkit-animation-name: shade-title;
-          animation-name: shade-title;
-  -webkit-animation-duration: 2s;
-          animation-duration: 2s;
-  -webkit-animation-timing-function: ease-out;
-          animation-timing-function: ease-out;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
+  color: #47403d;
+  -webkit-transform: skewX(-10deg);
+          transform: skewX(-10deg);
+  -webkit-transition: 1s;
+  transition: 1s;
 }
 
 .navbar-laravel {
@@ -10593,5 +10568,9 @@ a.text-dark:focus {
 
 .swipe-info {
   font-size: 1.2rem;
+}
+
+.progress {
+  border-radius: 1rem;
 }
 

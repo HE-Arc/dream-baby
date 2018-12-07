@@ -6,11 +6,10 @@ use App\Donor;
 use App\Ethnicity;
 use App\EyeColor;
 use App\HairColor;
-use App\HistorySwipe;
 use App\QuestionAnswer;
 use App\Seeker;
 use App\User;
-use Cookie;
+use App\HistorySwipe;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -106,6 +105,12 @@ class DonorController extends Controller
      */
     public function questions(int $id)
     {
+        if (Auth::user()->user_type_id == 1)
+        {
+            abort(403);
+        }
+
+
         $donor = DonorController::getDonorInfo($id);
         $user = DonorController::getUserInfo($donor->user_id);
         
@@ -118,13 +123,17 @@ class DonorController extends Controller
             abort(404);
         }
 
-        $swiped = null;
+        
+        $swiped = HistorySwipe::where('seeker_id', SeekerController::getSeekerInfo(Auth::user()->id)->id)
+        ->where('donor_id', $donor->id)->where('like',1)->first();
 
-        if (Auth::user()->user_type_id == 2) {
-            $swiped = HistorySwipe::where('seeker_id', SeekerController::getSeekerInfo(Auth::user()->id)->id)->where('donor_id', $donor->id)->first();
+        if ($swiped==null)
+        {
+            abort(403);
         }
+        
 
-        return view('donor.questions', compact('user','donor','questions','swiped'));
+        return view('donor.questions', compact('user','donor','questions'));
     }
 
     /**
@@ -175,25 +184,6 @@ class DonorController extends Controller
         return new Response($file, 200);
     }
 
-    /**
-     * Get an array of criterions ids.
-     * Foreach criterions at the criterion key, if the item is searched, this item is push to the array.
-     * Then, the array is return
-     * 
-     * @param array[string]Criteria $criterions array of criterions
-     * @param string $criterionKey criteria class name
-     * @return array[]int array of criterions id
-     */
-    private static function getCriterionIdArray($criterions, $criterionKey)
-    {
-        $criterionsIds = [];
-        foreach ($criterions[$criterionKey] as $item) {
-            if ($item->searched) {
-                array_push($criterionsIds, $item->id);
-            }
-        }
-        return $criterionsIds;
-    }
 
     /**
      * Delete a question using its id. Verifiying if the auth user is a donor. Can throw an 403 error.
@@ -209,56 +199,6 @@ class DonorController extends Controller
         } else {
             abort(403);
         }
-    }
-
-    /**
-     * Get random donor profils using the criteria of the auth seeker criterions
-     * @param int $count number of random donor profils
-     * @return ['donorsArray' => $donorsArray]
-     */
-    public static function getRandomDonorProfil(int $count)
-    {
-        $seekerId = SeekerController::getSeekerInfo(Auth::id())->id;
-
-        $criterions = Seeker::where('id', $seekerId)->first()->criterions();
-
-        if (Cookie::get('hiddenDonorIds') != null && $count == 1) { //if count == 1 it means that this function is called from an ajax request
-            $hiddenDonorIds = json_decode(Cookie::get('hiddenDonorIds'));
-        } else {
-            $hiddenDonorIds = [];
-        }
-
-        $alreadySwipedId = HistorySwipe::where('seeker_id', $seekerId)->pluck('donor_id')->toArray();
-
-        $donorProfil = Donor::whereNotIn('id', $alreadySwipedId)
-            ->whereNotIn('id', $hiddenDonorIds)
-            ->where('sex', $criterions['main']->sex)
-            ->whereDate('birth_date', '>', $criterions['main']->birth_date_max)
-            ->whereIn('eye_color', DonorController::getCriterionIdArray($criterions, 'eye'))
-            ->whereIn('hair_color', DonorController::getCriterionIdArray($criterions, 'hair'))
-            ->whereIn('ethnicity', DonorController::getCriterionIdArray($criterions, 'ethnicity'))
-            ->inRandomOrder()->take($count)->get();
-
-        if (count($donorProfil) == 0) {
-            return ['donorsArray' => null];
-        }
-
-        $donorsArray = [];
-
-        for ($i = 0; $i < $count; $i++) {
-            if (isset($donorProfil[$i])) {
-                $donor = $donorProfil[$i];
-                $username = User::where('id', $donor->user_id)->first()->name;
-                $ethnicity = Ethnicity::where('id', $donor->ethnicity)->first()->name;
-                $haircolor = HairColor::where('id', $donor->hair_color)->first()->name;
-                $eyecolor = EyeColor::where('id', $donor->eye_color)->first()->name;
-                array_push($donorsArray, compact('donor', 'username', 'ethnicity', 'haircolor', 'eyecolor'));
-                array_push($hiddenDonorIds, $donor->id);
-            }
-        }
-
-        Cookie::queue(Cookie::forever('hiddenDonorIds', json_encode($hiddenDonorIds)));
-        return ['donorsArray' => $donorsArray];
     }
 
     /**

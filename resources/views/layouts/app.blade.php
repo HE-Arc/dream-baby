@@ -34,7 +34,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <h1 class="title">Dream Baby</h1>
+                        <a class="navbar-brand" href="{{ url('/') }}">
+                            <h1 class="title">Dream Baby</h1>
+                        </a>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -53,17 +55,19 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('questions.myquestions') }}">{{ __('Questions') }}</a>
                             </li>
+                            @if(Auth::user()->user_type_id == 2) <!-- Seeker -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('search') }}">{{ __('Search a donor') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('swipe_history') }}">{{ __('Swipe history') }}</a>
+                            </li>
+                            @endif
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    @if(Auth::user()->user_type_id == 2) <!-- Seeker -->
-                                    <a class="dropdown-item" href="{{ route('search') }}">
-                                        {{ __('Search a donor') }}
-                                    </a>
-                                    @endif
                                     <a class="dropdown-item" href="{{ route('profil.myprofil') }}">
                                         {{ __('Edit my profil') }}
                                     </a>

@@ -32,13 +32,14 @@ Route::group(['middleware' => ['auth']], function () {
     Route::patch('/donor/profil/update/{id}', 'DonorController@update')->name('donor.myprofil.update');
     
     // Seeker specific routes
-    Route::get('/seeker/search', 'SeekerController@search')->name('search');
     Route::patch('/seeker/profil/update/{id}', 'SeekerController@update')->name('seeker.myprofil.update');
 
     // Swipe routes
-    Route::post('/seeker/deletehistory','SeekerController@deleteSwipeHistory')->name('seeker.deletehistory');
-    Route::post('/seeker/swipe','SeekerController@addToSwipeHistory')->middleware('ajax');
-    Route::get('/seeker/swipe/next','DonorController@getRandomDonorProfil')->middleware('ajax');
+    Route::get('/seeker/search', 'SwipeController@search')->name('search');
+    Route::post('/seeker/deletehistory','SwipeController@deleteSwipeHistory')->name('swipe.deletehistory');
+    Route::post('/seeker/swipe','SwipeController@addToSwipeHistory')->middleware('ajax');
+    Route::get('/seeker/swipe/next','SwipeController@getRandomDonorProfil')->middleware('ajax');
+    Route::get('/swipes/history', 'SwipeController@history')->name('swipe_history');
     
     // Questions routes
     Route::post('/donor/ask/{id}','DonorController@ask')->name('donor.ask');

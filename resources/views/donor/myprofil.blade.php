@@ -130,20 +130,6 @@
         </div>
     </form>
 
-    <!--<h3><a href="/donor/questions">View, edit and answer to my public questions</a></h3> Really needed ? cause we have the link in the nav bar-->
-    <h3>Swipe history</h3>
-    <div class="row">
-        <div class="col-md-6 offset-md-4">
-            <div class="jumbotron">
-            @if (count($positiveSwipesArray) > 0)
-                @foreach ($positiveSwipesArray as $id => $name)
-                    <a class="btn btn-link" href="/profil/{{$id}}">{{$name}}</a><br/>
-                @endforeach
-            @else
-            <p>Still no seeker intrested in your profil but it will not be longer</p>
-            @endif
-            </div>
-        </div>
-    </div>
+
 </div>
 @endsection
