@@ -43,10 +43,10 @@ Route::group(['middleware' => ['auth']], function () {
 
     // Questions routes
     Route::get('questions', 'QuestionAnswerController@myquestions')->name('questions.myquestions');
+    Route::get('questions/delete_all', 'QuestionAnswerController@deleteAllQuestions')->name('questions.delete.all');
     Route::get('questions/{id}', 'QuestionAnswerController@questions')->name('questions.donor');
     Route::post('questions/ask/{id}', 'QuestionAnswerController@create_question')->name('questions.ask');
     Route::post('questions/reply/{id}', 'QuestionAnswerController@create_reply')->name('questions.reply');
     Route::get('questions/delete/{id}', 'QuestionAnswerController@deleteQuestion')->name('questions.delete');
-    Route::get('questions/delete_all', 'QuestionAnswerController@deleteAllQuestions')->name('questions.delete.all');
 
 });

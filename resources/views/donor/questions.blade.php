@@ -13,7 +13,7 @@
     <img class="w-25 m-3 img-fluid" src="{{ route('donor.image', ['filename' => $donor->photo_uri]) }}" alt="{{$user->name}} - Profile Picture"/><br/>
     
     <h2>Ask a public question</h2>
-    <form method="POST" action="{{route('questions.ask', $donor->id)}}" enctype="multipart/form-data">
+    <form method="POST" action="{{route('questions.ask', $donor->user_id)}}" enctype="multipart/form-data">
     @csrf
         <div class="form-group row">
             <div class="col-md-6">
