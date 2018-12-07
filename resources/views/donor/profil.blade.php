@@ -49,7 +49,7 @@
         </div>
         
         <div class="row">
-            <p class="col text-center"><a class="btn btn-link" href="/donor/{{$user->id}}/questions">Questions</a><p>
+            <p class="col text-center"><a class="btn btn-link" href="{{route('questions.donor', $donor->id)}}">Questions</a><p>
         </div>
     </div>
 </div>

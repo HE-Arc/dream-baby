@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="text-md-right">
+            <div class="row text-md-right">
                 <!-- TO IMPROVE -->
                 @if(isset($answers[$question->id]))
                 <p>{{$answers[$question->id]->reply}}</p>

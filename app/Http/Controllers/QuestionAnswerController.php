@@ -53,8 +53,11 @@ class QuestionAnswerController extends Controller
     {
         if(Auth::check())
         {
-            if(Auth::user()->user_type_id == 2)
+            if(Auth::user()->user_type_id == 2) // Seeker
             {
+                $seeker=SeekerController::getSeekerInfo(Auth::id());
+                $user=SeekerController::getUserInfo(Auth::id());
+
                 $donor=DonorController::getDonorInfo($user_id);
                 if ($donor==null) {
                     abort(404);
@@ -62,9 +65,10 @@ class QuestionAnswerController extends Controller
                 $user_donor = $donor->user();
 
                 $questions = $donor->questions();
+                $seekers_users = QuestionAnswerController::getSeekersUsersArray($questions);
                 $answers = QuestionAnswerController::getAnswersArray($questions);
 
-                return view('donor.questions', compact('donor', 'user_donor', 'questions', 'answers'));
+                return view('donor.questions', compact('seeker', 'user', 'donor', 'user_donor', 'questions', 'answers', 'seekers_users'));
             }
         }
         return view('home');
@@ -76,19 +80,75 @@ class QuestionAnswerController extends Controller
      * @param int $user_id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function create_question($user_id)
+    public function create_question($donor_id)
     {
-        // TODO
+        if(Auth::check())
+        {
+            $this->validate(request(), [
+                'message' => 'required',
+            ]);
+            switch(Auth::user()->user_type_id) {
+                case 1: // Donor
+                    return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+                case 2: // Seeker
+                    $donor = DonorController::getDonorInfo($donor_id);
+                    if(isset($donor)){
+                        $seeker = SeekerController::getSeekerInfo(Auth::id());
+                        $question = new Question();
+                        $question->seeker_id = $seeker->id;
+                        $question->donor_id = $donor->id;
+                        $question->message = request('message');
+                        $anonymous = request('anonymous');
+                        if ($anonymous == 1) {
+                            $question->anonymous = true;
+                        } else {
+                            $question->anonymous = false;
+                        }
+                        $question->save();
+                        return back()->with('success', 'Question deleted successfully');
+                    }
+            }
+            return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+        } else {
+            return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+        }
     }
 
     /**
-     * Reply to a question using the request.
+     * Reply to a question using the question id and the request.
      * Verifying the auth user is a donor and save the answer in the DB.
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function create_reply()
+    public function create_reply(int $question_id)
     {
-        // TODO
+        if(Auth::check())
+        {
+            echo('Auth checkec');
+            $this->validate(request(), [
+                'reply' => 'required',
+            ]);
+            echo('request validated');
+            switch(Auth::user()->user_type_id) {
+                case 1: // Donor
+                    $donor = DonorController::getDonorInfo(Auth::id());
+                    $question = Question::where('id', $question_id)->first();
+                    if($question->donor_id == $donor->id) { // If the donor asked is the same as the donor log
+                        echo('donor validated');
+                        $answer = new Answer();
+                        $answer->question_id = $question->id;
+                        $answer->reply = request('message');
+                        $answer->save();
+
+                        echo(request());
+
+                        //return back()->with('success', 'Question deleted successfully');
+                    }
+                case 2: // Seeker
+                    //return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+            }
+        } else {
+            //return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+        }
     }
 
     /**

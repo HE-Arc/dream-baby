@@ -27,7 +27,11 @@
                 {{ $question->message }}
             </p>
             <p class="col-md text-right">
-                {{ $question->anonymous==0 ? $seekers_users[$question->seeker_id]->name : 'Anonymous'}}
+                @if($question->anonymous == false)
+                {{ $seekers_users[$question->seeker_id]->name}}
+                @else
+                Anonymous
+                @endif
             </p>
         </div>
         <div class="row">
@@ -37,10 +41,10 @@
                     <span class="input-group-text" id="">{{$answers[$question->id]->reply}}</span>
                 </div>
                 @else
-                <input type="text" class="form-control" placeholder="Reply..." aria-label="Reply..." aria-describedby="basic-addon2">
+                <input type="text" id="reply" class="form-control" placeholder="Reply..." aria-label="Reply..." aria-describedby="basic-addon2">
                 <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button">
-                        <a href="{{route('questions.reply', $question->id)}}" >{{ __('Create') }}</a>
+                        <a href="{{route('questions.reply')}}" >{{ __('Reply') }}</a>
                     </button>
                 </div>
                 @endif

@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Question extends Model
 {
     /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+    protected $fillable = [
+        'seeker_id','donor_id', 'message', 'anonymous',
+    ];
+    
+    /**
      * Return Donor Model of the used Question
      * @return Donor
      */
