@@ -143,5 +143,36 @@
 
 /* Progress Bar */
 .progress{
-  border-radius:1rem;
+  border-radius: 1rem;
+}
+
+/* public question */
+.public-question {
+  background-color: $light_brown;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.question {
+  font-size: 1.4rem;
+}
+
+.question-reply {
+  font-size: 1.1rem;
+}
+
+/* Checkbox */
+.custom-control-label:before{
+  background-color: $light_brown;
+}
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+  background-color: $darker_orange;
+}
+
+.custom-control-input:active~.custom-control-label::before{
+  background-color: $dark_red;
+}
+
+.custom-checkbox .custom-control-input:focus~.custom-control-label::before{
+  box-shadow: 0 0 0 1px $body-bg, 0 0 0 0.2rem $light_brown; 
 }

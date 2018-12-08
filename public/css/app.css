@@ -10621,3 +10621,38 @@ a.text-dark:focus {
   border-radius: 1rem;
 }
 
+/* public question */
+
+.public-question {
+  background-color: #ffd6c3;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.question {
+  font-size: 1.4rem;
+}
+
+.question-reply {
+  font-size: 1.1rem;
+}
+
+/* Checkbox */
+
+.custom-control-label:before {
+  background-color: #ffd6c3;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+  background-color: #ef593a;
+}
+
+.custom-control-input:active ~ .custom-control-label::before {
+  background-color: #b41e18;
+}
+
+.custom-checkbox .custom-control-input:focus ~ .custom-control-label::before {
+  -webkit-box-shadow: 0 0 0 1px #fffdfa, 0 0 0 0.2rem #ffd6c3;
+          box-shadow: 0 0 0 1px #fffdfa, 0 0 0 0.2rem #ffd6c3;
+}
+

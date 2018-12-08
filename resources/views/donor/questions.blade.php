@@ -9,45 +9,55 @@
             {{ session('status') }}
         </div>
     @endif
-    <h1><a class="btn btn-link" href="{{route('profil.profil', $user_donor->id)}}">{{$user_donor->name}}</a></h1>
-    <img class="w-25 m-3 img-fluid" src="{{ route('donor.image', ['filename' => $donor->photo_uri]) }}" alt="{{$user->name}} - Profile Picture"/><br/>
-    
-    <h2>Ask a public question</h2>
-    <form method="POST" action="{{route('questions.ask', $donor->user_id)}}" enctype="multipart/form-data">
-    @csrf
-        <div class="form-group row">
-            <div class="col-md-6">
-                <textarea class="form-control" id="message" name="message" required></textarea>
-                <input type="checkbox" id="anonymous" class="form-check-input" name="anonymous" value="1"><label for="anonymous">Anonymous question </label> 
-            </div>
+    <div class="row">
+        <div class="col">
+            <h1 class="col">
+                <a class="btn-link" href="{{route('profil.profil', $user_donor->id)}}">{{$user_donor->name}}</a>
+            </h1>
+            <img class="col rounded img-fluid" src="{{ route('donor.image', ['filename' => $donor->photo_uri]) }}" alt="{{$user->name}} - Profile Picture"/><br/>
         </div>
-        <div class="form-group row mb-0">
-            <div class="col-md-6 offset-md-4">
-                <button type="submit" class="btn btn-primary">
-                    {{ __('Validate') }}
-                </button>
-            </div>
+        <div class="col">
+            <h2>Ask a public question</h2>
+            <form method="POST" action="{{route('questions.ask', $donor->user_id)}}" enctype="multipart/form-data">
+            @csrf
+                <div class="form-group">
+                    <div class="">
+                        <textarea class="form-control" id="message" name="message" required></textarea>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" id="anonymous" class="custom-control-input" name="anonymous" value="1">
+                            <label class="custom-control-label" for="anonymous"> ask as Anonymous</label> 
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">
+                            {{ __('Validate') }}
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
-    
-    <h2>Public questions</h2>
+    </div>
+    <hr class="my-4">
+    <h2 class="row">Questions</h2>
     @if (count($questions) > 0)
     @foreach ($questions as $question)
-    <div class="container">
-        <div class="row swipe-info">
-            <p class="col-md text-left">
+    <div class="container public-question">
+        <div class=" row swipe-info">
+            <p class="col-md text-left question">
                 {{ $question->message }}
             </p>
             <p class="col-md text-right">
-                {{ $question->anonymous==0 ? $seekers_users[$question->seeker_id]->name : 'Anonymous'}}
+                asked by {{ $question->anonymous==0 ? $seekers_users[$question->seeker_id]->name : 'Anonymous'}}
             </p>
         </div>
-        <div class="text-md-right">
+        <div class="row text-md-left">
             <!-- TO IMPROVE -->
             @if(isset($answers[$question->id]))
-            <p>{{$answers[$question->id]->reply}}</p>
+            <p class="col question-reply">{{$answers[$question->id]->reply}}</p>
             @else
-            <p class="font-italic">still no reponses...</p>
+            <p class="col font-italic">still no reponses...</p>
             @endif
         </div>
     </div>
