@@ -40,7 +40,7 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ml-auto align-items-center">
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -57,10 +57,10 @@
                             </li>
                             @if(Auth::user()->user_type_id == 2) <!-- Seeker -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('search') }}">{{ __('Search a donor') }}</a>
+                                <a class="nav-link" href="{{ route('search') }}">{{ __('Swipe') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('swipe_history') }}">{{ __('Swipe history') }}</a>
+                                <a class="nav-link" href="{{ route('swipe_history') }}">{{ __('History') }}</a>
                             </li>
                             @endif
                             <li class="nav-item dropdown">

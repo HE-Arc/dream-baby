@@ -10492,8 +10492,9 @@ a.text-dark:focus {
 }
 
 .nav-link {
-  font-size: 1.575rem;
+  font-size: 1.3rem;
   color: #7f6d65;
+  text-align: center;
 }
 
 .nav-link:hover {
