@@ -77,26 +77,27 @@ module.exports = __webpack_require__(163);
 /***/ (function(module, exports) {
 
 function applyDisplayStyleAndSetRequiredToChildren(parentDiv, displayStyle, requiredBool) {
-  var donorInfoDiv = document.getElementById(parentDiv);
-  donorInfoDiv.style.display = displayStyle;
-  donorInfoDiv.querySelectorAll('select,textarea,input').forEach(function (child) {
-    child.required = requiredBool;
-  });
+    var donorInfoDiv = document.getElementById(parentDiv);
+    donorInfoDiv.style.display = displayStyle;
+
+    donorInfoDiv.querySelectorAll('select,textarea,input').forEach(function (child) {
+        child.required = requiredBool;
+    });
 }
 
 function setShowHideButtonListeners() {
-  document.getElementById('user_type_donor').addEventListener('click', function () {
-    applyDisplayStyleAndSetRequiredToChildren('donorInfo', 'block', true);
-  });
-  document.getElementById('user_type_seeker').addEventListener('click', function () {
-    applyDisplayStyleAndSetRequiredToChildren('donorInfo', 'none', false);
-  });
+    document.getElementById('user_type_donor').addEventListener('click', function () {
+        applyDisplayStyleAndSetRequiredToChildren('donorInfo', 'block', true);
+    });
+    document.getElementById('user_type_seeker').addEventListener('click', function () {
+        applyDisplayStyleAndSetRequiredToChildren('donorInfo', 'none', false);
+    });
 }
 
 if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", setShowHideButtonListeners);
+    document.addEventListener("DOMContentLoaded", setShowHideButtonListeners);
 } else {
-  setShowHideButtonListeners();
+    setShowHideButtonListeners();
 }
 
 /***/ })

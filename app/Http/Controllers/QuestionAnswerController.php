@@ -8,6 +8,7 @@ use App\Donor;
 use App\Seeker;
 use App\Question;
 use App\Answer;
+use App\HistorySwipe;
 
 class QuestionAnswerController extends Controller
 {
@@ -62,6 +63,14 @@ class QuestionAnswerController extends Controller
                 if ($donor==null) {
                     abort(404);
                 }
+                $swiped = HistorySwipe::where('seeker_id', $seeker->id)
+                ->where('donor_id', $donor->id)->where('like',1)->first();
+                
+                if ($swiped==null)
+                {
+                    abort(403);
+                }
+
                 $user_donor = $donor->user();
 
                 $questions = $donor->questions();
