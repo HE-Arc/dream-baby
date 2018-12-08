@@ -21,7 +21,7 @@
                     You've asked to
                 </p>
                 <p>
-                    <a href="{{route('profil.profil', $donors_users[$question->donor_id]->id)}}" class="col-md text-right">
+                    <a href="{{route('profil.profil', $donors_users[$question->donor_id]->id)}}" class="col-md text-right btn-link">
                         {{$donors_users[$question->donor_id]->name}}
                     </a>
                 </p>
@@ -33,7 +33,7 @@
                     </div>
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button">
-                            <a href="{{route('questions.delete', $question->id)}}" >{{ __('Delete') }}</a>
+                            <a href="{{route('questions.delete', $question->id)}}" class="btn-link">{{ __('Delete') }}</a>
                         </button>
                     </div>
                 </div>

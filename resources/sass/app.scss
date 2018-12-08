@@ -8,6 +8,7 @@
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
 
+/* Title */
 .title {
   color: $taupe;
   font-size: 2.25rem;
@@ -21,19 +22,32 @@
   transition: 1s;
 }
 
+/* NavBar */
 .navbar-laravel {
   background-color: $light_brown;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.nav-link {
+  font-size: 1.575rem;
+  color: $taupe;
+}
+
+.nav-link:hover {
+  color: $taupe;
+}
+
+/* Jumbotron */
 .jumbotron {
   background-color: $light_brown_opcity;
 }
 
+/* Card */
 .card-header {
   background-color: $light_brown_opcity;
 }
 
+/* Buttons */
 .btn-primary {
   background-color: $dark_orange;
   border-color: $darker_orange;
@@ -56,11 +70,40 @@
   color: $darker_orange;
 }
 
+.btn-outline-secondary {
+  background-color: $light_brown;
+  border-color: $dark_orange;
+}
+
+.btn-outline-secondary:hover {
+  background-color: $darker_orange;
+  border-color: $dark_orange;
+}
+
+.btn-outline-secondary > .btn-link {
+  color: $darker_orange;
+}
+
+.btn-outline-secondary:hover > .btn-link {
+  color: $body-bg;
+}
+
+.btn-outline-secondary:hover > .btn-link:hover {
+  color: $body-bg;
+}
+
+/* Form Control */
 .form-control:focus {
   border-color: $light_brown;
   box-shadow: 0 0 0 0.2rem $light_brown;
 }
 
+.input-group-text {
+  background-color: $light_brown_opcity;
+  border-color: $dark_orange;
+}
+
+/* Dropdown */
 .dropdown-item:hover {
   background-color: $light_brown;
 }
@@ -69,19 +112,10 @@
   background-color: $dark_orange;
 }
 
-.nav-link {
-  font-size: 1.575rem;
-  color: $taupe;
-}
-
-.nav-link:hover {
-  color: $taupe;
-}
-
+/* Swipe Button */
 .swipe-no {
   background-color: $red;
 }
-
 
 .swipe-yes {
   background-color: $green;
@@ -102,10 +136,12 @@
   border-color: $dark_red;
 }
 
+/* Swipe Info */
 .swipe-info {
   font-size: 1.2rem;
 }
 
+/* Progress Bar */
 .progress{
   border-radius:1rem;
 }

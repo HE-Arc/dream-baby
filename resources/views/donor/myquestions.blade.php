@@ -14,10 +14,7 @@
         <h1 class="col">Questions</h3>
     </div>
     @if (count($questions) > 0)
-    <!-- Questions form -->
-    <div class="row">
-        <p class="col">Select a question you want to answer to</p>
-    </div>
+    <!-- Questions -->
     @foreach ($questions as $question)
     <div class="container">
         <div class="row swipe-info">
@@ -41,7 +38,7 @@
             </div>
             <div class="input-group-append">
                 <button class="btn btn-outline-secondary" type="button">
-                    <a href="{{route('questions.delete', $question->id)}}" >{{ __('Delete') }}</a>
+                    <a href="{{route('questions.delete', $question->id)}}" class="btn-link">{{ __('Delete') }}</a>
                 </button>
             </div>
             @else

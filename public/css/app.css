@@ -10466,6 +10466,8 @@ a.text-dark:focus {
   }
 }
 
+/* Title */
+
 .title {
   color: #7f6d65;
   font-size: 2.25rem;
@@ -10481,19 +10483,36 @@ a.text-dark:focus {
   transition: 1s;
 }
 
+/* NavBar */
+
 .navbar-laravel {
   background-color: #ffd6c3;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.nav-link {
+  font-size: 1.575rem;
+  color: #7f6d65;
+}
+
+.nav-link:hover {
+  color: #7f6d65;
+}
+
+/* Jumbotron */
+
 .jumbotron {
   background-color: rgba(255, 214, 195, 0.21);
 }
 
+/* Card */
+
 .card-header {
   background-color: rgba(255, 214, 195, 0.21);
 }
+
+/* Buttons */
 
 .btn-primary {
   background-color: #ee826c;
@@ -10519,11 +10538,42 @@ a.text-dark:focus {
   color: #ef593a;
 }
 
+.btn-outline-secondary {
+  background-color: #ffd6c3;
+  border-color: #ee826c;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #ef593a;
+  border-color: #ee826c;
+}
+
+.btn-outline-secondary > .btn-link {
+  color: #ef593a;
+}
+
+.btn-outline-secondary:hover > .btn-link {
+  color: #fffdfa;
+}
+
+.btn-outline-secondary:hover > .btn-link:hover {
+  color: #fffdfa;
+}
+
+/* Form Control */
+
 .form-control:focus {
   border-color: #ffd6c3;
   -webkit-box-shadow: 0 0 0 0.2rem #ffd6c3;
           box-shadow: 0 0 0 0.2rem #ffd6c3;
 }
+
+.input-group-text {
+  background-color: rgba(255, 214, 195, 0.21);
+  border-color: #ee826c;
+}
+
+/* Dropdown */
 
 .dropdown-item:hover {
   background-color: #ffd6c3;
@@ -10533,14 +10583,7 @@ a.text-dark:focus {
   background-color: #ee826c;
 }
 
-.nav-link {
-  font-size: 1.575rem;
-  color: #7f6d65;
-}
-
-.nav-link:hover {
-  color: #7f6d65;
-}
+/* Swipe Button */
 
 .swipe-no {
   background-color: #ff342f;
@@ -10566,9 +10609,13 @@ a.text-dark:focus {
   border-color: #b41e18;
 }
 
+/* Swipe Info */
+
 .swipe-info {
   font-size: 1.2rem;
 }
+
+/* Progress Bar */
 
 .progress {
   border-radius: 1rem;
