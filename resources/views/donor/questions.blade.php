@@ -62,6 +62,10 @@
         </div>
     </div>
     @endforeach
+    @else
+    <div class="container public-question question">
+        <p class="text-md-center">Be the first to ask !</p>
+    </div>
     @endif
 
 </div>
