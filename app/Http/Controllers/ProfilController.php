@@ -26,7 +26,7 @@ class ProfilController extends Controller
                 case 1: // Donor
                     $donor=DonorController::getDonorInfo(Auth::id());
                     if ($donor==null) {
-                        abort(404);
+                        return redirect('/home');
                     }
                     $user=$donor->user();
                     $ethnicities=Ethnicity::all();
@@ -42,7 +42,7 @@ class ProfilController extends Controller
                     $seekerCriteria = $seeker->criterions();
                     
                     if ($seeker==null || $seekerCriteria == null) {
-                        abort(404);
+                        return redirect('/home');
                     }
 
                     $ethnicities=Controller::getNamesArray(Ethnicity::all());
@@ -70,7 +70,7 @@ class ProfilController extends Controller
         
                     $donor=DonorController::getDonorInfo($id);
                     if ($donor==null) {
-                        abort(404);
+                        return redirect('/home');
                     }
                     $user=DonorController::getUserInfo($id);
                     $ethnicity=Ethnicity::where('id',$donor->ethnicity)->first()->name;
@@ -80,7 +80,7 @@ class ProfilController extends Controller
                     return view('donor.profil', compact('donor','user','ethnicity','haircolor','eyecolor'));
                 
         } else {
-            abort(404);
+            return redirect('/home');
         }
     }
 }

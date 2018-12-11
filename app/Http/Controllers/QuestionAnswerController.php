@@ -61,14 +61,14 @@ class QuestionAnswerController extends Controller
 
                 $donor=DonorController::getDonorInfo($user_id);
                 if ($donor==null) {
-                    abort(404);
+                    return redirect('/home');
                 }
                 $swiped = HistorySwipe::where('seeker_id', $seeker->id)
                 ->where('donor_id', $donor->id)->where('like',1)->first();
                 
                 if ($swiped==null)
                 {
-                    abort(403);
+                    return redirect('/home');
                 }
 
                 $user_donor = $donor->user();

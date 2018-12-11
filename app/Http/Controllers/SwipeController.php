@@ -31,7 +31,7 @@ class SwipeController extends Controller
 
             return view('seeker.search', $donorsArray);
         } else {
-            abort(403);
+            return redirect('/home');
         }
     }
 
@@ -75,7 +75,7 @@ class SwipeController extends Controller
             HistorySwipe::where('seeker_id', $seeker_id)->delete();
             return back()->with('success', 'Swipe history deleted successfully');
         } else {
-            abort(403);
+            return redirect('/home');
         }
     }
 
@@ -199,7 +199,7 @@ class SwipeController extends Controller
 
             $positiveSwipesArray = array_combine($positiveSwipeUserIds, $positiveSwipeUserNames);
         } else {
-            abort(403);
+            return redirect('/home');
         }
 
         return view('swipe_history', compact('positiveSwipesArray', 'swipeCounter'));

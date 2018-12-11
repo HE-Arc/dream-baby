@@ -95,7 +95,7 @@ class DonorController extends Controller
         $donorId = Donor::where('user_id', $id)->first()->id;
 
         if ($donorId == null) {
-            abort(404);
+            return redirect('/home');
         }
         return $donorId;
     }
