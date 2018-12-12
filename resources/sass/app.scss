@@ -58,9 +58,9 @@
   border-color: $dark_orange;
 }
 
-.btn-primary:active {/* THIS DOESN'T WORK */
-  background-color: $darker_orange;
-  border-color: $dark_orange;
+.btn-primary:active {
+  background-color: $cadet_blue !important;
+  border-color: $morning_glory !important;
 }
 
 .btn-link {

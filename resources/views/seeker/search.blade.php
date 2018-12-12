@@ -36,11 +36,11 @@
     </div>
 
     <div id="center-wrapper" class="jumbotron">
-        <div id="swipe-profil">
+        <div id="swipe-profil" class="w-80">
             <div class="btn-group row">
                 <div class="text-center">
-                    <button id="swipe-no" class="btn btn-primary col-md-2 swipe-no">No</button>
-                    <button id="swipe-yes"class="btn btn-primary col-md-2 swipe-yes">Yes</button>
+                    <button id="swipe-no" class="btn btn-primary m-2 w-25 swipe-no">No</button>
+                    <button id="swipe-yes"class="btn btn-primary m-2 w-25 swipe-yes">Yes</button>
                 <div>
             </div>
             <hr class="my-4 row">

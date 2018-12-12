@@ -10526,9 +10526,8 @@ a.text-dark:focus {
 }
 
 .btn-primary:active {
-  /* THIS DOESN'T WORK */
-  background-color: #ef593a;
-  border-color: #ee826c;
+  background-color: #54A4A6 !important;
+  border-color: #A7D1D1 !important;
 }
 
 .btn-link {
