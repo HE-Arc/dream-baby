@@ -42,7 +42,7 @@
                 </button>
             </div>
             @else
-            <form method="POST" action="{{route('questions.reply', $question->id)}}" enctype="multipart/form-data">
+            <form class="replyQuestion" method="POST" action="{{route('questions.reply', $question->id)}}" enctype="multipart/form-data">
             @csrf
                 <div class="col input-group">
                     <input type="text" name="reply" id="reply" class="form-control" placeholder="Reply..." aria-label="Reply..." aria-describedby="basic-addon2" required>
