@@ -59,7 +59,7 @@
     @endforeach
     <div class="row">
         <div class="mx-auto">
-            <a href="{{route('questions.delete.all')}}" class="btn btn-danger btn-block" role="button">
+            <a href="{{route('questions.delete.all')}}" class="btn btn-danger btn-block mt-3" role="button">
                 {{ __('Delete all questions') }}
             </a>
         </div>
