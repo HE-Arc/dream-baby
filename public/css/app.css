@@ -10569,10 +10569,6 @@ a.text-dark:focus {
           box-shadow: 0 0 0 0.2rem #ffd6c3;
 }
 
-.replyQuestion {
-  width: 80%;
-}
-
 .input-group-text {
   background-color: rgba(255, 214, 195, 0.21);
   border-color: #ee826c;
@@ -10640,6 +10636,15 @@ a.text-dark:focus {
 
 .question-reply {
   font-size: 1.1rem;
+}
+
+.replyQuestionForm {
+  width: 100%;
+}
+
+.repliedQuestionText {
+  word-break: break-all;
+  white-space: normal !important;
 }
 
 /* Checkbox */
