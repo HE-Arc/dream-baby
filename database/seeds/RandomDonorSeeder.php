@@ -112,7 +112,7 @@ class RandomDonorSeeder extends Seeder
             $fn = $firstnames_female[rand(0, 29)];
             $ln = $lastnames[rand(0, 29)];
             
-            $dateint = mt_rand(strtotime('1940-01-01'), strtotime('2000-12-31'));
+            $dateint = mt_rand(strtotime('1980-01-01'), strtotime('2000-12-31'));
             $date = date("Y-m-d", $dateint);
 
             try {
@@ -147,7 +147,7 @@ class RandomDonorSeeder extends Seeder
             $fn = $firstnames_male[rand(0, 29)];
             $ln = $lastnames[rand(0, 29)];
 
-            $dateint = mt_rand(strtotime('1940-01-01'), strtotime('2000-12-31'));
+            $dateint = mt_rand(strtotime('1980-01-01'), strtotime('2000-12-31'));
             $date = date("Y-m-d", $dateint);
 
             try {

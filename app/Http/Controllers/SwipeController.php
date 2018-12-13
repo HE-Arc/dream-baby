@@ -19,7 +19,6 @@ class SwipeController extends Controller
 {
     /**
      * Search random donors for the authented seeker
-     * can throw an error 403 if the authe user_type is not seeker
      * @return \Illuminate\Http\Response
      */
     public function search()
@@ -65,14 +64,15 @@ class SwipeController extends Controller
 
     /**
      * Delete the swipe history of the auth user
-     * Can throw an error 403 if auth user_type is not seeker
      * @return \Illuminate\Http\RedirectResponse
      */
     public function deleteSwipeHistory()
     {
         if (Auth::user()->user_type_id == 2) {
-            $seeker_id = SeekerController::getSeekerInfo(Auth::id())->id;
-            HistorySwipe::where('seeker_id', $seeker_id)->delete();
+            $seeker = SeekerController::getSeekerInfo(Auth::id());
+
+            $seeker->deleteSwipeHistory();
+
             return back()->with('success', 'Swipe history deleted successfully');
         } else {
             return redirect('/home');
@@ -165,43 +165,26 @@ class SwipeController extends Controller
         if (Auth::check()) {
             switch (Auth::user()->user_type_id) {
                 case 1: // Donor
-                    $donor = DonorController::getDonorInfo(Auth::id());
-                    $positiveSwipeSeekerIds = HistorySwipe::where('donor_id', $donor->id)->where('like', 1)->pluck('seeker_id')->toArray();
-                    $positiveSwipeUserIds = Seeker::whereIn('id', $positiveSwipeSeekerIds)->pluck('user_id')->toArray();
+                    return redirect('/home');
 
-                    break;
                 case 2: //Seeker
                     $seeker = SeekerController::getSeekerInfo(Auth::id());
-                    $positiveSwipeDonorIds = HistorySwipe::where('seeker_id', $seeker->id)->where('like', 1)->pluck('donor_id')->toArray();
-                    $positiveSwipeUserIds = Donor::whereIn('id', $positiveSwipeDonorIds)->pluck('user_id')->toArray();
 
-                    $criterions = Seeker::where('id', $seeker->id)->first()->criterions();
-
-                    $alreadySwipedIds = HistorySwipe::where('seeker_id', $seeker->id)->pluck('donor_id')->toArray();
-
-                    $remainingDonors = Donor::whereNotIn('id', $alreadySwipedIds)
-                    ->where('sex', $criterions['main']->sex)
-                    ->whereDate('birth_date', '>', $criterions['main']->birth_date_max)
-                    ->whereIn('eye_color', SwipeController::getCriterionIdArray($criterions, 'eye'))
-                    ->whereIn('hair_color', SwipeController::getCriterionIdArray($criterions, 'hair'))
-                    ->whereIn('ethnicity', SwipeController::getCriterionIdArray($criterions, 'ethnicity'))
-                    ->inRandomOrder()->get();
+                    $criterions = $seeker->criterions();
 
                     $swipeCounter = array();
-                    $swipeCounter['positiveCount'] = count($positiveSwipeUserIds);
-                    $swipeCounter['negativeCount'] = HistorySwipe::where('seeker_id', $seeker->id)->count()-$swipeCounter['positiveCount'];
-                    $swipeCounter['remainingCount'] = count($remainingDonors);
+                    $swipeCounter['positiveCount'] = $seeker->positiveSwipeHistoryCount();
+                    $swipeCounter['negativeCount'] = $seeker->negativeSwipeHistoryCount();
+                    $swipeCounter['remainingCount'] = $seeker->remainingDonorsCount();
 
                     $swipeCounter['total']=$swipeCounter['positiveCount']+$swipeCounter['negativeCount']+$swipeCounter['remainingCount'];
-                    break;
-            }
-            $positiveSwipeUserNames = User::whereIn('id', $positiveSwipeUserIds)->pluck('name')->toArray();
+                    
+                    $positiveSwipesArray = $seeker->positiveSwipeHistoryDonors_names();
 
-            $positiveSwipesArray = array_combine($positiveSwipeUserIds, $positiveSwipeUserNames);
+                    return view('swipe_history', compact('positiveSwipesArray', 'swipeCounter'));
+            }
         } else {
             return redirect('/home');
         }
-
-        return view('swipe_history', compact('positiveSwipesArray', 'swipeCounter'));
     }
 }
