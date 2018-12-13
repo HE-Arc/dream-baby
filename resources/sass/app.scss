@@ -99,6 +99,8 @@
   box-shadow: 0 0 0 0.2rem $light_brown;
 }
 
+
+
 .input-group-text {
   background-color: $light_brown_opcity;
   border-color: $dark_orange;
@@ -160,12 +162,26 @@
 
 .question-reply {
   font-size: 1.1rem;
+  word-break: break-all;
+  white-space: normal !important;
+}
+
+.replyQuestionForm{
+  width:100%; 
+}
+
+.repliedQuestionText{
+  word-break: break-all;
+  white-space: normal !important;
+
+  
 }
 
 /* Checkbox */
 .custom-control-label:before{
   background-color: $light_brown;
 }
+
 .custom-checkbox .custom-control-input:checked~.custom-control-label::before{
   background-color: $darker_orange;
 }

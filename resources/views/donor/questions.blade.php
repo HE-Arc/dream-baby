@@ -44,7 +44,7 @@
     @if (count($questions) > 0)
     @foreach ($questions as $question)
     <div class="container public-question">
-        <div class=" row swipe-info">
+        <div class="row swipe-info">
             <p class="col-md text-left question">
                 {{ $question->message }}
             </p>
