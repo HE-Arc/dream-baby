@@ -10611,6 +10611,32 @@ a.text-dark:focus {
 
 /* Swipe Info */
 
+.swiper-container {
+  width: 30%;
+  height: 20em;
+}
+
+#center-wrapper {
+  text-align: center;
+}
+
+#swipe-profil {
+  display: inline-block;
+  text-align: left;
+}
+
+.swiperImage {
+  height: 100%;
+}
+
+#hidden-profils {
+  display: none;
+}
+
+h1 {
+  text-align: center;
+}
+
 .swipe-info {
   font-size: 1.2rem;
 }

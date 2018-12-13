@@ -55,9 +55,9 @@
         <div class="row text-md-left">
             <!-- TO IMPROVE -->
             @if(isset($answers[$question->id]))
-            <p class="col question-reply">{{$answers[$question->id]->reply}}</p>
+                <p class="col question-reply">{{$answers[$question->id]->reply}}</p>
             @else
-            <p class="col font-italic">still no reponses...</p>
+                <p class="col font-italic">still no reponses...</p>
             @endif
         </div>
     </div>
