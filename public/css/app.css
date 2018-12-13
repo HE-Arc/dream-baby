@@ -10693,3 +10693,29 @@ h1 {
           box-shadow: 0 0 0 1px #fffdfa, 0 0 0 0.2rem #ffd6c3;
 }
 
+/* mobile first */
+
+.swiper-container {
+  width: 80% !important;
+  height: 50% !important;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .swiper-container {
+    width: 60% !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .swiper-container {
+    width: 40% !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .swiper-container {
+    width: 25% !important;
+    height: 30% !important;
+  }
+}
+
