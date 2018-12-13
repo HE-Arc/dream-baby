@@ -9,8 +9,8 @@
         <p>Become a egg or sperm seeker and find the perfect donnor for your dream baby.
             Like tinder, swipe right to select and left to decline. It's never been easier !</p>
         <p class="lead">
-            <a class="btn btn-primary btn-lg" href="/login" role="button">login</a>
-            <a class="btn btn-primary btn-lg" href="/register" role="button">register</a>
+            <a class="btn btn-primary btn-lg m-1" href="/login" role="button">login</a>
+            <a class="btn btn-primary btn-lg m-1" href="/register" role="button">register</a>
         </p>
     </div>
 </div>
