@@ -3,7 +3,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.4.2/css/swiper.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> 
-<link rel="stylesheet" href="/css/swipe.css">
+
 
 
 @section('content')
@@ -29,9 +29,9 @@
 
     <div class="swiper-container">
         <div class="swiper-wrapper">
-            <div class="swiper-slide" id="swipe-div-no"></div>
+            <div class="swiper-slide" id="swipe-div-no"><img class="swiperImage img-fluid" src="/svg/cancel.svg" alt="Swipe negatively"><br/></div>
             <div class="swiper-slide"><img id="photo" class="img-fluid" src="{{route('donor.image', ['filename' => $donorsArray[0]['donor']->photo_uri])}}"/><br/></div>
-            <div class="swiper-slide" id="swipe-div-yes"></div>
+            <div class="swiper-slide" id="swipe-div-yes"><img class="swiperImage img-fluid" src="/svg/check.svg" alt="Swipe positively"><br/></div>
         </div>
     </div>
 

@@ -99,6 +99,8 @@
   box-shadow: 0 0 0 0.2rem $light_brown;
 }
 
+
+
 .input-group-text {
   background-color: $light_brown_opcity;
   border-color: $dark_orange;
@@ -138,6 +140,32 @@
 }
 
 /* Swipe Info */
+.swiper-container {
+  width: 30%;
+  height: 20em;
+}
+
+#center-wrapper{
+  text-align:center;
+}
+
+#swipe-profil{
+  display: inline-block;
+  text-align:left;
+}
+
+.swiperImage{
+  height:100%;
+}
+
+#hidden-profils{
+  display:none;
+}
+
+h1{
+  text-align:center;
+}
+
 .swipe-info {
   font-size: 1.2rem;
 }
@@ -160,12 +188,26 @@
 
 .question-reply {
   font-size: 1.1rem;
+  word-break: break-all;
+  white-space: normal !important;
+}
+
+.replyQuestionForm{
+  width:100%; 
+}
+
+.repliedQuestionText{
+  word-break: break-all;
+  white-space: normal !important;
+
+  
 }
 
 /* Checkbox */
 .custom-control-label:before{
   background-color: $light_brown;
 }
+
 .custom-checkbox .custom-control-input:checked~.custom-control-label::before{
   background-color: $darker_orange;
 }
@@ -176,4 +218,29 @@
 
 .custom-checkbox .custom-control-input:focus~.custom-control-label::before{
   box-shadow: 0 0 0 1px $body-bg, 0 0 0 0.2rem $light_brown; 
+}
+
+/* mobile first */
+.swiper-container{
+  width: 80% !important;
+  height: 50% !important;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .swiper-container{
+    width: 60% !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .swiper-container{
+    width: 40% !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .swiper-container{
+    width: 25% !important;
+    height: 30% !important;
+  }
 }

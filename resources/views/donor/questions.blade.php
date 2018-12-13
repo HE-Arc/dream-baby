@@ -44,7 +44,7 @@
     @if (count($questions) > 0)
     @foreach ($questions as $question)
     <div class="container public-question">
-        <div class=" row swipe-info">
+        <div class="row swipe-info">
             <p class="col-md text-left question">
                 {{ $question->message }}
             </p>
@@ -55,9 +55,9 @@
         <div class="row text-md-left">
             <!-- TO IMPROVE -->
             @if(isset($answers[$question->id]))
-            <p class="col question-reply">{{$answers[$question->id]->reply}}</p>
+                <p class="col question-reply">{{$answers[$question->id]->reply}}</p>
             @else
-            <p class="col font-italic">still no reponses...</p>
+                <p class="col font-italic">still no reponses...</p>
             @endif
         </div>
     </div>

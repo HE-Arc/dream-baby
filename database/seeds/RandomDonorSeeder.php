@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use Carbon\Carbon;
-use App\Exceptions\Handler;
+use Illuminate\Database\Seeder;
 
 class RandomDonorSeeder extends Seeder
 {
@@ -18,7 +17,7 @@ class RandomDonorSeeder extends Seeder
             'Elisabeth', 'Leela', 'Tess', 'Marlene', 'Amiyah',
             'Emeline', 'Maureen', 'Ellie', 'Danielle', 'Kacie',
             'Dale', 'Loren', 'Lilly', 'Kelly', 'Mila',
-            'Jeane', 'Eliane', 'Marie', 'Caroline', 'Julie',
+            'Jeane', 'Eliane', 'Marie', 'Kim', 'Caroline', 'Julie',
             'Sylvie', 'Fanny', 'Caroline', 'Dorianne', 'Camille',
             'Louise', 'Anna', 'Delphine', 'Jeanine', 'Amanda',
         ];
@@ -27,13 +26,13 @@ class RandomDonorSeeder extends Seeder
             'Yoan', 'Simon', 'Célestin', 'Guillaume', 'Adrien',
             'Louis', 'Maxime', 'Julien', 'Jules', 'Fabien',
             'Kevin', 'Noah', 'Ludovic', 'Alexandre', 'Jordy',
-            'Félix', 'Erwan', 'Etienne', 'Quentin', 'Malik',
+            'Félix', 'Erwan', 'Etienne', 'Kim', 'Quentin', 'Malik',
             'Damian', 'Paul', 'Farid', 'Lucas', 'Bastien',
         ];
         $lastnames = [
             'Graells', 'Donzé', 'Goloviatinski', 'Droz', 'Grünenwald',
             'Blanc', 'Droz', 'Wermeille', 'Salomon', 'Perrelet',
-            'Wohlfahrt', 'Herbelin', 'Abdalla', 'Bütikofer', 'Chacun',
+            'Wohlfahrt', 'Biloni', 'Herbelin', 'Abdalla', 'Bütikofer', 'Chacun',
             'Bueche', 'Hüssler', 'Vorpe', 'Grava', 'Feuillade',
             'Fleury', 'Mottier', 'Petroff', 'Dias', 'Gros',
             'Arfa', 'Jeanneret', 'Rizzoti', 'Prêtre', 'Bianchi',
@@ -108,7 +107,7 @@ class RandomDonorSeeder extends Seeder
         ];
 
         // Egg Donor
-        for ($i=0; $i < 30; $i++) { 
+        for ($i = 0; $i < 30; $i++) {
             $fn = $firstnames_female[rand(0, 29)];
             $ln = $lastnames[rand(0, 29)];
             
@@ -117,33 +116,31 @@ class RandomDonorSeeder extends Seeder
 
             try {
                 $id = DB::table('users')->insertGetId([
-                    'user_type_id'  => 1,
-                    'name'          => $fn . ' ' . $ln,
-                    'email'         => $fn . '.' . $ln .'@egg.ch',
-                    'password'      => bcrypt('123456'),
-                    'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
+                    'user_type_id' => 1,
+                    'name' => $fn . ' ' . $ln,
+                    'email' => $fn . '.' . $ln . '@egg.ch',
+                    'password' => bcrypt('123456'),
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ]);
 
                 DB::table('donors')->insert([
-                    'user_id'               => $id,
-                    'sex'                   => 1,
-                    'birth_date'            => $date,
-                    'eye_color'             => rand(1, 3),
-                    'hair_color'            => rand(1, 3),
-                    'ethnicity'             => rand(1, 3),
-                    'family_antecedents'    => $family_antecedents[rand(0, 29)],
-                    'medical_antecedents'   => $medical_antecedents[rand(0, 29)],
-                    'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
+                    'user_id' => $id,
+                    'sex' => 1,
+                    'birth_date' => $date,
+                    'eye_color' => rand(1, 3),
+                    'hair_color' => rand(1, 3),
+                    'ethnicity' => rand(1, 3),
+                    'family_antecedents' => $family_antecedents[rand(0, 29)],
+                    'medical_antecedents' => $medical_antecedents[rand(0, 29)],
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ]);
-            }
-            catch(Exception $e)
-            {
+            } catch (Exception $e) {
                 $i--;
             }
         }
 
         // Sperm Donor
-        for ($i=0; $i < 30; $i++) { 
+        for ($i = 0; $i < 30; $i++) {
             $fn = $firstnames_male[rand(0, 29)];
             $ln = $lastnames[rand(0, 29)];
 
@@ -152,27 +149,25 @@ class RandomDonorSeeder extends Seeder
 
             try {
                 $id = DB::table('users')->insertGetId([
-                    'user_type_id'  => 1,
-                    'name'          => $fn . ' ' . $ln,
-                    'email'         => $fn . '.' . $ln .'@sperm.ch',
-                    'password'      => bcrypt('123456'),
-                    'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
+                    'user_type_id' => 1,
+                    'name' => $fn . ' ' . $ln,
+                    'email' => $fn . '.' . $ln . '@sperm.ch',
+                    'password' => bcrypt('123456'),
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ]);
 
                 DB::table('donors')->insert([
-                    'user_id'               => $id,
-                    'sex'                   => 0,
-                    'birth_date'            => $date,
-                    'eye_color'             => rand(1, 3),
-                    'hair_color'            => rand(1, 3),
-                    'ethnicity'             => rand(1, 3),
-                    'family_antecedents'    => $family_antecedents[rand(0, 29)],
-                    'medical_antecedents'   => $medical_antecedents[rand(0, 29)],
-                    'created_at'    => Carbon::now()->format('Y-m-d H:i:s'),
+                    'user_id' => $id,
+                    'sex' => 0,
+                    'birth_date' => $date,
+                    'eye_color' => rand(1, 3),
+                    'hair_color' => rand(1, 3),
+                    'ethnicity' => rand(1, 3),
+                    'family_antecedents' => $family_antecedents[rand(0, 29)],
+                    'medical_antecedents' => $medical_antecedents[rand(0, 29)],
+                    'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
                 ]);
-            }
-            catch(Exception $e)
-            {
+            } catch (Exception $e) {
                 $i--;
             }
         }

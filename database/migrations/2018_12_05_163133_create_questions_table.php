@@ -19,7 +19,7 @@ class CreateQuestionsTable extends Migration
             $table->foreign('seeker_id')->references('id')->on('seekers');
             $table->unsignedInteger('donor_id');
             $table->foreign('donor_id')->references('id')->on('donors');
-            $table->string('message');
+            $table->text('message');
             $table->boolean('anonymous')->nullable();
             $table->timestamps();
         });
