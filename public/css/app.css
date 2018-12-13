@@ -10635,6 +10635,8 @@ a.text-dark:focus {
 
 .question-reply {
   font-size: 1.1rem;
+  word-break: break-all;
+  white-space: normal !important;
 }
 
 .replyQuestionForm {
