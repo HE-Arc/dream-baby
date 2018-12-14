@@ -10585,28 +10585,28 @@ a.text-dark:focus {
 
 /* Swipe Button */
 
-.swipe-no {
-  background-color: #ff342f;
-}
-
 .swipe-yes {
   background-color: #38c172;
   border-color: #288a51;
+  width: 8rem !important;
 }
 
 .swipe-yes:hover {
   background-color: #174f2e;
   border-color: #288a51;
+  width: 8rem !important;
 }
 
 .swipe-no {
   background-color: #ff342f;
   border-color: #b41e18;
+  width: 8rem !important;
 }
 
 .swipe-no:hover {
   background-color: #871612;
   border-color: #b41e18;
+  width: 8rem !important;
 }
 
 /* Swipe Info */
@@ -10618,11 +10618,6 @@ a.text-dark:focus {
 
 #center-wrapper {
   text-align: center;
-}
-
-#swipe-profil {
-  display: inline-block;
-  text-align: left;
 }
 
 .swiperImage {
@@ -10639,6 +10634,7 @@ h1 {
 
 .swipe-info {
   font-size: 1.2rem;
+  text-align: justify;
 }
 
 /* Progress Bar */
@@ -10703,6 +10699,10 @@ h1 {
 @media (min-width: 768px) and (max-width: 991px) {
   .swiper-container {
     width: 60% !important;
+  }
+
+  .swipe-info {
+    text-align: center !important;
   }
 }
 

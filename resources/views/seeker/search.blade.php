@@ -38,39 +38,37 @@
     <div id="center-wrapper" class="jumbotron">
         <div id="swipe-profil" class="w-80">
             <div class="btn-group row">
-                <div class="text-center">
                     <button id="swipe-no" class="btn btn-primary m-2 w-25 swipe-no">No</button>
                     <button id="swipe-yes"class="btn btn-primary m-2 w-25 swipe-yes">Yes</button>
-                <div>
             </div>
             <hr class="my-4 row">
             <div class="row swipe-info">
                 <i class="col-md-2 fa fa-transgender"></i>
-                <p class="col-md-8 text-justify" id="sex">{{$donorsArray[0]['donor']->sex == 0 ? 'Male' : 'Female'}}</p>
+                <p class="col-md-10 " id="sex">{{$donorsArray[0]['donor']->sex == 0 ? 'Male' : 'Female'}}</p>
             </div>
             <div class="row swipe-info">
                 <i class="col-md-2 fa fa-birthday-cake"></i>
-                <p class="col-md-8 text-justify" id="age">{{date("d F Y", strtotime($donorsArray[0]['donor']->birth_date))}} ({{ floor((time() - strtotime($donorsArray[0]['donor']->birth_date)) / 31556926)}} years old)</p>
+                <p class="col-md-10 " id="age">{{date("d F Y", strtotime($donorsArray[0]['donor']->birth_date))}} ({{ floor((time() - strtotime($donorsArray[0]['donor']->birth_date)) / 31556926)}} years old)</p>
             </div>
             <div class="row swipe-info">
                 <i class="col-md-2 fa fa-eye"></i>
-                <p class="col-md-8 text-justify" id="eyecolor">{{$donorsArray[0]['eyecolor']}}</p>
+                <p class="col-md-10 " id="eyecolor">{{$donorsArray[0]['eyecolor']}}</p>
             </div>
             <div class="row swipe-info">
                 <i class="col-md-2 fa fa-scissors"></i>
-                <p class="col-md-8 text-justify" id="haircolor">{{$donorsArray[0]['haircolor']}}</p>
+                <p class="col-md-10 " id="haircolor">{{$donorsArray[0]['haircolor']}}</p>
             </div>
             <div class="row swipe-info">
                 <i class="col-md-2 fa fa-id-card-o"></i>
-                <p class="col-md-8 text-justify" id="ethnicity">{{$donorsArray[0]['ethnicity']}}</p>
+                <p class="col-md-10 " id="ethnicity">{{$donorsArray[0]['ethnicity']}}</p>
             </div>
             <div class="row swipe-info">
                 <i class="col-md-2 fa fa-group"></i>
-                <p class="col-md-8 text-justify" id="family_antecedents">{{$donorsArray[0]['donor']->family_antecedents}}</p>
+                <p class="col-md-10 " id="family_antecedents">{{$donorsArray[0]['donor']->family_antecedents}}</p>
             </div>
             <div class="row swipe-info">
                 <i class="col-md-2 fa fa-medkit"></i>
-                <p class="col-md-8 text-justify" id="medical_antecedents">{{$donorsArray[0]['donor']->medical_antecedents}}</p>
+                <p class="col-md-10 " id="medical_antecedents">{{$donorsArray[0]['donor']->medical_antecedents}}</p>
             </div>
             <span style="display:none;" id="donor_id">{{$donorsArray[0]['donor']->id}}</span>
         </div>

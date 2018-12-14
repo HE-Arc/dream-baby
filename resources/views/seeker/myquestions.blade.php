@@ -29,7 +29,7 @@
             <div class="row">
                 <div class="col input-group mb-3">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="">{{$question->message}}</span>
+                        <span class="input-group-text repliedQuestionText" id="">{{$question->message}}</span>
                     </div>
                     <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button">
@@ -41,7 +41,7 @@
             <div class="row text-md-right">
                 <!-- TO IMPROVE -->
                 @if(isset($answers[$question->id]))
-                <p>{{$answers[$question->id]->reply}}</p>
+                <p class="repliedQuestionText">{{$answers[$question->id]->reply}}</p>
                 @else
                 <p class="font-italic">still no reponses...</p>
                 @endif

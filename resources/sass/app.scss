@@ -116,27 +116,29 @@
 }
 
 /* Swipe Button */
-.swipe-no {
-  background-color: $red;
-}
+
 
 .swipe-yes {
   background-color: $green;
   border-color: $dark_green;
+  width:$yesno_button_width !important;
 }
 .swipe-yes:hover {
   background-color: $darker_green;
   border-color: $dark_green;
+  width:$yesno_button_width !important;
 }
 
 .swipe-no {
   background-color: $red;
   border-color: $dark_red;
+  width:$yesno_button_width !important;
 }
 
 .swipe-no:hover {
   background-color: $darker_red;
   border-color: $dark_red;
+  width:$yesno_button_width !important;
 }
 
 /* Swipe Info */
@@ -149,10 +151,10 @@
   text-align:center;
 }
 
-#swipe-profil{
-  display: inline-block;
-  text-align:left;
-}
+// #swipe-profil{
+//   display: inline-block;
+//   text-align:left;
+// }
 
 .swiperImage{
   height:100%;
@@ -168,6 +170,7 @@ h1{
 
 .swipe-info {
   font-size: 1.2rem;
+  text-align:justify;
 }
 
 /* Progress Bar */
@@ -199,7 +202,6 @@ h1{
 .repliedQuestionText{
   word-break: break-all;
   white-space: normal !important;
-
   
 }
 
@@ -229,6 +231,9 @@ h1{
 @media (min-width: 768px) and (max-width: 991px) {
   .swiper-container{
     width: 60% !important;
+  }
+  .swipe-info{
+    text-align:center !important;
   }
 }
 
