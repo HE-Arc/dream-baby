@@ -24,8 +24,8 @@
             @endif
                 @if (count($positiveSwipesArray) > 0)
                     <br/>
-                    @foreach ($positiveSwipesArray as $id => $name)
-                        <a class="btn btn-link" href="/profil/{{$id}}">{{$name}}</a><br/>
+                    @foreach ($positiveSwipesArray as $item)
+                        <a class="btn btn-link" href="/profil/{{$item['id']}}">{{$item['name']}}</a><br/>
                     @endforeach
                 @else
                     @if(Auth::user()->user_type_id == 1)    <!-- Donor -->
