@@ -18,7 +18,7 @@
     @foreach ($questions as $question)
     <div class="container">
         <div class="row swipe-info">
-            <p class="col-md text-left">
+            <p class="col-md text-left repliedQuestionText">
                 {{ $question->message }}
             </p>
             <p class="col-md text-right">
