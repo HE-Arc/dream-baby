@@ -10634,7 +10634,7 @@ h1 {
 
 .swipe-info {
   font-size: 1.2rem;
-  text-align: justify;
+  text-align: center;
 }
 
 /* Progress Bar */
@@ -10702,7 +10702,7 @@ h1 {
   }
 
   .swipe-info {
-    text-align: center !important;
+    text-align: justify !important;
   }
 }
 
@@ -10710,12 +10710,20 @@ h1 {
   .swiper-container {
     width: 40% !important;
   }
+
+  .swipe-info {
+    text-align: justify !important;
+  }
 }
 
 @media (min-width: 1200px) {
   .swiper-container {
     width: 25% !important;
     height: 30% !important;
+  }
+
+  .swipe-info {
+    text-align: justify !important;
   }
 }
 
