@@ -15,10 +15,8 @@ class CreateHistorySwipesTable extends Migration
     {
         Schema::create('history_swipes', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('donor_id');
-            $table->foreign('donor_id')->references('id')->on('donors');
-            $table->unsignedInteger('seeker_id');
-            $table->foreign('seeker_id')->references('id')->on('seekers');
+            $table->unsignedInteger('donor_id')->references('id')->on('donors');
+            $table->unsignedInteger('seeker_id')->references('id')->on('seekers');
             $table->boolean('like');
             $table->timestamps();
         });
