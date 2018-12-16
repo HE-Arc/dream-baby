@@ -12,8 +12,7 @@
     </div>
     <h2>Questions</h2>
     @if (count($questions) > 0)
-    <form method="POST" action="questions.delete"  enctype="multipart/form-data">
-    @csrf
+
         @foreach ($questions as $question)
         <div class="container">
             <div class="row swipe-info">
@@ -32,9 +31,12 @@
                         <span class="input-group-text repliedQuestionText" id="">{{$question->message}}</span>
                     </div>
                     <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button">
-                            <a href="{{route('questions.delete', $question->id)}}" class="btn-link">{{ __('Delete') }}</a>
-                        </button>
+                        <form action="{{route('questions.delete', $question->id)}}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button type="submit" class="btn btn-outline-secondary" type="button">{{ __('Delete') }}</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
@@ -48,13 +50,15 @@
             </div>
         </div>
         @endforeach
-    </form>
+
 
     <div class="form-group row">
         <div class="col-md-6 offset-md-4">
-            <a href="{{route('questions.delete.all')}}" class="btn btn-danger btn-block" role="button">
-                {{ __('Delete all questions') }}
-            </a>
+            <form action="{{route('questions.delete.all')}}" method="POST">
+                @method('DELETE')
+                @csrf
+                <button type="submit"  class="btn btn-danger btn-block" type="button"> {{ __('Delete all questions') }}</button>
+            </form>
         </div>
     </div>
     @else

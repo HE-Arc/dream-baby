@@ -1,18 +1,23 @@
+//Load external modules
 var Swiper = require('swiper');
 var toastr=require('toastr');
 var moment=require('moment');
 
+//Toastr to be showed if we have swiped all available donors
 function showNoSwipesAvalaibleToast() {
    toastr.warning("Congratulations ! <br/>You already have swiped all the available donors...<br/>But change your criteria or wait a little bit to find new ones !");
 }
 
 function loadNextProfil(swiper) {
+    //If the current active swiper state is not the profil photo
     if (swiper.activeIndex != 1) {
+        //If there are donors left in the queue
         if (donorQueue.size() > 0) {
             let _token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            //The head of the queue is removed and its info is put in the 
             let swipedDonor = donorQueue.remove();
 
-            lastDonorId = swipedDonor.id;
             let like = -1;
             if (swiper.activeIndex == 0) {
                 like = 0;

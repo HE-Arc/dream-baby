@@ -37,9 +37,11 @@
                 </div>
             </div>
             <div class="col-md-1 input-group-append">
-                <button class="ml-auto btn btn-outline-secondary" type="button">
-                    <a href="{{route('questions.delete', $question->id)}}" class="btn-link">{{ __('Delete') }}</a>
-                </button>
+            <form action="{{route('questions.delete', $question->id)}}" method="POST">
+                @method('DELETE')
+                @csrf
+                <button type="submit" class="ml-auto btn btn-outline-secondary" type="button">{{ __('Delete') }}</button>
+            </form>
             </div>
             @else
             <div class ="col-md-11">
@@ -62,9 +64,11 @@
     @endforeach
     <div class="row">
         <div class="mx-auto">
-            <a href="{{route('questions.delete.all')}}" class="btn btn-danger btn-block mt-3" role="button">
-                {{ __('Delete all questions') }}
-            </a>
+            <form action="{{route('questions.delete.all')}}" method="POST">
+                @method('DELETE')
+                @csrf
+                <button type="submit"  class="btn btn-danger btn-block mt-3" type="button"> {{ __('Delete all questions') }}</button>
+            </form>
         </div>
     </div>
     @else

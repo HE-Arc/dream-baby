@@ -41,6 +41,7 @@
     @if(Auth::user()->user_type_id == 2) <!-- Seeker -->
     <form method="POST" action="{{route('swipe.deletehistory')}}">
         @csrf
+        @method('DELETE')
         <div class="form-group row mb-0">
             <div class="col-md-6 offset-md-4">
                 <button type="submit" class="btn btn-danger btn-block">
