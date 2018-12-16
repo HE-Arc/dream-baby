@@ -26957,23 +26957,27 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+//Load external modules
 var Swiper = __webpack_require__(166);
 
 var toastr = __webpack_require__(168);
 
-var moment = __webpack_require__(0);
+var moment = __webpack_require__(0); //Toastr to be showed if we have swiped all available donors
+
 
 function showNoSwipesAvalaibleToast() {
   toastr.warning("Congratulations ! <br/>You already have swiped all the available donors...<br/>But change your criteria or wait a little bit to find new ones !");
 }
 
 function loadNextProfil(swiper) {
+  //If the current active swiper state is not the profil photo
   if (swiper.activeIndex != 1) {
+    //If there are donors left in the queue
     if (donorQueue.size() > 0) {
-      var _token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+      var _token = document.querySelector('meta[name="csrf-token"]').getAttribute('content'); //The head of the queue is removed and its donor info is used to put a appropriate entry in the swipeHistory table, the controller returns the info for the next donor to be put in the tail of the queue
+
 
       var swipedDonor = donorQueue.remove();
-      lastDonorId = swipedDonor.id;
       var like = -1;
 
       if (swiper.activeIndex == 0) {
@@ -26999,6 +27003,7 @@ function loadNextProfil(swiper) {
         return console.log(err);
       }).then(function (data) {
         if (data.donorsArray != null) {
+          //if there is a next donor available (if not,)
           var fetchedDonor = data.donorsArray[0];
           fetch('/donor/image/' + fetchedDonor.donor.photo_uri, {
             method: 'get',

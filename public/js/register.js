@@ -76,6 +76,7 @@ module.exports = __webpack_require__(163);
 /***/ 163:
 /***/ (function(module, exports) {
 
+//This function is used to update the form fields: hide/show the donor part and remove/add required attributes to all the donor inputs
 function applyDisplayStyleAndSetRequiredToChildren(parentDiv, displayStyle, requiredBool) {
   var donorInfoDiv = document.getElementById(parentDiv);
   donorInfoDiv.style.display = displayStyle;
@@ -85,13 +86,16 @@ function applyDisplayStyleAndSetRequiredToChildren(parentDiv, displayStyle, requ
 }
 
 function setShowHideButtonListeners() {
+  //Shows donor form and apply required to all inputs
   document.getElementById('user_type_donor').addEventListener('click', function () {
     applyDisplayStyleAndSetRequiredToChildren('donorInfo', 'block', true);
-  });
+  }); //Hides donor form and remove required for all inputs
+
   document.getElementById('user_type_seeker').addEventListener('click', function () {
     applyDisplayStyleAndSetRequiredToChildren('donorInfo', 'none', false);
   });
-}
+} //Adds event listeners when the page is loaded
+
 
 if (document.readyState === "loading") {
   document.addEventListener("DOMContentLoaded", setShowHideButtonListeners);
