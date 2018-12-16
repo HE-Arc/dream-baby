@@ -41,9 +41,9 @@ function loadNextProfil(swiper) {
                 })
                 .catch(err => console.log(err))
                 .then(data => {
-                    if (data.donorsArray != null) { //if there is a next donor available (if not,)
+                    if (data.donorsArray != null) { //if there is a next donor available (if not, it means that all available donors with current criteria were swiped)
                         let fetchedDonor = data.donorsArray[0];
-                        fetch('/donor/image/' + fetchedDonor.donor.photo_uri, {
+                        fetch('/donor/image/' + fetchedDonor.donor.photo_uri, { //get donor photo uri on server
                             method: 'get',
                             headers: {
                                 'X-CSRF-TOKEN': _token
@@ -55,8 +55,8 @@ function loadNextProfil(swiper) {
                             fetchedPhoto.id = "photo";
                             let fetchedBirthdate=moment(new Date(fetchedDonor.donor.birth_date)).format("D MMMM YYYY");
                             let fetchedAge=Math.abs(new Date(Date.now() - new Date(fetchedDonor.donor.birth_date).getTime()).getUTCFullYear() - 1970);
-                           
 
+                            //Add freshly fetched donor in tail of queue
                             donorQueue.add(new Donor(Number(fetchedDonor.donor.id), fetchedDonor.username,
                                 fetchedDonor.donor.sex, fetchedDonor.eyecolor, fetchedDonor.haircolor,
                                 fetchedDonor.ethnicity, fetchedDonor.donor.family_antecedents, fetchedDonor.donor.medical_antecedents, fetchedPhoto,
@@ -68,6 +68,7 @@ function loadNextProfil(swiper) {
 
 
             if (donorQueue.size() > 0) {
+                //update current displayed donor info with new donor
                 let nextDisplayedDonor = donorQueue.last();
                 document.getElementById('username').innerText = nextDisplayedDonor.username;
                 document.getElementById('sex').innerText = nextDisplayedDonor.sex == 0 ? 'Male' : 'Female';
@@ -148,12 +149,14 @@ function initPage() {
 
     swiper.on('transitionEnd', () => loadNextProfil(swiper));
 
+    //to have the same behaviour for the buttons and swipe
     if (document.getElementById('swipe-no') != null) {
         document.getElementById('swipe-no').onclick = () => swiper.slideTo(0, 200, false);
 
         document.getElementById('swipe-yes').onclick = () => swiper.slideTo(2, 200, false);
     }
 
+    //Parse current displayed donor to js object to be used after for ajax request to send to populate swipe history
     if (document.getElementById('swipe-profil') != null) {
         let id = Number(document.getElementById('donor_id').innerText);
         let username = document.getElementById('username').innerText;
@@ -169,6 +172,7 @@ function initPage() {
     }
 
     if (document.getElementById('hidden-profils') != null) {
+        //Parse all "hidden" donors in a queue to the tail
         document.getElementById('hidden-profils').querySelectorAll('div').forEach(child => {
             let id = Number(child.querySelector('.hidden-donor_id').innerText);
             let username = child.querySelector('.hidden-username').innerText;
@@ -188,7 +192,7 @@ function initPage() {
     }
 }
 
-
+//On page load init page js
 if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", initPage);
 } else {

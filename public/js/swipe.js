@@ -27003,9 +27003,10 @@ function loadNextProfil(swiper) {
         return console.log(err);
       }).then(function (data) {
         if (data.donorsArray != null) {
-          //if there is a next donor available (if not,)
+          //if there is a next donor available (if not, it means that all available donors with current criteria were swiped)
           var fetchedDonor = data.donorsArray[0];
           fetch('/donor/image/' + fetchedDonor.donor.photo_uri, {
+            //get photo uri on server
             method: 'get',
             headers: {
               'X-CSRF-TOKEN': _token
