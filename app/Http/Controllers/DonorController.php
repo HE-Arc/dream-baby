@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Storage;
 class DonorController extends Controller
 {
     /**
-     * Upate a Donor Model using request object
+     * Update a Donor Model using request object
      * @param int $user_id
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -67,7 +67,7 @@ class DonorController extends Controller
     }
 
     /**
-     * Get the donor info from a donor id
+     * Get the donor info from a user id
      * @param int $id
      */
     public static function getDonorInfo(int $id)

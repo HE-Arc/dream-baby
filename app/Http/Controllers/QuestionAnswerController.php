@@ -85,7 +85,7 @@ class QuestionAnswerController extends Controller
 
     /**
      * Ask a question to a donor using its user_id and the request.
-     * Verifiy the auth user is a seeker and save the question in the DB.
+     * Verify the auth user is a seeker and save the question in the DB.
      * @param int $user_id
      * @return \Illuminate\Http\RedirectResponse
      */

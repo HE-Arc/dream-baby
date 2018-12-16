@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Input;
 class SwipeController extends Controller
 {
     /**
-     * Search random donors for the authented seeker
+     * Search random donors for the authentified seeker
      * @return \Illuminate\Http\Response
      */
     public function search()
@@ -154,12 +154,18 @@ class SwipeController extends Controller
                         $criterionId = $item->ethnicity;
                         break;
                 }
-               $criterionsIds[]= $criterionId;
+                $criterionsIds[]= $criterionId;
             }
         }
         return $criterionsIds;
     }
 
+
+     /**
+     * Show swipe history for a seeker
+     *
+     * @return view
+     */
     public static function history()
     {
         if (Auth::check()) {
