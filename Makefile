@@ -1,5 +1,8 @@
 
-all: clean migrate compile-scss update-npm serve
+all: clean install update-npm migrate compile-scss serve
+
+install:
+	composer install
 
 clean:
 	rm -rf ./storage/app/*profilImage.*
