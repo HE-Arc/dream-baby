@@ -4,11 +4,20 @@
 
 <div class="container">
     <div class="status">
-    @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
+    @if (session('success'))
+        <div class = "alert alert-success">
+            {{ session('success') }}
         </div>
-    @endif
+        @endif
+        @if (count($errors) > 0)
+        <div class = "alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
     </div>
     <h1>Edit my profil</h1>
     <form method="POST" action="{{route('donor.myprofil.update', $user->id)}}"  enctype="multipart/form-data">

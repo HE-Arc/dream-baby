@@ -5,18 +5,7 @@
 
 <div class="container">
     <div class="status">
-    @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-    @endif
-    </div>
-    <h1>Edit my profil</h1>
-    <form method="POST" action="{{route('seeker.myprofil.update', $user->id)}}">
-        @csrf
-        @method('PATCH')
-
-        @if (session('success'))
+    @if (session('success'))
         <div class = "alert alert-success">
             {{ session('success') }}
         </div>
@@ -30,6 +19,13 @@
             </ul>
         </div>
         @endif
+    </div>
+    <h1>Edit my profil</h1>
+    <form method="POST" action="{{route('seeker.myprofil.update', $user->id)}}">
+        @csrf
+        @method('PATCH')
+
+        
 
         <h3>User settings</h3>
 

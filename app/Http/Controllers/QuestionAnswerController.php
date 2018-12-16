@@ -98,7 +98,7 @@ class QuestionAnswerController extends Controller
             ]);
             switch(Auth::user()->user_type_id) {
                 case 1: // Donor
-                    return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+                    return back()->withErrors('failure', 'You\'re not allowed to ask this question');
                 case 2: // Seeker
                     $donor = DonorController::getDonorInfo($donor_id);
                     if(isset($donor)){
@@ -114,12 +114,12 @@ class QuestionAnswerController extends Controller
                             $question->anonymous = false;
                         }
                         $question->save();
-                        return back()->with('success', 'Question deleted successfully');
+                        return back()->with('success', 'Question asked successfully');
                     }
             }
-            return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+            return back()->withErrors('failure', 'You\'re not allowed to ask this question');
         } else {
-            return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+            return back()->withErrors('failure', 'You\'re not allowed to ask this question');
         }
     }
 
@@ -147,13 +147,13 @@ class QuestionAnswerController extends Controller
 
                         echo(request());
 
-                        return back()->with('success', 'Question deleted successfully');
+                        return back()->with('success', 'Question replied successfully');
                     }
                 case 2: // Seeker
-                    return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+                    return back()->withErrors('failure', 'You\'re not allowed to reply this question');
             }
         } else {
-            return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+            return back()->withErrors('failure', 'You\'re not allowed to reply this question');
         }
     }
 
@@ -224,9 +224,9 @@ class QuestionAnswerController extends Controller
                 }
                 $question->delete();
             }
-            return back()->with('success', 'Question deleted successfully');
+            return back()->with('success', 'All questions deleted successfully');
         } else {
-            return back()->withErrors('failure', 'You\'re not allowed to delete this question');
+            return back()->withErrors('failure', 'You\'re not allowed to delete all questions');
         }
     }
 

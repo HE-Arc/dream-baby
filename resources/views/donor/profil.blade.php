@@ -5,11 +5,20 @@
 
 <div class="container">
     <div class="status">
-    @if (session('status'))
-        <div class="alert alert-success" role="alert">
-            {{ session('status') }}
-        </div>
-    @endif
+        @if (session('success'))
+            <div class = "alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if (count($errors) > 0)
+            <div class = "alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
     </div>
     <div class="row">
         <div class="col">
@@ -47,7 +56,7 @@
                 <i class="col-md-2 fa fa-medkit"></i>
                 <p class="col-md-8 " id="medical_antecedents">{{$donor->medical_antecedents}}</p>
             </div>
-            
+
             <div class="row">
                 <h3 class="col text-center"><a class="btn-link" href="{{route('questions.donor', $donor->user_id)}}">Questions</a><h3>
             </div>

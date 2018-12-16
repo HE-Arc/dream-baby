@@ -15,7 +15,7 @@ function loadNextProfil(swiper) {
         if (donorQueue.size() > 0) {
             let _token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-            //The head of the queue is removed and its info is put in the 
+            //The head of the queue is removed and its donor info is used to put a appropriate entry in the swipeHistory table, the controller returns the info for the next donor to be put in the tail of the queue
             let swipedDonor = donorQueue.remove();
 
             let like = -1;
@@ -41,7 +41,7 @@ function loadNextProfil(swiper) {
                 })
                 .catch(err => console.log(err))
                 .then(data => {
-                    if (data.donorsArray != null) {
+                    if (data.donorsArray != null) { //if there is a next donor available (if not,)
                         let fetchedDonor = data.donorsArray[0];
                         fetch('/donor/image/' + fetchedDonor.donor.photo_uri, {
                             method: 'get',

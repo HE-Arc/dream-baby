@@ -154,7 +154,7 @@ class SwipeController extends Controller
                         $criterionId = $item->ethnicity;
                         break;
                 }
-                array_push($criterionsIds, $criterionId);
+               $criterionsIds[]= $criterionId;
             }
         }
         return $criterionsIds;
@@ -181,7 +181,7 @@ class SwipeController extends Controller
                     
                     $positiveSwipesArray = $seeker->positiveSwipeHistoryDonors_names();
 
-                    return view('swipe_history', compact('positiveSwipesArray', 'swipeCounter'));
+                    return view('seeker.swipe_history', compact('positiveSwipesArray', 'swipeCounter'));
             }
         } else {
             return redirect('/home');
