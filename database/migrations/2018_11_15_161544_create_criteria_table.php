@@ -16,7 +16,7 @@ class CreateCriteriaTable extends Migration
     {
         Schema::create('criterias', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('seeker_id');
+            $table->unsignedInteger('seeker_id')->references('id')->on('seekers');;
             $table->tinyInteger('sex');
             $table->date('birth_date_max')->default(Carbon::now()->subYears(40)->format('Y-m-d H:i:s'));
             $table->timestamps();

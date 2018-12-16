@@ -15,8 +15,8 @@ class EyeCriteria extends Migration
     {
         Schema::create('eye_criterias', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('seeker_id');
-            $table->unsignedInteger('eye_color');
+            $table->unsignedInteger('seeker_id')->references('id')->on('seekers');
+            $table->unsignedInteger('eye_color')->references('id')->on('eye_colors');
             $table->boolean('searched')->default(true);
             $table->timestamps();
         });
