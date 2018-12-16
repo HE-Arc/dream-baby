@@ -16,7 +16,9 @@ class EthnicityCriteria extends Migration
         Schema::create('ethnicity_criterias', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('seeker_id');
+            $table->foreign('seeker_id')->references('id')->on('seekers');
             $table->unsignedInteger('ethnicity');
+            $table->foreign('ethnicity')->references('id')->on('ethnicities');
             $table->boolean('searched')->default(true);
             $table->timestamps();
         });
